@@ -1,0 +1,34 @@
+﻿@model Domain.Workplace
+
+
+<div class="card">
+    <div class="card-head card-topline-aqua">
+        <header>Werf details</header>
+    </div>
+    <div class="card-body no-padding height-9">
+        <div class="row">
+            <div class="col-md-3 col-6 b-r">
+                <strong>Dossiernummer</strong>
+                <br>
+                <p class="text-muted">@Html.DisplayFor(model => model.WorkplaceId)</p>
+            </div>
+            <div class="col-md-3 col-6 b-r">
+                <strong>Straat</strong>
+                <br>
+                <p class="text-muted">@Html.DisplayFor(model => model.Address)</p>
+            </div>
+            <div class="col-md-3 col-6 b-r">
+                <strong>Stad</strong>
+                <br>
+                <p class="text-muted">@Html.DisplayFor(model => model.City.Name)</p>
+            </div>
+            <div class="col-md-3 col-6">
+                <strong>Postcode</strong>
+                <br>
+                <p class="text-muted">@Html.DisplayFor(model => model.City.Zipcode)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -6,11 +6,13 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Dalstock_WebApp_Mysql_identity_19_02.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using DAL;
+using Domain;
 
 namespace Dalstock_WebApp_Mysql_identity_19_02
 {

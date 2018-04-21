@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Dalstock_WebApp_Mysql_identity_19_02.Models;
+using DAL;
+using Domain;
 
 namespace Dalstock_WebApp_Mysql_identity_19_02
 {

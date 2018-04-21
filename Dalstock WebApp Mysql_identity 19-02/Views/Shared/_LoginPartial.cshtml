@@ -5,18 +5,52 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+        <ul class="nav navbar-nav pull-right">
+           
+            <!-- start manage user dropdown -->
+            <li class="dropdown dropdown-user">
+                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <span class="username username-hide-on-mobile"> @User.Identity.GetUserName() </span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-default animated jello">
+                    <li>
+                        <a href="user_profile.html">
+                            <i class="icon-user"></i> Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon-settings"></i> Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon-directions"></i> Help
+                        </a>
+                    </li>
+                    <li class="divider"> </li>
+                    <li>
+                        <a href="lock_screen.html">
+                            <i class="icon-lock"></i> Lock
+                        </a>
+                    </li>
+                    <li>
+                        <a href="login.html">
+                            <i class="icon-logout"></i> Log Out
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- end manage user dropdown -->
+            <li class="margin-top-10"><input type="submit" value="Afmelden" class="btn btn-circle btn-danger"/></li>
+        </ul>
+
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <ul class="nav navbar-nav pull-right">
+        <li class="margin-top-10"><input type="button" id="registerLink" value="Aanmelden" class="btn red btn-outline btn-circle" onclick="location.href='@Url.Action("Login", "Account")'" /></li>
     </ul>
 }

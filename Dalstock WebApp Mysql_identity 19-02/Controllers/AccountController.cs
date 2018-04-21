@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Dalstock_WebApp_Mysql_identity_19_02.Models;
+using DAL;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Domain;
 
 namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
 {
@@ -152,9 +155,19 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                user.Database = "ID80395_dalcom";
+
+                var context = ApplicationDbContext.Create();
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var role = new IdentityRole();
+                    role.Name = "Admin";
+                    roleManager.Create(role);
+                    UserManager.AddToRole(user.Id,role.Name);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -392,7 +405,7 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //

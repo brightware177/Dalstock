@@ -1,0 +1,302 @@
+﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.DebitViewModel
+@{
+    ViewBag.Title = "Contact";
+}
+
+<div class="page-content" style="min-height:90.5vh">
+    <div class="page-bar col-10" style="margin:auto;">
+        <div class="page-title-breadcrumb">
+            <div class="pull-left">
+                
+            </div>
+            <ol class="breadcrumb page-breadcrumb pull-right">
+                <li>
+                    <i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a class="parent-item" href="">Debit</a>&nbsp;<i class="fa fa-angle-right"></i>
+                </li>
+                <li class="active">Index</li>
+            </ol>
+        </div>
+    </div>
+    <!-- basic wizard -->
+
+    <div class="row animated bounceInRight page-content-custom" style="margin: auto;">
+        <div class="col-sm-12">
+            <div class="card-box">
+                <div class="card-head">
+                    <header>Materiaal verbruik</header>
+                </div>
+                <div class="card-body ">
+                    @using (Html.BeginForm("CreateDebitItems", "Debit", FormMethod.Post, new { enctype = "multipart/form-data", @class = "wizard-big", @id = "form" }))
+                    {
+                        <h1>Werf</h1>
+                        <fieldset>
+
+                            <div class="row animated bounce">
+                                <label class="col-lg-3 col-md-4 control-label">
+                                    Selecteer het werf:
+                                </label>
+                                <div class="col-lg-9 col-md-8">
+                                    @Html.DropDownListFor(m => m.SelectedWorkplace,
+                            new SelectList(Model.Workplaces, "WorkplaceId", "WorkplaceId"), "Werf", new { @class = "chosen-select", @id = "workplaceDropdown" })
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="row">
+                                <div id="WorkplacePartialView" style="width:100%"></div>
+                            </div>
+
+                        </fieldset>
+                        <h1>Materiaal</h1>
+                        <fieldset>
+                            <div class="animated bounceInRight">
+                                <h3>Voeg de verbruikte materialen toe</h3>
+                                <br />
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                        <div class="form-group">
+                                            <label class="text-muted">Materiaalnummer <span id="itemNrError" class="field-validation-error"></span></label>
+                                            <div>
+                                                @Html.DropDownListFor(m => m.SelectedItem,
+                            new SelectList(Model.Items, "ItemId", "ItemId",1), "Kies", new
+                            {
+                                @class = "chosen-select form-control",
+                                @id = "ItemsDropdown",
+                                @onchange = "SelectedItem = this.value;"
+                            })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="text-muted">Aantal <span id="amountError" class="field-validation-error"></span></label>
+                                            <input id="amount" name="amount" type="number" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <div class="form-group">
+                                            <label class="text-muted">Toevoegen</label>
+                                            <button type="button" id="btnAdd" class="btn btn-sm btn-primary">Voeg toe</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="ibox-content" id="divPartialView2">
+                                            <table class="table" id="customFields">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Materiaalnr</th>
+                                                        <th>Aantal</th>
+                                                        <th>Datum</th>
+                                                        <th>Werfnummer</th>
+                                                        <th>Actie</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <h1>Opslaan</h1>
+                        <fieldset>
+                            <div class="js-animating-object img-fluid animated bounceInRight">
+                                <h3>Wilt u deze wijzigingen doorvoeren?</h3>
+                                <br />
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="ibox-content" id="overviewPartialView">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Styles {
+
+    @Styles.Render("~/bundles/steps")
+    @Styles.Render("~/bundles/chosen")
+    @Styles.Render("~/bundles/select2")
+@Styles.Render("~/bundles/sweet-alert")
+}
+@section Scripts {
+
+    @Scripts.Render("~/scripts/steps")
+    @Scripts.Render("~/scripts/stepsValidate")
+    @Scripts.Render("~/scripts/chosen")
+    @Scripts.Render("~/scripts/select2")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#wizard").steps();
+            $("#form").steps({
+                bodyTag: "fieldset",
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    //If Workplace is not correct dont allow to go forward
+                    if (newIndex === 1 && $("#workplaceDropdown").val() == "") {
+                        return false;
+                    }
+                    if (newIndex == 2 && $("#customFields tbody").children().length == 0) {
+                        return false
+                    }
+                    if (newIndex == 2) {
+                        detailspage();
+                    }
+                    // Always allow going backward even if the current step contains invalid fields!
+                    if (currentIndex > newIndex) {
+                        return true;
+                    }
+
+                    // Forbid suppressing "Warning" step if the user is to young
+                    if (newIndex === 3 && Number($("#age").val()) < 18) {
+                        return false;
+                    }
+
+                    var form = $(this);
+
+                    // Clean up if user went backward before
+                    if (currentIndex < newIndex) {
+                        // To remove error styles
+                        $(".body:eq(" + newIndex + ") label.error", form).remove();
+                        $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                    }
+
+                    // Disable validation on fields that are disabled or hidden.
+                    form.validate().settings.ignore = ":disabled,:hidden";
+
+                    // Start validation; Prevent going forward if false
+                    return form.valid();
+                },
+                onStepChanged: function (event, currentIndex, priorIndex) {
+                    // Suppress (skip) "Warning" step if the user is old enough.
+                    if (currentIndex === 2 && Number($("#age").val()) >= 18) {
+                        $(this).steps("next");
+                    }
+
+                    // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                    if (currentIndex === 2 && priorIndex === 3) {
+                        $(this).steps("previous");
+                    }
+                },
+                onFinishing: function (event, currentIndex) {
+                    var form = $(this);
+
+                    // Disable validation on fields that are disabled.
+                    // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                    form.validate().settings.ignore = ":disabled";
+
+                    // Start validation; Prevent form submission if false
+                    var tableViewModelList = [];
+
+                    //get cell values, instead of the header text.
+                    $("#overviewPartialView #customFields tr:not(:first)").each(function () {
+                        var tdlist = $(this).find("td");
+                        var tableViewModel = { ItemId: $(tdlist[0]).html(), Amount: $(tdlist[1]).html(), Date: $(tdlist[2]).html(), WorkplaceId: $(tdlist[3]).html() };
+                        tableViewModelList.push(tableViewModel);
+                    })
+                    $.ajax({
+                        url: "@Url.Action("CreateDebitItems", "Debit")",
+                        dataType: "json",
+                    type: 'POST',
+                    data: JSON.stringify({ tableViewModelList: tableViewModelList }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                    }
+                });
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex) {
+                    swal({ title: "Toegevoegd!", text: "De materialen zijn toegevoegd.", type: "success" },
+                                        function () {
+                                            window.location.reload(true);
+                                        });
+                }
+
+            }).validate({
+                errorPlacement: function (error, element) {
+                    element.before(error);
+                },
+                rules: {
+                    confirm: {
+                        equalTo: "#password"
+                    }
+                }
+            });
+            $('.chosen-select').chosen({ width: "100%" });
+            $("#customFields").on('click', '.remCF', function () {
+                $(this).parent().parent().remove();
+            });
+            $("#workplaceDropdown").change(function (event) {
+                var userId = $(this).val();
+                $.ajax({
+                    url: "@Url.Action("GetWorkplace", "Debit")",
+                    data: { id: userId },
+                    type: "Get",
+                    dataType: "html",
+                    success: function (data) {
+                        //Whatever result you have got from your controller with html partial view replace with a specific html.
+                        $("#WorkplacePartialView").html(data); // HTML DOM replace
+                    },
+                    error: function (request) {
+                        alert(request.responseText);
+                    }
+                });
+            });
+            var workplaceId = '@Model.SelectedWorkplaceId';
+            if (workplaceId != "" && workplaceId != null) {
+                $('#workplaceDropdown').val(workplaceId);
+                $('#workplaceDropdown').trigger("chosen:updated").trigger("change");
+            }
+            $("#btnAdd").click(function () {
+                var itemId = $("#ItemsDropdown").val();
+                var amount = $("#amount").val();
+                var workplaceId = $("#workplaceDropdown").val();
+                var day = ("0" + new Date().getDate()).slice(-2);
+                var month = ("0" + (new Date().getMonth() + 1)).slice(-2);
+                var year = new Date().getFullYear();
+                if ((!isNaN(parseFloat(itemId)) && isFinite(itemId)) && amount != "") {
+                    $("#customFields").append('<tr valign="top"><td>' + itemId + '</td><td id="number"><input type="number" value="' + amount + '"></td><td><input type="date" id="date" value="' + year + '-' + month + '-' + day + '"></td><td>' + workplaceId + '</td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>');
+                    $("#itemNrError").text("");
+                    $("#amountError").text("");
+                } else {
+                    $("#form").validate().element("#amount");
+                    $("#itemNrError").text("Dit veld mag niet leeg zijn.");
+                    $("#amountError").text("Dit veld mag niet leeg zijn.");
+                }
+            });
+        });
+        function detailspage() {
+            var firstDivContent = document.getElementById('divPartialView2');
+            var secondDivContent = document.getElementById('overviewPartialView');
+            secondDivContent.innerHTML = firstDivContent.innerHTML;
+            //Removes last column
+            $("#overviewPartialView #customFields th:last-child, #overviewPartialView #customFields td:last-child").remove();
+            var input = document.getElementById("number");
+            //Change input fields to td
+            $('#overviewPartialView #customFields tr').each(function () {
+                $(this).find('td').find('input').each(function () {
+                    var input_value = $(this).val();
+                    $(this).parent().text(input_value);
+                    $(this).remove();
+                })
+            })
+        }
+    </script>
+
+}

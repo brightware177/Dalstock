@@ -2,43 +2,101 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+    <link href="@Href("~/Content/plugins/material/material.min.css")" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+<body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white dark-sidebar-color logo-dark">
+    <div class="page-wrapper">
+        @Html.Partial("_TopNavbarPartial")
+        <!-- start color quick setting -->
+        <div class="quick-setting-main">
+            <button class="control-sidebar-btn btn" data-toggle="control-sidebar"><i class="fa fa-cog fa-spin"></i></button>
+            <div class="quick-setting display-none">
+                <ul id="themecolors">
+
+                    <li><p class="selector-title">Sidebar Color</p></li>
+                    <li class="complete">
+                        <div class="theme-color sidebar-theme">
+                            <a href="#" data-theme="white"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="dark"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="blue"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="indigo"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="cyan"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="green"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="red"><span class="head"></span><span class="cont"></span></a>
+                        </div>
+                    </li>
+                    <li><p class="selector-title">Header Brand color</p></li>
+                    <li class="theme-option">
+                        <div class="theme-color logo-theme">
+                            <a href="#" data-theme="logo-white"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="logo-dark"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="logo-blue"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="logo-indigo"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="logo-cyan"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="logo-green"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="logo-red"><span class="head"></span><span class="cont"></span></a>
+                        </div>
+                    </li>
+                    <li><p class="selector-title">Header color</p></li>
+                    <li class="theme-option">
+                        <div class="theme-color header-theme">
+                            <a href="#" data-theme="header-white"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="header-dark"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="header-blue"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="header-indigo"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="header-cyan"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="header-green"><span class="head"></span><span class="cont"></span></a>
+                            <a href="#" data-theme="header-red"><span class="head"></span><span class="cont"></span></a>
+                        </div>
+                    </li>
                 </ul>
-                @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        <!-- end color quick setting -->
+        <!-- start page container -->
+        <div class="page-container">
+            <!-- start sidebar menu -->
+            @Html.Partial("_SidebarPartial")
+            <!-- end sidebar menu -->
+            <!-- start page content -->
+            <div class="page-content-wrapper">
+                @RenderBody()
+            </div>
+            <!-- end page content -->
+        </div>
+        <!-- end page container -->
+        <!-- start footer -->
+        <div class="page-footer">
+            <div class="page-footer-inner">
+                2018 &copy; Dalstock - made with love by
+                <a href="http://brightware.be" target="_top" class="makerCss">Brightware</a>
+            </div>
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+        <!-- end footer -->
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/scripts/popper")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/scripts/sweet-alert")
+    @Scripts.Render("~/bundles/slimscroll")
+    @Scripts.Render("~/bundles/appLayout")
+
+    
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>

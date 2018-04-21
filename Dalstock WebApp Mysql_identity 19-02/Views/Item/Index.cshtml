@@ -1,0 +1,166 @@
+﻿@model IEnumerable<Domain.Item>
+
+
+<div class="page-content" style="min-height:90.5vh">
+    <div class="page-bar" style="margin:auto">
+        <div class="page-title-breadcrumb">
+            <div class="pull-left">
+                <div class="page-title sbold">Lijst van materialen</div>
+            </div>
+            <ol class="breadcrumb page-breadcrumb pull-right">
+                <li>
+                    <i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                </li>
+                <li class="active">Item</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row page-content-custom">
+        <div class="col-md-12">
+            <div class="card card-topline-aqua">
+
+                <div class="card-body ">
+                    <div class="row p-b-20 margin-top-20">
+                        <div class="col-md-6 col-sm-6 col-6">
+                            <div class="btn-group">
+                                <button id="addRow1" class="btn btn-info btn-circle" onclick="location.href='@Url.Action("Create")'">
+                                    <i class="fa fa-plus-circle"></i> Nieuw materiaal
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-6">
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-danger btn-circle dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-print"></i>Print
+                                    <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu pull-right">
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="fa fa-print"></i> Print
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="fa fa-file-pdf-o"></i> Save as PDF
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="fa fa-file-excel-o"></i> Export to Excel
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-hover order-column" style="width: 100%" id="example4">
+                        <thead>
+                            <tr>
+                                <th> Materiaalnummer </th>
+                                <th> Beschrijving </th>
+                                <th> Aantal </th>
+                                <th> Acties </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="gradeX">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ItemId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </td>
+                                    <td class="valigntop">
+                                        <div class="btn-group">
+                                            <button class="btn btn-xs deepPink-bgcolor dropdown-toggle no-margin" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                Acties
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                            <ul class="dropdown-menu pull-left" role="menu">
+                                                <li>
+                                                    @Html.ActionLink("Detail", "Detail", new { id = item.Id })
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Aanpassen", "Edit", new { id = item.Id })
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Verwijder", "Delete", new { id = item.Id }, new { @class = "DeleteButton" })
+                                                </li>
+                                                <li class="divider"> </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+
+    @Styles.Render("~/bundles/datatable")
+    @Styles.Render("~/bundles/sweet-alert")
+}
+@section Scripts {
+    @Scripts.Render("~/scripts/datatable")
+
+    <script>
+        $(document).ready(function () {
+            $('.DeleteButton').on('click', function (e, data) {
+                var link = $(this).attr('href');
+                if (!data) {
+                    handleDelete(e, 1, link);
+                } else {
+                    window.location = $(this).attr('href');
+                }
+            });
+
+        });
+        function handleDelete(e, stop, link) {
+            if (stop) {
+                e.preventDefault();
+                swal({
+                    title: "Bent u zeker?",
+                    text: "Indien u dit materiaal verwijderd, kan u deze niet meer recupereren!",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText : "Annuleer",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Ja, verwijder!",
+                    closeOnConfirm: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: link,
+                            type: "Delete",
+                            dataType: "html",
+                            success: function (data) {
+                                swal({ title: "Verwijderd!", text: "Het materiaal is succesvol verwijderd.", type: "success" },
+                                    function () {
+                                        window.location.reload(true);
+                                    });
+                            },
+                            error: function (xhr, status, error) {
+                                swal({ title: "Fout!", text: "Sorry, kon materiaal niet verwijderen.\nExtra informatie: " + error, type: "error" },
+                                    function () {
+
+                                    });
+                            }
+                        });
+                    }
+                });
+            }
+        };
+    </script>
+}
