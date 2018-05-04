@@ -3,7 +3,7 @@ namespace DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
@@ -34,10 +34,23 @@ namespace DAL.Migrations
                         IsReturned = c.Boolean(nullable: false),
                         FetchDate = c.DateTime(nullable: false, precision: 0),
                         AmountRemains = c.Int(nullable: false),
-                        CableType = c.Int(nullable: false),
+                        ReturnDate = c.DateTime(nullable: false, precision: 0),
+                        FetchLocation = c.String(nullable: false, unicode: false),
+                        CableType_CableTypeId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .Index(t => t.BobbinId, unique: true);
+                .ForeignKey("dbo.CableType", t => t.CableType_CableTypeId, cascadeDelete: true)
+                .Index(t => t.BobbinId, unique: true)
+                .Index(t => t.CableType_CableTypeId);
+            
+            CreateTable(
+                "dbo.CableType",
+                c => new
+                    {
+                        CableTypeId = c.Int(nullable: false, identity: true),
+                        Description = c.String(unicode: false),
+                    })
+                .PrimaryKey(t => t.CableTypeId);
             
             CreateTable(
                 "dbo.workplace",
@@ -119,7 +132,7 @@ namespace DAL.Migrations
                         DepositId = c.Int(nullable: false, identity: true),
                         ItemId = c.Int(nullable: false),
                         Amount = c.Int(nullable: false),
-                        date = c.DateTime(nullable: false, precision: 0),
+                        Date = c.DateTime(nullable: false, precision: 0),
                         Deposited_By = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.DepositId)
@@ -141,6 +154,7 @@ namespace DAL.Migrations
             DropForeignKey("dbo.Debit", "Approved_By_Staff_Id", "dbo.Staff");
             DropForeignKey("dbo.workplace", "CityId", "dbo.City");
             DropForeignKey("dbo.BobbinDebit", "BobbinId", "dbo.Bobbin");
+            DropForeignKey("dbo.Bobbin", "CableType_CableTypeId", "dbo.CableType");
             DropIndex("dbo.Deposit", new[] { "Deposited_By" });
             DropIndex("dbo.Deposit", new[] { "ItemId" });
             DropIndex("dbo.Item", new[] { "ItemId" });
@@ -150,6 +164,7 @@ namespace DAL.Migrations
             DropIndex("dbo.Debit", new[] { "WorkplaceId" });
             DropIndex("dbo.workplace", new[] { "CityId" });
             DropIndex("dbo.workplace", new[] { "WorkplaceId" });
+            DropIndex("dbo.Bobbin", new[] { "CableType_CableTypeId" });
             DropIndex("dbo.Bobbin", new[] { "BobbinId" });
             DropIndex("dbo.BobbinDebit", new[] { "BobbinId" });
             DropIndex("dbo.BobbinDebit", new[] { "WorkplaceId" });
@@ -159,6 +174,7 @@ namespace DAL.Migrations
             DropTable("dbo.Debit");
             DropTable("dbo.City");
             DropTable("dbo.workplace");
+            DropTable("dbo.CableType");
             DropTable("dbo.Bobbin");
             DropTable("dbo.BobbinDebit");
         }

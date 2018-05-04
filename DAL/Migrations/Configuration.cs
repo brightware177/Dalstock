@@ -91,6 +91,37 @@ namespace DAL.Migrations
                 Workplace = workplace2,
                 DebitState = DebitState.Approved
             };
+            CableType cableType1 = new CableType()
+            {
+                Description = "HDPE 50"
+            };
+            CableType cableType2 = new CableType()
+            {
+                Description = "LS 4G150"
+            };
+            CableType cableType3 = new CableType()
+            {
+                Description = "PRC 400"
+            };
+            Bobbin bobbin = new Bobbin()
+            {
+                BobbinId = "26679",
+                CableType = cableType1,
+                FetchDate = new DateTime(2017, 02, 21),
+                FetchLocation = "Boma",
+                CableLength = 378,
+                AmountRemains = 201,
+                IsReturned = false
+
+            };
+            BobbinDebit bobbinDebit = new BobbinDebit()
+            {
+                Bobbin = bobbin,
+                AmountUsed = 177,
+                StartIndex = 378,
+                EndIndex = 201,
+                Workplace = workplace,
+            };
             context.Items.Add(item);
             context.Items.Add(item2);
             context.Items.Add(item3);
@@ -100,6 +131,11 @@ namespace DAL.Migrations
             context.Debits.Add(debit);
             context.Debits.Add(debit2);
             context.Debits.Add(debit3);
+            context.CableTypes.Add(cableType1);
+            context.CableTypes.Add(cableType2);
+            context.CableTypes.Add(cableType3);
+            context.Bobbins.Add(bobbin);
+            context.BobbinDebits.Add(bobbinDebit);
             context.SaveChanges();
         }
     }

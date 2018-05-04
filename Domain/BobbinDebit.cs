@@ -13,8 +13,11 @@ namespace Domain
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BobbinDebitId { get; set; }
+        [Required]
         public int StartIndex { get; set; }
+        [Required]
         public int EndIndex { get; set; }
+        [Required]
         public int AmountUsed { get; set; }
         [ForeignKey("Workplace")]
         public int WorkplaceId { get; set; }

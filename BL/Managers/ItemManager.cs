@@ -21,7 +21,9 @@ namespace BL
 
         public Item AddItem(Item item)
         {
-            return repo.Items.CreateItem(item);
+            var newItem = repo.Items.CreateItem(item);
+            repo.SaveChanges();
+            return newItem;
         }
 
         public void AddItemAndWorkplace(Item item, Workplace workplace)
