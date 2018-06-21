@@ -1,0 +1,234 @@
+﻿@model Domain.Workplace
+
+<div class="page-content" style="min-height:90.5vh">
+    <div class="page-bar" style="margin:auto">
+        <div class="page-title-breadcrumb">
+            <div class="pull-left">
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row page-content-custom">
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body card-topline-aqua">
+
+
+                    <div class="form-horizontal">
+                        <div class="page-title sbold">
+                            Werfdetails
+                            <button class="btn btn-outline btn-info pull-right" onclick="location.href='@Url.Action("Edit",  new { id = Model.Id })'">
+                                <i class="fa fa-edit"></i> Bewerken
+                            </button>
+                            <button style="margin-right:5px;" class="btn btn-outline btn-light pull-right" onclick="location.href='@Url.Action("Index", new { id = Model.Id })'">
+                                <i class="fa fa-check"></i> Terug naar lijst
+                            </button>
+                        </div>
+                        <hr />
+                        <div class="row m-b-md m-t-md">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label class="control-label sbold">@Html.DisplayNameFor(model => model.WorkplaceId)</label>
+                                    <div>
+                                        @Html.DisplayFor(model => model.WorkplaceId)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label sbold">@Html.DisplayNameFor(model => model.Address)</label>
+                                    <div>
+                                        @Html.DisplayFor(model => model.Address)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label sbold">@Html.DisplayNameFor(model => model.City.Name)</label>
+                                    <div>
+                                        @Html.DisplayFor(model => model.City.Name)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <hr />
+                        <div class="page-title sbold" style="font-size:20px;">Materiaalverbruik
+                            <button class="btn btn-outline btn-info pull-right" onclick="location.href='@Url.Action("IndexWithWorkplaceId","Debit",  new { id = Model.WorkplaceId })'">
+                                <i class="fa fa-edit"></i> Nieuw verbruik
+                            </button>
+                        </div>
+                        
+                        <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
+                            <thead>
+                                <tr>
+                                    <th> Materiaalnummer </th>
+                                    <th> Materiaalnaam </th>
+                                    <th> Verbruikt aantal </th>
+                                    <th> Status </th>
+                                    <th> Verbruikdatum </th>
+                                    <th> Acties </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Debits)
+                                {
+                                    <tr class="gradeX">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Item.ItemId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Amount)
+                                        </td>
+                                        @if (item.DebitState == Domain.DebitState.Approved)
+                                        {
+                                            <td class="center">
+                                                <span class="label label-sm label-success" style="font-size:14px;">Goedgekeurd</span>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="center">
+                                                <span class="label label-sm label-danger" style="font-size:14px;">In afwachting</span>
+                                            </td>
+                                        }
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Date)
+                                        </td>                                        
+                                        <td class="center">
+                                            <a href="@Url.Action("Delete", "Debit", new { id = item.DebitId })" class="text-inverse DeleteButton" title="Verwijderen" data-toggle="tooltip"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                        <br />
+                        <hr />
+                        @if(Model.BobbinDebits != null || Model.BobbinDebits.Count > 0) { 
+                        <div class="page-title sbold" style="font-size:20px;">
+                            Bobijnverbruik
+                            
+                        </div>
+
+                        <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
+                            <thead>
+                                <tr>
+                                    <th> Bobijnnummer </th>
+                                    <th> Materiaalnaam </th>
+                                    <th> Afhaaldatum </th>
+                                    <th> Afhaalplaats </th>
+                                    <th> Acties </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.BobbinDebits.GroupBy(x=>x.BobbinId).Select(x=>x.FirstOrDefault()))
+                                {
+                                    <tr class="gradeX">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Bobbin.BobbinId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Bobbin.CableType.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Bobbin.FetchDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Bobbin.FetchLocation)
+                                        </td>
+                                        <td class="center">
+                                            <a href="@Url.Action("Details", "Bobbin", new { id = item.Bobbin.Id })" title="Details" data-toggle="tooltip"><i class="fa fa-check"></i> </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Styles {
+
+    @Styles.Render("~/bundles/datatable")
+    @Styles.Render("~/bundles/steps")
+    @Styles.Render("~/bundles/chosen")
+    @Styles.Render("~/bundles/select2")
+    @Styles.Render("~/bundles/sweet-alert")
+}
+@section Scripts {
+
+    @Scripts.Render("~/scripts/datatable")
+    @Scripts.Render("~/scripts/steps")
+    @Scripts.Render("~/scripts/stepsValidate")
+    @Scripts.Render("~/scripts/chosen")
+    @Scripts.Render("~/scripts/select2")
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $('.chosen-select').chosen({ width: "100%" });
+            $('.DeleteButton').on('click', function (e, data) {
+                var link = $(this).attr('href');
+                if (!data) {
+                    handleDelete(e, 1, link);
+                } else {
+                    window.location = $(this).attr('href');
+                }
+            });
+
+        });
+        function handleDelete(e, stop, link) {
+            if (stop) {
+                e.preventDefault();
+                swal({
+                    title: "Bent u zeker?",
+                    text: "Indien u dit verbruik verwijderd, kan u deze niet meer recupereren!",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText : "Annuleer",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Ja, verwijder!",
+                    closeOnConfirm: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: link,
+                            type: "Delete",
+                            dataType: "html",
+                            success: function (data) {
+                                swal({ title: "Verwijderd!", text: "Het verbruik is succesvol verwijderd.", type: "success" },
+                                    function () {
+                                        window.location.reload(true);
+                                    });
+                            },
+                            error: function (xhr, status, error) {
+                                swal({ title: "Fout!", text: "Sorry, kon verbruik niet verwijderen.\nExtra informatie: " + error, type: "error" },
+                                    function () {
+
+                                    });
+                            }
+                        });
+                    }
+                });
+            }
+        };
+
+    </script>
+}

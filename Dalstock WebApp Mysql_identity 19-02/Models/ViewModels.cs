@@ -43,4 +43,15 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Models
         public SelectList Cities { get; set; }
         public Workplace Workplace { get; set; }
     }
+    public class BobbinViewModel
+    {
+        public List<CableType> CableTypes { get; set; }
+        public Bobbin Bobbin { get; set; }
+    }
+    public class BobbinDetailViewModel
+    {
+        public List<Workplace> Workplaces { get; set; }
+        public BobbinDebit BobbinDebit { get; set; }
+        public Bobbin Bobbin { get; set; }
+    }
 }

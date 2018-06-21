@@ -68,9 +68,9 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="ItemDbContext.cs" />
-    <Compile Include="Migrations\201804211857406_InitialCreate.cs" />
-    <Compile Include="Migrations\201804211857406_InitialCreate.Designer.cs">
-      <DependentUpon>201804211857406_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201806121545007_start.cs" />
+    <Compile Include="Migrations\201806121545007_start.Designer.cs">
+      <DependentUpon>201806121545007_start.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MysqlInitializer.cs" />
@@ -95,8 +95,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804211857406_InitialCreate.resx">
-      <DependentUpon>201804211857406_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806121545007_start.resx">
+      <DependentUpon>201806121545007_start.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

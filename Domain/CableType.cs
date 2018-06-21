@@ -13,6 +13,7 @@ namespace Domain
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CableTypeId { get; set; }
+        [Display(Name = "Kabeltype")]
         public string Description { get; set; }
     }
 }

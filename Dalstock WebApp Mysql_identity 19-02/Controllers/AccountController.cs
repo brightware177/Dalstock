@@ -156,6 +156,7 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 user.Database = "ID80395_dalcom";
+                user.DatabaseUsername = "ID80395_dalcom";
 
                 var context = ApplicationDbContext.Create();
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));

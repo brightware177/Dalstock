@@ -88,6 +88,9 @@ namespace Dalstock_WebApp_Mysql_identity_19_02
                      "~/Content/plugins/sweet-alert/sweetalert.min.js",
                      "~/Scripts/sweet-alert/sweet-alert-data.js"
                      ));
+            //checkbox
+            bundles.Add(new StyleBundle("~/bundles/checkbox").Include(
+                      "~/Content/formlayout.css"));
         }
     }
 }

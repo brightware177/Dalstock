@@ -1,0 +1,272 @@
+﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.BobbinDetailViewModel
+
+<div class="page-content" style="min-height:90.5vh">
+    <div class="page-bar" style="margin:auto">
+        <div class="page-title-breadcrumb">
+            <div class="pull-left">
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row page-content-custom">
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body card-topline-aqua">
+
+
+                    <div class="form-horizontal">
+                        <div class="page-title sbold">
+                            Bobijndetail 
+                            @if (Model.Bobbin.IsReturned)
+                            {
+                            <span class="label label-sm label-success m-l-20" style="font-size:14px;">Afgehandeld</span>
+                            }
+                            <button class="btn btn-outline btn-info pull-right" onclick="location.href='@Url.Action("Edit", "Bobbin", new { id = Model.Bobbin.Id })'">
+                                <i class="fa fa-edit"></i> Bewerken
+                            </button>
+                            @if (Model.Bobbin.IsReturned)
+                            {
+                                <button style="margin-right:5px;" class="btn btn-outline btn-danger pull-right" onclick="location.href='@Url.Action("ContinueEditBobbin", "Bobbin", new { id = Model.Bobbin.Id })'">
+                                    <i class="fa fa-check"></i> verder aanpassen
+                                </button>
+                            }
+                            else
+                            {
+                                <button style="margin-right:5px;" class="btn btn-outline btn-danger pull-right" onclick="location.href='@Url.Action("RetourBobbin", "Bobbin", new { id = Model.Bobbin.Id })'">
+                                    <i class="fa fa-check"></i> Retourneren
+                                </button>
+                            }
+                        </div>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="form-group col-5">
+                                <table style="width:100%;line-height:40px; font-size:15px; font-weight:500;">
+                                    <tr>
+                                        <td width="50%" style="font-weight:800;">@Html.DisplayNameFor(model => model.Bobbin.BobbinId): </td>
+                                        <td width="50%" style="font-size:15px; font-weight:bold;">@Html.DisplayFor(model => model.Bobbin.BobbinId, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">@Html.DisplayNameFor(model => model.Bobbin.FetchDate): </td>
+                                        <td width="50%">@Html.DisplayFor(model => model.Bobbin.FetchDate, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">@Html.DisplayNameFor(model => model.Bobbin.FetchLocation): </td>
+                                        <td width="50%">@Html.DisplayFor(model => model.Bobbin.FetchLocation, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">@Html.DisplayNameFor(model => model.Bobbin.CableLength): </td>
+                                        <td width="50%">@Html.DisplayFor(model => model.Bobbin.CableLength, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">@Html.DisplayNameFor(model => model.Bobbin.AmountRemains): </td>
+                                        <td width="50%">@Html.DisplayFor(model => model.Bobbin.AmountRemains, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="form-group col-7">
+                                <table style="width:100%;line-height:40px; font-size:15px; font-weight:500;">
+                                    <tr>
+                                        <td width="30%" style="font-weight:800;">@Html.DisplayNameFor(model => model.Bobbin.CableType.Description): </td>
+                                        <td width="70%" style="font-size:15px; font-weight:bold;">@Html.DisplayFor(model => model.Bobbin.CableType.Description, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                    </tr>
+                                    @if (Model.Bobbin.IsReturned)
+                                    {
+                                        <tr>
+                                            <td width="30%">@Html.DisplayNameFor(model => model.Bobbin.IsReturned): </td>
+                                            <td width="70%"><span class="label label-sm label-success" style="font-size:14px;">Ja</span></td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td width="30%">@Html.DisplayNameFor(model => model.Bobbin.IsReturned): </td>
+                                            <td width="70%"><span class="label label-sm label-warning" style="font-size:14px;">Neen</span></td>
+                                        </tr>
+                                    }
+                                    @if (Model.Bobbin.ReturnDate != null)
+                                    {
+                                        <tr>
+                                            <td width="30%">@Html.DisplayNameFor(model => model.Bobbin.ReturnDate): </td>
+                                            <td width="70%">@Html.DisplayFor(model => model.Bobbin.ReturnDate, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            </div>
+                        </div>
+                        <br />
+                        @if (!Model.Bobbin.IsReturned)
+                        {
+                            using (Html.BeginForm("Create", "BobbinDebit", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="page-title sbold">
+                                    Meting toevoegen
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="form-group col-3">
+                                        <label>Beginindex</label>
+                                        @Html.EditorFor(model => model.BobbinDebit.StartIndex, new { htmlAttributes = new { @class = "form-control", min = 0 } })
+                                        @Html.ValidationMessageFor(model => model.BobbinDebit.StartIndex, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label>Eindindex</label>
+                                        @Html.EditorFor(model => model.BobbinDebit.EndIndex, new { htmlAttributes = new { @class = "form-control", min = 0 } })
+                                        @Html.ValidationMessageFor(model => model.BobbinDebit.EndIndex, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label>Deelnetwerk</label>
+                                        @Html.DropDownListFor(m => m.BobbinDebit.WorkplaceId,
+ new SelectList(Model.Workplaces, "Id", "WorkplaceId"), "Selecteer een werf", new { @class = "chosen-select", @id = "workplaceDropdown" })
+                                        @Html.ValidationMessageFor(model => model.BobbinDebit.WorkplaceId, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-4" hidden>
+                                        @Html.EditorFor(model => model.BobbinDebit.BobbinId, new { htmlAttributes = new { @class = "form-control", @Value = @Html.DisplayFor(model => model.Bobbin.Id, new { htmlAttributes = new { @class = "form-control" } }) } })
+                                        @Html.ValidationMessageFor(model => model.BobbinDebit.BobbinId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-outline btn-info">
+                                    <i class="fa fa-plus"></i> Voeg toe
+                                </button>
+                            }
+                        }
+                        else
+                        {
+                            <div class="page-title sbold">
+                                Metingen
+                            </div>
+                            <hr />
+                        }
+
+
+                        <table class="table table-bordered table-hover order-column" style="width: 100%" id="exampleBobbinDebit">
+                            <thead>
+                                <tr>
+                                    <th> Id </th>
+                                    <th> Beginindex </th>
+                                    <th> Eindindex </th>
+                                    <th> Verbruikte kabel (m) </th>
+                                    <th> Werfadres </th>
+                                    <th> Deelnetwerk </th>
+                                    @if (!Model.Bobbin.IsReturned)
+                                    {
+                                        <th> Verwijderen </th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Bobbin.BobbinDebits)
+                                {
+                                    <tr class="gradeX">
+                                        <td hidden>
+                                            @Html.DisplayFor(modelItem => item.BobbinDebitId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.StartIndex)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EndIndex)
+                                        </td>
+                                        <td width="150px">
+                                            @Html.DisplayFor(modelItem => item.AmountUsed)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Workplace.City.Name) - @Html.DisplayFor(modelItem => item.Workplace.Address)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Details", "Workplace", new { id = item.Workplace.Id })"><i class="fa fa-check text-info"></i> @Html.DisplayFor(modelItem => item.Workplace.WorkplaceId)</a>
+                                        </td>
+                                        @if (!item.Bobbin.IsReturned)
+                                        {
+                                            <td class="center" width="50px"><a href="@Url.Action("DeleteBobbinDebit", "Bobbin", new { id = item.BobbinDebitId })" class="text-inverse DeleteButton" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a></td>
+                                        }
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Styles {
+
+    @Styles.Render("~/bundles/datatable")
+    @Styles.Render("~/bundles/steps")
+    @Styles.Render("~/bundles/chosen")
+    @Styles.Render("~/bundles/select2")
+    @Styles.Render("~/bundles/sweet-alert")
+}
+@section Scripts {
+
+    @Scripts.Render("~/scripts/datatable")
+    @Scripts.Render("~/scripts/steps")
+    @Scripts.Render("~/scripts/stepsValidate")
+    @Scripts.Render("~/scripts/chosen")
+    @Scripts.Render("~/scripts/select2")
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $('.chosen-select').chosen({ width: "100%" });
+            $('.DeleteButton').on('click', function (e, data) {
+                var link = $(this).attr('href');
+                if (!data) {
+                    handleDelete(e, 1, link);
+                } else {
+                    window.location = $(this).attr('href');
+                }
+            });
+        });
+        function handleDelete(e, stop, link) {
+            if (stop) {
+                e.preventDefault();
+                swal({
+                    title: "Bent u zeker?",
+                    text: "Indien u deze bobijnmeting verwijderd, kan u deze niet meer recupereren!",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "Annuleer",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Ja, verwijder!",
+                    closeOnConfirm: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: link,
+                            type: "Delete",
+                            dataType: "html",
+                            success: function (data) {
+                                swal({ title: "Verwijderd!", text: "De bobijnmeting is succesvol verwijderd.", type: "success" },
+                                    function () {
+                                        window.location.reload(true);
+                                    });
+                            },
+                            error: function (xhr, status, error) {
+                                swal({ title: "Fout!", text: "Sorry, kon bobijnmeting niet verwijderen.\nExtra informatie: " + error, type: "error" },
+                                    function () {
+
+                                    });
+                            }
+                        });
+                    }
+                });
+            }
+        };
+
+    </script>
+}

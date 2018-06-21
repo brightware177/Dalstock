@@ -3,7 +3,7 @@ namespace DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class start : DbMigration
     {
         public override void Up()
         {
@@ -34,14 +34,14 @@ namespace DAL.Migrations
                         IsReturned = c.Boolean(nullable: false),
                         FetchDate = c.DateTime(nullable: false, precision: 0),
                         AmountRemains = c.Int(nullable: false),
-                        ReturnDate = c.DateTime(nullable: false, precision: 0),
+                        ReturnDate = c.DateTime(precision: 0),
+                        CableTypeId = c.Int(nullable: false),
                         FetchLocation = c.String(nullable: false, unicode: false),
-                        CableType_CableTypeId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.CableType", t => t.CableType_CableTypeId, cascadeDelete: true)
+                .ForeignKey("dbo.CableType", t => t.CableTypeId, cascadeDelete: true)
                 .Index(t => t.BobbinId, unique: true)
-                .Index(t => t.CableType_CableTypeId);
+                .Index(t => t.CableTypeId);
             
             CreateTable(
                 "dbo.CableType",
@@ -154,7 +154,7 @@ namespace DAL.Migrations
             DropForeignKey("dbo.Debit", "Approved_By_Staff_Id", "dbo.Staff");
             DropForeignKey("dbo.workplace", "CityId", "dbo.City");
             DropForeignKey("dbo.BobbinDebit", "BobbinId", "dbo.Bobbin");
-            DropForeignKey("dbo.Bobbin", "CableType_CableTypeId", "dbo.CableType");
+            DropForeignKey("dbo.Bobbin", "CableTypeId", "dbo.CableType");
             DropIndex("dbo.Deposit", new[] { "Deposited_By" });
             DropIndex("dbo.Deposit", new[] { "ItemId" });
             DropIndex("dbo.Item", new[] { "ItemId" });
@@ -164,7 +164,7 @@ namespace DAL.Migrations
             DropIndex("dbo.Debit", new[] { "WorkplaceId" });
             DropIndex("dbo.workplace", new[] { "CityId" });
             DropIndex("dbo.workplace", new[] { "WorkplaceId" });
-            DropIndex("dbo.Bobbin", new[] { "CableType_CableTypeId" });
+            DropIndex("dbo.Bobbin", new[] { "CableTypeId" });
             DropIndex("dbo.Bobbin", new[] { "BobbinId" });
             DropIndex("dbo.BobbinDebit", new[] { "BobbinId" });
             DropIndex("dbo.BobbinDebit", new[] { "WorkplaceId" });

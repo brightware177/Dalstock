@@ -78,5 +78,12 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             itemManager.BulkAddDebitItems(debitList);
             return View();
         }
+
+        public ActionResult Delete(int id)
+        {
+            var workplaceId = itemManager.GetDebit(id).Workplace.Id;
+            itemManager.RemoveDebit(id);
+            return RedirectToAction("Details", "Workplace", new { id = workplaceId });
+        }
     }
 }

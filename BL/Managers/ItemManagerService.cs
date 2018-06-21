@@ -18,6 +18,16 @@ namespace BL
         IEnumerable<Debit> BulkAddDebitItems(List<Debit> debitList);
         void AddItemAndWorkplace(Item item, Workplace workplace);
         IEnumerable<Deposit> BulkAddDepositItems(List<Deposit> depositList);
+        IEnumerable<Bobbin> GetBobbins();
+        IEnumerable<CableType> GetCableTypes();
+        void AddBobbin(Bobbin bobbin);
+        Bobbin GetBobbin(int id);
+        void AddBobbinDebit(BobbinDebit bobbinDebit);
+        void ChangeBobbin(Bobbin bobbin);
+        Bobbin RemoveBobbinDebit(int id);
+        void RemoveBobbin(int id);
+        Debit GetDebit(int id);
+        void RemoveDebit(int id);
         //Staff GetStaffWithApplicationUserId(string id);
     }
 }

@@ -99,5 +99,10 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             workplaceManager.RemoveWorkplace(workplace);
             return RedirectToAction("Index");
         }
+        public ActionResult Details(int id)
+        {
+            var workplace = workplaceManager.GetWorkplace(id);
+            return View(workplace);
+        }
     }
 }

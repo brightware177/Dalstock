@@ -15,6 +15,10 @@ namespace Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DebitId { get; set; }
         public int Amount { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Verbruikdatum")]
         public DateTime Date { get; set; }
 
         [ForeignKey("Workplace")]

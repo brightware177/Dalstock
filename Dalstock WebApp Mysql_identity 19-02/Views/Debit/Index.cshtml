@@ -40,7 +40,7 @@
                                 </label>
                                 <div class="col-lg-9 col-md-8">
                                     @Html.DropDownListFor(m => m.SelectedWorkplace,
-                            new SelectList(Model.Workplaces, "WorkplaceId", "WorkplaceId"), "Werf", new { @class = "chosen-select", @id = "workplaceDropdown" })
+                            new SelectList(Model.Workplaces, "WorkplaceId", "WorkplaceId"), "Selecteer een werf", new { @class = "chosen-select", @id = "workplaceDropdown" })
                                 </div>
                             </div>
                             <br />
@@ -61,7 +61,7 @@
                                             <label class="text-muted">Materiaalnummer <span id="itemNrError" class="field-validation-error"></span></label>
                                             <div>
                                                 @Html.DropDownListFor(m => m.SelectedItem,
-                            new SelectList(Model.Items, "ItemId", "ItemId",1), "Kies", new
+                            new SelectList(Model.Items, "ItemId", "ItemId",1), "Selecteer een materiaal", new
                             {
                                 @class = "chosen-select form-control",
                                 @id = "ItemsDropdown",

@@ -43,7 +43,7 @@
                             <div class="row">
                                 <div class="form-group col-12">
                                     <label>Postcode</label>
-                                    @Html.DropDownListFor(model => model.CityId, @ViewBag.Cities as SelectList, "- Kies een optie -", new { @class = "chosen-select form-control border-test", @id="CityDropdown" })
+                                    @Html.DropDownListFor(model => model.CityId, @ViewBag.Cities as SelectList, "Selecteer een gemeente", new { @class = "chosen-select form-control border-test", @id="CityDropdown" })
                                     @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
                                 </div>
                             </div>

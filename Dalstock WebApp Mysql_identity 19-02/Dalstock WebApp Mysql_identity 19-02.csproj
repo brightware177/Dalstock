@@ -206,6 +206,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BobbinController.cs" />
+    <Compile Include="Controllers\BobbinDebitController.cs" />
     <Compile Include="Controllers\DebitController.cs" />
     <Compile Include="Controllers\DepositController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -226,6 +228,7 @@
     <Content Include="Content\animate_page.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\formlayout.css" />
     <Content Include="Content\img\a logo van a-sign.png" />
     <Content Include="Content\img\Donald-Trump.jpg" />
     <Content Include="Content\img\dp.jpg" />
@@ -371,9 +374,15 @@
     <Content Include="Views\Item\Edit.cshtml" />
     <Content Include="Views\Deposit\Index.cshtml" />
     <Content Include="Views\Item\Create.cshtml" />
+    <Content Include="Views\Bobbin\Index.cshtml" />
+    <Content Include="Views\Bobbin\Create.cshtml" />
+    <Content Include="Views\Bobbin\Details.cshtml" />
+    <Content Include="Views\Bobbin\Edit.cshtml" />
+    <Content Include="Views\Workplace\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\BobbinDebit\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

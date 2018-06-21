@@ -1,0 +1,130 @@
+﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.BobbinViewModel
+
+<div class="page-content" style="min-height:90.5vh">
+    <div class="page-bar" style="margin:auto">
+        <div class="page-title-breadcrumb">
+            <div class="pull-left">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row page-content-custom">
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body card-topline-aqua">
+                    @using (Html.BeginForm("Edit"))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <div class="page-title sbold">Bobijn bewerken</div>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="row">
+                                <div class="form-group col-4">
+                                    <label>Bobijnnummer</label>
+                                    @Html.EditorFor(model => model.Bobbin.BobbinId, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Bobbin.BobbinId, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>Kabeltype</label>
+                                    @Html.DropDownListFor(m => m.Bobbin.CableTypeId,
+                            new SelectList(Model.CableTypes, "CableTypeId", "Description", ""), "Selecteer een kabeltype", new { @class = "chosen-select", @id = "cableTypeDropdown" })
+                                    @Html.ValidationMessageFor(model => model.Bobbin.CableTypeId, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>Afhaalplaats</label>
+                                    @Html.EditorFor(model => model.Bobbin.FetchLocation, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Bobbin.FetchLocation, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label>Afhaaldatum</label>
+                                    @Html.EditorFor(model => model.Bobbin.FetchDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Bobbin.FetchDate, "", new { @class = "text-danger" })
+                                </div>
+                                @if (Model.Bobbin.IsReturned)
+                                {
+                                    <div class="form-group col-6">
+                                        <label>Retourdatum</label>
+                                        @Html.EditorFor(model => model.Bobbin.ReturnDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Bobbin.ReturnDate, "", new { @class = "text-danger" })
+                                    </div>
+                                }
+                            </div>
+                            <div class="row" hidden>
+                                <div class="form-group col-6">
+                                    <label>Geretourneerd</label>
+                                    <br />
+                                    @Html.CheckBoxFor(model => model.Bobbin.IsReturned, new { onclick = "return false" })
+                                    @Html.ValidationMessageFor(model => model.Bobbin.IsReturned, "", new { @class = "text-danger" })
+                                </div>
+                                @if (Model.Bobbin.IsReturned)
+                                {
+                                    <div class="form-group col-6">
+                                        <label>Retourdatum</label>
+                                        @Html.EditorFor(model => model.Bobbin.ReturnDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(model => model.Bobbin.ReturnDate, "", new { @class = "text-danger" })
+                                    </div>
+                                }
+
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label>Kabellengte</label>
+                                    @Html.EditorFor(model => model.Bobbin.CableLength, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", min = "0" } })
+                                    @Html.ValidationMessageFor(model => model.Bobbin.CableLength, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Resterende kabel</label>
+                                    @Html.EditorFor(model => model.Bobbin.AmountRemains, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", min = "0" } })
+                                    @Html.ValidationMessageFor(model => model.Bobbin.AmountRemains, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group col-12" hidden>
+                                    <label>Id</label>
+                                    @Html.EditorFor(model => model.Bobbin.Id, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="form-group row">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Opslaan" class="btn btn-info" />
+                                    <button class="btn btn-white" onclick="window.history.go(-1); return false;">Annuleren</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+
+
+    @Styles.Render("~/bundles/chosen")
+    @Styles.Render("~/bundles/select2")
+    @Styles.Render("~/bundles/sweet-alert")
+    @Styles.Render("~/bundles/checkbox")
+}
+@section Scripts {
+
+    @Scripts.Render("~/scripts/chosen")
+    @Scripts.Render("~/scripts/select2")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.chosen-select').chosen({ width: "100%" });
+
+        });
+    </script>
+}

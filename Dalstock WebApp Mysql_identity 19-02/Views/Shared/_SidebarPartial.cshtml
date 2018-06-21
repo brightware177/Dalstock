@@ -28,24 +28,13 @@
                         <span class="title">Home</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="@Url.Action("Index", "Debit")" class="nav-link nav-toggle">
-                        <i class="material-icons">remove_circle</i>
-                        <span class="title">Verbruik</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="@Url.Action("Index", "Deposit")" class="nav-link nav-toggle">
-                        <i class="material-icons">add_circle</i>
-                        <span class="title">Toevoegen</span>
-                    </a>
-                </li>
+                
                 <li class="nav-item">
                     <a href="#" class="nav-link nav-toggle">
-                        <i class="material-icons">work</i>
+                        <i class="material-icons">location_on</i>
                         <span class="title">Werf</span>
                         <span class="arrow"></span>
-                        <span class="label label-rouded label-menu label-danger">new</span>
+                        
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item">
@@ -62,11 +51,23 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link nav-toggle">
-                        <i class="material-icons">view_list</i>
+                        <i class="material-icons">assignment</i>
                         <span class="title">Materiaal</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Debit")" class="nav-link nav-toggle">
+                                <i class="material-icons">remove_circle</i>
+                                <span class="title">Verbruik</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Deposit")" class="nav-link nav-toggle">
+                                <i class="material-icons">add_circle</i>
+                                <span class="title">Toevoegen</span>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="@Url.Action("Index", "Item")" class="nav-link ">
                                 <span class="title">Mijn materialen</span>
@@ -74,7 +75,27 @@
                         </li>
                         <li class="nav-item">
                             <a href="@Url.Action("Create", "Item")" class="nav-link ">
-                                <span class="title">Nieuw</span>
+                                <span class="title">Nieuw materiaal</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link nav-toggle">
+                        <i class="material-icons">arrow_drop_down_circle</i>
+                        <span class="title">Bobijnen</span>
+                        <span class="arrow"></span>
+
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Bobbin")" class="nav-link ">
+                                <span class="title">Mijn bobijnen</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Create", "Bobbin")" class="nav-link ">
+                                <span class="title">Nieuwe bobijn</span>
                             </a>
                         </li>
                     </ul>

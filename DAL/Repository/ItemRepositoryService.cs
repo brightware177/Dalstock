@@ -16,5 +16,16 @@ namespace DAL.Repository
         Item UpdateItem(Item item);
         IEnumerable<Debit> BulkAddDebitItems(List<Debit> debitList);
         IEnumerable<Deposit> BulkAddDepositItems(List<Deposit> depositList);
+        IEnumerable<Bobbin> ReadBobbins();
+        void CreateBobbin(Bobbin bobbin);
+        IEnumerable<CableType> ReadCableTypes();
+        void CreateBobbinDebit(BobbinDebit bobbinDebit);
+        Bobbin ReadBobbin(int id);
+        void UpdateBobbin(Bobbin bobbin);
+        BobbinDebit ReadBobbinDebit(int id);
+        void DeleteBobbinDebit(int id);
+        void DeleteBobbin(int id);
+        Debit ReadDebit(int id);
+        void DeleteDebit(int id);
     }
 }
