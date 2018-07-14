@@ -23,9 +23,14 @@ namespace Domain
         [Required(ErrorMessage = "Gelieve een postcode te selecteren")]
         [ForeignKey("City")]
         public int CityId { get; set; }
-        
+
+        [Required(ErrorMessage = "Gelieve een infragebied te selecteren")]
+        [ForeignKey("Infrastructure")]
+        public int InfrastructureId { get; set; }
+
         public virtual ICollection<Debit> Debits { get; set; }
         public virtual ICollection<BobbinDebit> BobbinDebits { get; set; }
         public virtual City City { get; set; }
+        public virtual Infrastructure Infrastructure { get; set; }
     }
 }

@@ -43,17 +43,48 @@ namespace DAL.Migrations
                 Amount = 5,
                 Image = "www.test.be"
             };
+            Infrastructure infrastructure1 = new Infrastructure()
+            {
+                InfrastructureId = 1,
+                Description = "Infra Brugge"
+            };
+            Infrastructure infrastructure2 = new Infrastructure()
+            {
+                InfrastructureId = 2,
+                Description = "Infra Schelde-Lieve"
+            };
+            Infrastructure infrastructure3 = new Infrastructure()
+            {
+                InfrastructureId = 3,
+                Description = "Infra Antwerpen"
+            };
             Workplace workplace = new Workplace()
             {
                 WorkplaceId = "20221766",
                 Address = "STATIONSSTRAAT",
-                City = city
+                City = city,
+                InfrastructureId = infrastructure1.InfrastructureId
             };
             Workplace workplace2 = new Workplace()
             {
                 WorkplaceId = "20223080",
                 Address = "Lokerenstraat",
-                City = city
+                City = city,
+                InfrastructureId = infrastructure1.InfrastructureId
+            };
+            Workplace workplace3 = new Workplace()
+            {
+                WorkplaceId = "9874654",
+                Address = "Brugstraat",
+                City = city,
+                InfrastructureId = infrastructure2.InfrastructureId
+            };
+            Workplace workplace4 = new Workplace()
+            {
+                WorkplaceId = "45648332",
+                Address = "Kouterstraat",
+                City = city,
+                InfrastructureId = infrastructure3.InfrastructureId
             };
             Staff staff = new Staff()
             {
@@ -125,8 +156,13 @@ namespace DAL.Migrations
             context.Items.Add(item);
             context.Items.Add(item2);
             context.Items.Add(item3);
+            context.Infrastructures.Add(infrastructure1);
+            context.Infrastructures.Add(infrastructure2);
+            context.Infrastructures.Add(infrastructure3);
             context.Workplaces.Add(workplace);
             context.Workplaces.Add(workplace2);
+            context.Workplaces.Add(workplace3);
+            context.Workplaces.Add(workplace4);
             context.Staff.Add(staff);
             context.Debits.Add(debit);
             context.Debits.Add(debit2);

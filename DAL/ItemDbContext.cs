@@ -43,6 +43,7 @@ namespace DAL
         public DbSet<Deposit> Deposits { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<CableType> CableTypes { get; set; }
+        public DbSet<Infrastructure> Infrastructures { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

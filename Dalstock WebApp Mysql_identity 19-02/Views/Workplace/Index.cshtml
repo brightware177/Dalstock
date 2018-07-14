@@ -58,10 +58,11 @@
                     <table class="table table-bordered table-hover order-column" style="width: 100%" id="example4">
                         <thead>
                             <tr>
-                                <th> Werfnummer </th>
-                                <th> Straat </th>
-                                <th> Stad </th>
-                                <th> Postcode </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.WorkplaceId) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.Address) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.City.Zipcode) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.City.Name) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.Infrastructure.Description) </th>
                                 <th> Acties </th>
                             </tr>
                         </thead>
@@ -80,6 +81,9 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.City.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Infrastructure.Description)
                                     </td>
                                     <td class="valigntop">
                                         <div class="btn-group">

@@ -65,6 +65,7 @@
     <Compile Include="Debit.cs" />
     <Compile Include="DebitState.cs" />
     <Compile Include="Deposit.cs" />
+    <Compile Include="Infrastructure.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Staff.cs" />
     <Compile Include="Workplace.cs" />

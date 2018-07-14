@@ -60,11 +60,14 @@ namespace DAL.Migrations
                         WorkplaceId = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                         Address = c.String(nullable: false, unicode: false),
                         CityId = c.Int(nullable: false),
+                        InfrastructureId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.City", t => t.CityId, cascadeDelete: true)
+                .ForeignKey("dbo.Infrastructure", t => t.InfrastructureId, cascadeDelete: true)
                 .Index(t => t.WorkplaceId, unique: true)
-                .Index(t => t.CityId);
+                .Index(t => t.CityId)
+                .Index(t => t.InfrastructureId);
             
             CreateTable(
                 "dbo.City",
@@ -126,6 +129,15 @@ namespace DAL.Migrations
                 .Index(t => t.ItemId, unique: true);
             
             CreateTable(
+                "dbo.Infrastructure",
+                c => new
+                    {
+                        InfrastructureId = c.Int(nullable: false, identity: true),
+                        Description = c.String(unicode: false),
+                    })
+                .PrimaryKey(t => t.InfrastructureId);
+            
+            CreateTable(
                 "dbo.Deposit",
                 c => new
                     {
@@ -148,6 +160,7 @@ namespace DAL.Migrations
             DropForeignKey("dbo.Deposit", "ItemId", "dbo.Item");
             DropForeignKey("dbo.Deposit", "Deposited_By", "dbo.Staff");
             DropForeignKey("dbo.BobbinDebit", "WorkplaceId", "dbo.workplace");
+            DropForeignKey("dbo.workplace", "InfrastructureId", "dbo.Infrastructure");
             DropForeignKey("dbo.Debit", "WorkplaceId", "dbo.workplace");
             DropForeignKey("dbo.Debit", "ItemId", "dbo.Item");
             DropForeignKey("dbo.Debit", "Debited_By_Staff_Id", "dbo.Staff");
@@ -162,6 +175,7 @@ namespace DAL.Migrations
             DropIndex("dbo.Debit", new[] { "Debited_By_Staff_Id" });
             DropIndex("dbo.Debit", new[] { "ItemId" });
             DropIndex("dbo.Debit", new[] { "WorkplaceId" });
+            DropIndex("dbo.workplace", new[] { "InfrastructureId" });
             DropIndex("dbo.workplace", new[] { "CityId" });
             DropIndex("dbo.workplace", new[] { "WorkplaceId" });
             DropIndex("dbo.Bobbin", new[] { "CableTypeId" });
@@ -169,6 +183,7 @@ namespace DAL.Migrations
             DropIndex("dbo.BobbinDebit", new[] { "BobbinId" });
             DropIndex("dbo.BobbinDebit", new[] { "WorkplaceId" });
             DropTable("dbo.Deposit");
+            DropTable("dbo.Infrastructure");
             DropTable("dbo.Item");
             DropTable("dbo.Staff");
             DropTable("dbo.Debit");
