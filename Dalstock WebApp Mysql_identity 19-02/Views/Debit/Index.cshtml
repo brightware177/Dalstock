@@ -242,6 +242,7 @@
             $("#customFields").on('click', '.remCF', function () {
                 $(this).parent().parent().remove();
             });
+
             $("#workplaceDropdown").change(function (event) {
                 var userId = $(this).val();
                 $.ajax({
@@ -271,7 +272,7 @@
                 var month = ("0" + (new Date().getMonth() + 1)).slice(-2);
                 var year = new Date().getFullYear();
                 if ((!isNaN(parseFloat(itemId)) && isFinite(itemId)) && amount != "") {
-                    $("#customFields").append('<tr valign="top"><td>' + itemId + '</td><td id="number"><input type="number" value="' + amount + '"></td><td><input type="date" id="date" value="' + year + '-' + month + '-' + day + '"></td><td>' + workplaceId + '</td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>');
+                    $("#customFields").append('<tr valign="top"><td>' + itemId + '</td><td id="number"><input type="number" onkeyup="showMe(this)" class="inputs" value="' + amount + '"></td><td><input type="date" class="inputs" id="date" value="' + year + '-' + month + '-' + day + '"></td><td>' + workplaceId + '</td><td><a href="javascript:void(0);" class="remCF">Remove</a></td></tr>');
                     $("#itemNrError").text("");
                     $("#amountError").text("");
                 } else {
@@ -280,7 +281,15 @@
                     $("#amountError").text("Dit veld mag niet leeg zijn.");
                 }
             });
+            $(".inputs").keyup(function () {
+                $("input").css("background-color", "pink");
+            });
         });
+        function showMe(e) 
+        {
+            var test = document.getElementById('inputs');
+            test.value = e.value;
+        }
         function detailspage() {
             var firstDivContent = document.getElementById('divPartialView2');
             var secondDivContent = document.getElementById('overviewPartialView');
@@ -289,14 +298,18 @@
             $("#overviewPartialView #customFields th:last-child, #overviewPartialView #customFields td:last-child").remove();
             var input = document.getElementById("number");
             //Change input fields to td
+            var increment = 0;
             $('#overviewPartialView #customFields tr').each(function () {
-                $(this).find('td').find('input').each(function () {
-                    var input_value = $(this).val();
+                $(this).find('td').find('input').each(function (i, object) {
+                    var inputs = document.getElementsByClassName('inputs');
+                    var input_value = inputs.item(increment).value;
                     $(this).parent().text(input_value);
                     $(this).remove();
+                    increment++;
                 })
             })
         }
+
     </script>
 
 }
