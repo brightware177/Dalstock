@@ -5,7 +5,7 @@
  *
  **/
 var Layout = function () {
-
+    
     var layoutImgPath = 'img/';
 
     var layoutCssPath = 'css/';
@@ -55,7 +55,6 @@ var Layout = function () {
             //content.attr('style', 'min-height:' + height + 'px');
         }
     };
-
     // Handle sidebar menu links
     var handleSidebarMenuActiveLink = function(mode, el) {
         var url = location.hash.toLowerCase();    

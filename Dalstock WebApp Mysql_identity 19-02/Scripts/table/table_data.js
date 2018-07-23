@@ -51,7 +51,14 @@ $(document).ready(function() {
         "dom": '<"top"f>rt<"bottom"lp><"clear">',
         language: {
             search: "Zoeken"
-        }
+        },
+        "columnDefs": [
+            {
+                "targets": [0],
+                "visible": false,
+                "searchable": false
+            }
+            ]
     } );
     $('#exampleBobbinDebit').DataTable({
         "scrollX": true,
@@ -102,5 +109,6 @@ $(document).ready(function() {
         else {
             table.order( [ 2, 'asc' ] ).draw();
         }
-    } );    
+    });    
+   
 } );

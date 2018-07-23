@@ -38,7 +38,11 @@ namespace Dalstock_WebApp_Mysql_identity_19_02
                      "~/Scripts/layout.js",
                      "~/Scripts/theme-color.js",
                      "~/Content/plugins/material/material.min.js",
-                     "~/Scripts/animations.js"
+                     "~/Scripts/animations.js",
+                     "~/Scripts/custom.js"
+                     ));
+            bundles.Add(new ScriptBundle("~/bundles/custom").Include(
+                     "~/Scripts/custom.js"
                      ));
             bundles.Add(new StyleBundle("~/bundles/steps").Include(
                      "~/Content/plugins/steps/jquery.steps.css"
