@@ -70,7 +70,7 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr class="gradeX" ondblclick="GoToDetail('@Url.Action("Details,Workplace")')">
+                                <tr class="gradeX" ondblclick="GoToDetail('@Url.Action("Details", "Workplace", new { id = item.Id })')">
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Id)
                                     </td>

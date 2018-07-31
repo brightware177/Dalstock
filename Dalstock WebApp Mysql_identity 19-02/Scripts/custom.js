@@ -1,3 +1,3 @@
-﻿function GoToDetail(id) {
-    window.location = id;
+﻿function GoToDetail(url) {
+    window.location.href = url;
 }
