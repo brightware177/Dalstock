@@ -381,6 +381,7 @@
     <Content Include="Views\Bobbin\Details.cshtml" />
     <Content Include="Views\Bobbin\Edit.cshtml" />
     <Content Include="Views\Workplace\Details.cshtml" />
+    <Content Include="Views\Workplace\_Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,47 @@
+﻿@model Domain.Workplace
+
+
+<div class="card-body card-topline-aqua">
+    @using (Html.BeginForm("Create"))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="page-title sbold">Nieuwe werf</div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="form-group col-4">
+                    <label>@Html.LabelFor(model => model.WorkplaceId)</label>
+                    @Html.EditorFor(model => model.WorkplaceId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.WorkplaceId, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-8">
+                    <label>@Html.LabelFor(model => model.Address)</label>
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label>@Html.LabelFor(model => model.City.Name)</label>
+                    @Html.DropDownListFor(model => model.CityId, @ViewBag.Cities as SelectList, "Selecteer een gemeente", new { @class = "chosen-select form-control border-test", @id = "CityDropdown" })
+                    @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-6">
+                    <label>@Html.LabelFor(model => model.Infrastructure.Description)</label>
+                    @Html.DropDownListFor(model => model.InfrastructureId, @ViewBag.Infras as SelectList, "- Kies een optie -", new { @class = "chosen-select form-control border-test" })
+                    @Html.ValidationMessageFor(model => model.InfrastructureId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Opslaan" class="btn btn-info" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

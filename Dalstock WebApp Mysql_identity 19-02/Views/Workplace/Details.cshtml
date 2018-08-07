@@ -28,30 +28,26 @@
                             </button>
                         </div>
                         <hr />
-                        <div class="row m-b-md m-t-md">
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label class="control-label sbold">@Html.DisplayNameFor(model => model.WorkplaceId)</label>
-                                    <div>
-                                        @Html.DisplayFor(model => model.WorkplaceId)
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label sbold">@Html.DisplayNameFor(model => model.Address)</label>
-                                    <div>
-                                        @Html.DisplayFor(model => model.Address)
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label sbold">@Html.DisplayNameFor(model => model.City.Name)</label>
-                                    <div>
-                                        @Html.DisplayFor(model => model.City.Name)
-                                    </div>
-                                </div>
+                        <div class="row">
+                            <div class="form-group col-12">
+                                <table style="width:100%;line-height:40px; font-size:15px; font-weight:500;">
+                                    <tr>
+                                        <td width="20%" style="font-weight:800;">@Html.DisplayNameFor(model => model.WorkplaceId): </td>
+                                        <td width="80%" style="font-size:15px; font-weight:bold;">@Html.DisplayFor(model => model.WorkplaceId, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">@Html.DisplayNameFor(model => model.Address): </td>
+                                        <td width="80%">@Html.DisplayFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">@Html.DisplayNameFor(model => model.City.Name): </td>
+                                        <td width="80%">@Html.DisplayFor(model => model.City.Name, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">@Html.DisplayNameFor(model => model.Infrastructure.Description): </td>
+                                        <td width="80%">@Html.DisplayFor(model => model.Infrastructure.Description, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                         <br />

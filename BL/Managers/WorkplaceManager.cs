@@ -33,6 +33,11 @@ namespace BL.Managers
             return repo.Workplaces.ReadCities();
         }
 
+        public IEnumerable<Infrastructure> GetInfrastructures()
+        {
+            return repo.Workplaces.ReadInfrastructures();
+        }
+
         public Staff GetStaffWithApplicationUserId(string ApplicationUserId)
         {
             return repo.Workplaces.ReadStaff(ApplicationUserId);

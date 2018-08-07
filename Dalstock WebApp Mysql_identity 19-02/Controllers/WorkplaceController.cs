@@ -36,6 +36,12 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
                 Value = s.CityId
             }).ToList();
             ViewBag.Cities = new SelectList(cities, "Value", "Text");
+            var infras = workplaceManager.GetInfrastructures().Select(s => new
+            {
+                Text = s.Description,
+                Value = s.InfrastructureId
+            }).ToList();
+            ViewBag.Infras = new SelectList(infras, "Value", "Text");
             return View();
         }
         // POST: Workplace/Create
@@ -56,6 +62,12 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
                     Value = s.CityId
                 }).ToList();
                 ViewBag.Cities = new SelectList(cities, "Value", "Text");
+                var infras = workplaceManager.GetInfrastructures().Select(s => new
+                {
+                    Text = s.Description,
+                    Value = s.InfrastructureId
+                }).ToList();
+                ViewBag.Infras = new SelectList(infras, "Value", "Text");
                 return View(model);
             }
         }
@@ -68,6 +80,12 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
                 Value = s.CityId
             }).ToList();
             ViewBag.Cities = new SelectList(cities, "Value", "Text");
+            var infras = workplaceManager.GetInfrastructures().Select(s => new
+            {
+                Text = s.Description,
+                Value = s.InfrastructureId
+            }).ToList();
+            ViewBag.Infras = new SelectList(infras, "Value", "Text");
             var itemToEdit = workplaceManager.GetWorkplace(id);
             return View(itemToEdit);
         }
@@ -90,6 +108,12 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
                     Value = s.CityId
                 }).ToList();
                 ViewBag.Cities = new SelectList(cities, "Value", "Text");
+                var infras = workplaceManager.GetInfrastructures().Select(s => new
+                {
+                    Text = s.Description,
+                    Value = s.InfrastructureId
+                }).ToList();
+                ViewBag.Infras = new SelectList(infras, "Value", "Text");
                 return View(model);
             }
         }

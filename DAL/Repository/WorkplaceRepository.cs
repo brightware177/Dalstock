@@ -60,5 +60,10 @@ namespace DAL.Repository
         {
             return ctx.Workplaces.Single(x => x.Id == id);
         }
+
+        public IEnumerable<Infrastructure> ReadInfrastructures()
+        {
+            return ctx.Infrastructures;
+        }
     }
 }

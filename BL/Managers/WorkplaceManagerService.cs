@@ -17,5 +17,6 @@ namespace BL.Managers
         IEnumerable<City> GetCities();
         Workplace ChangeWorkplace(Workplace model);
         void RemoveWorkplace(Workplace workplace);
+        IEnumerable<Infrastructure> GetInfrastructures();
     }
 }

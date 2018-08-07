@@ -17,5 +17,6 @@ namespace DAL.Repository
         IEnumerable<City> ReadCities();
         Workplace UpdateWorkplace(Workplace model);
         void DeleteWorkplace(Workplace workplace);
+        IEnumerable<Infrastructure> ReadInfrastructures();
     }
 }

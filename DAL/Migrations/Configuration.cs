@@ -63,21 +63,21 @@ namespace DAL.Migrations
                 WorkplaceId = "20221766",
                 Address = "STATIONSSTRAAT",
                 City = city,
-                InfrastructureId = infrastructure1.InfrastructureId
+                Infrastructure = infrastructure1
             };
             Workplace workplace2 = new Workplace()
             {
                 WorkplaceId = "20223080",
                 Address = "Lokerenstraat",
                 City = city,
-                InfrastructureId = infrastructure1.InfrastructureId
+                Infrastructure = infrastructure1
             };
             Workplace workplace3 = new Workplace()
             {
                 WorkplaceId = "9874654",
                 Address = "Brugstraat",
                 City = city,
-                InfrastructureId = infrastructure2.InfrastructureId
+                Infrastructure = infrastructure2
             };
             Workplace workplace4 = new Workplace()
             {
@@ -156,9 +156,6 @@ namespace DAL.Migrations
             context.Items.Add(item);
             context.Items.Add(item2);
             context.Items.Add(item3);
-            context.Infrastructures.Add(infrastructure1);
-            context.Infrastructures.Add(infrastructure2);
-            context.Infrastructures.Add(infrastructure3);
             context.Workplaces.Add(workplace);
             context.Workplaces.Add(workplace2);
             context.Workplaces.Add(workplace3);
