@@ -51,11 +51,12 @@
                     <table class="table table-bordered table-hover order-column" style="width: 100%" id="example4">
                         <thead>
                             <tr>
-                                <th> Bobijnnummer </th>
-                                <th> Kabeltype </th>
-                                <th> Afhaaldatum </th>
-                                <th> Afhaalplaats </th>
-                                <th> Geretourneerd </th>
+
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.Id) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinId) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.FetchDate) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.FetchLocation) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.IsReturned) </th>
                                 <th> Acties </th>
                             </tr>
                         </thead>
@@ -67,9 +68,14 @@
                                         @Html.DisplayFor(modelItem => item.BobbinId)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.CableType.Description)
+                                        <a class="hyperlink-in-table" href="@Url.Action("Details", new { id = item.Id })">
+                                            <span class="sbold">@Html.DisplayFor(modelItem => item.BobbinId)</span>
+                                            <br>
+                                            <span class="span-table-gray">
+                                                @Html.DisplayFor(modelItem => item.CableType.Description)
+                                            </span>
+                                        </a>
                                     </td>
-
                                     <td>
                                         @Html.DisplayFor(modelItem => item.FetchDate)
                                     </td>
@@ -79,19 +85,23 @@
                                     @if (item.IsReturned)
                                     {
                                         <td>
-                                            <span class="label label-sm label-success">Ja</span>
+                                            <span><i class="fa fa-check-circle check-icon"></i> Geretourneerd</span>
                                         </td>
                                     }
                                     else
                                     {
                                         <td>
-                                            <span class="label label-sm label-warning">Neen</span>
+                                            <span ><i class="fa fa-exclamation-circle warning-icon"></i> Niet geretourneerd</span>
                                         </td>
                                     }
 
-                                    <td class="center">
-                                        <a href="javascript:void(0)" onclick="location.href='@Url.Action("Details", new { id = item.Id })'" class="" data-toggle="tooltip" title="Details"><i class="fa fa-check"></i></a>
-                                        <a style="margin-left:8px;" href="@Url.Action("Delete", "Bobbin", new { id = item.Id })" class="text-inverse DeleteButton" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a>
+                                    <td class="valigntop center align-middle">
+                                        <a class="btn btn-xs btn-primary no-margin" href="@Url.Action("Edit", new { id = item.Id })">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-xs deepPink-bgcolor no-margin DeleteButton" href="@Url.Action("Delete", new { id = item.Id })">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             }
@@ -131,7 +141,7 @@
                     text: "Indien u deze bobijn verwijderd, kan u deze niet meer recupereren!",
                     type: "warning",
                     showCancelButton: true,
-                    cancelButtonText : "Annuleer",
+                    cancelButtonText: "Annuleer",
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder!",
                     closeOnConfirm: false
@@ -157,7 +167,7 @@
                     }
                 });
             }
-        };        
+        };
     </script>
 }
 

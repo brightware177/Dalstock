@@ -19,14 +19,12 @@
 
                     <div class="form-horizontal">
                         <div class="page-title sbold">
-                            Bobijndetail 
+                            Bobijndetail
                             @if (Model.Bobbin.IsReturned)
                             {
-                            <span class="label label-sm label-success m-l-20" style="font-size:14px;">Afgehandeld</span>
+                                <span class="label label-sm label-success m-l-20" style="font-size:14px;">Afgehandeld</span>
                             }
-                            <button class="btn btn-outline btn-info pull-right" onclick="location.href='@Url.Action("Edit", "Bobbin", new { id = Model.Bobbin.Id })'">
-                                <i class="fa fa-edit"></i> Bewerken
-                            </button>
+                            <button class="btn btn-white pull-right" onclick="window.history.go(-1); return false;">Terugkeren</button>
                             @if (Model.Bobbin.IsReturned)
                             {
                                 <button style="margin-right:5px;" class="btn btn-outline btn-danger pull-right" onclick="location.href='@Url.Action("ContinueEditBobbin", "Bobbin", new { id = Model.Bobbin.Id })'">
@@ -77,14 +75,14 @@
                                     {
                                         <tr>
                                             <td width="30%">@Html.DisplayNameFor(model => model.Bobbin.IsReturned): </td>
-                                            <td width="70%"><span class="label label-sm label-success" style="font-size:14px;">Ja</span></td>
+                                            <td width="70%"><span><i class="fa fa-check-circle check-icon"></i> Geretourneerd</span></td>
                                         </tr>
                                     }
                                     else
                                     {
                                         <tr>
                                             <td width="30%">@Html.DisplayNameFor(model => model.Bobbin.IsReturned): </td>
-                                            <td width="70%"><span class="label label-sm label-warning" style="font-size:14px;">Neen</span></td>
+                                            <td width="70%"><span><i class="fa fa-exclamation-circle warning-icon"></i> Niet geretourneerd</span></td>
                                         </tr>
                                     }
                                     @if (Model.Bobbin.ReturnDate != null)
@@ -101,39 +99,22 @@
                         <br />
                         @if (!Model.Bobbin.IsReturned)
                         {
-                            using (Html.BeginForm("Create", "BobbinDebit", FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken()
-                                <div class="page-title sbold">
-                                    Meting toevoegen
-                                </div>
-                                <hr />
-                                <div class="row">
-                                    <div class="form-group col-3">
-                                        <label>Beginindex</label>
-                                        @Html.EditorFor(model => model.BobbinDebit.StartIndex, new { htmlAttributes = new { @class = "form-control", min = 0 } })
-                                        @Html.ValidationMessageFor(model => model.BobbinDebit.StartIndex, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group col-3">
-                                        <label>Eindindex</label>
-                                        @Html.EditorFor(model => model.BobbinDebit.EndIndex, new { htmlAttributes = new { @class = "form-control", min = 0 } })
-                                        @Html.ValidationMessageFor(model => model.BobbinDebit.EndIndex, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group col-6">
-                                        <label>Deelnetwerk</label>
-                                        @Html.DropDownListFor(m => m.BobbinDebit.WorkplaceId,
- new SelectList(Model.Workplaces, "Id", "WorkplaceId"), "Selecteer een werf", new { @class = "chosen-select", @id = "workplaceDropdown" })
-                                        @Html.ValidationMessageFor(model => model.BobbinDebit.WorkplaceId, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group col-4" hidden>
-                                        @Html.EditorFor(model => model.BobbinDebit.BobbinId, new { htmlAttributes = new { @class = "form-control", @Value = @Html.DisplayFor(model => model.Bobbin.Id, new { htmlAttributes = new { @class = "form-control" } }) } })
-                                        @Html.ValidationMessageFor(model => model.BobbinDebit.BobbinId, "", new { @class = "text-danger" })
+                            <div class="page-title sbold">
+                                Meting toevoegen
+                            </div>
+                            <hr />
+                            <button type="button" class="btn btn-outline btn-info" data-toggle="modal" data-target="#myModal">
+                                <i class="fa fa-plus"></i> Voeg toe
+                            </button>
+                            <div>
+                                <div class="modal fade modal-wide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content" id="createBobbinDebit">
+                                                @Html.Partial("~/Views/Bobbin/_AddBobbinDebit.cshtml",Model)
+                                        </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-outline btn-info">
-                                    <i class="fa fa-plus"></i> Voeg toe
-                                </button>
-                            }
+                            </div>
                         }
                         else
                         {
@@ -151,7 +132,6 @@
                                     <th> Beginindex </th>
                                     <th> Eindindex </th>
                                     <th> Verbruikte kabel (m) </th>
-                                    <th> Werfadres </th>
                                     <th> Deelnetwerk </th>
                                     @if (!Model.Bobbin.IsReturned)
                                     {
@@ -172,14 +152,20 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.EndIndex)
                                         </td>
+
                                         <td width="150px">
                                             @Html.DisplayFor(modelItem => item.AmountUsed)
                                         </td>
+
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Workplace.City.Name) - @Html.DisplayFor(modelItem => item.Workplace.Address)
-                                        </td>
-                                        <td>
-                                            <a href="@Url.Action("Details", "Workplace", new { id = item.Workplace.Id })"><i class="fa fa-check text-info"></i> @Html.DisplayFor(modelItem => item.Workplace.WorkplaceId)</a>
+                                            <a class="hyperlink-in-table" href="@Url.Action("Details", new { id = item.Workplace.Id })">
+                                                <span class="sbold">@Html.DisplayFor(modelItem => item.Workplace.WorkplaceId)</span>
+                                                <br>
+                                                <span class="span-table-gray">
+                                                    @Html.DisplayFor(modelItem => item.Workplace.Address),
+                                                    @Html.DisplayFor(modelItem => item.Workplace.City.Zipcode) @Html.DisplayFor(modelItem => item.Workplace.City.Name)
+                                                </span>
+                                            </a>
                                         </td>
                                         @if (!item.Bobbin.IsReturned)
                                         {

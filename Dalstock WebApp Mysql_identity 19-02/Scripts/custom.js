@@ -29,6 +29,24 @@ $(function () {
         $('#myModal').modal('hide');
     });
 });
+$("#myModal").on("submit", "#form-createBobbinDebit", function (e) {
+    e.preventDefault();  // prevent standard form submission
+
+    var form = $(this);
+    $.ajax({
+        url: form.attr("action"),
+        method: form.attr("method"),  // post
+        data: form.serialize(),
+        success: function (partialResult) {
+            
+            $("#createBobbinDebit").html(partialResult);
+            $('.chosen-select').chosen({ width: "100%" });
+            if (partialResult === "True") {
+                location.reload();
+            }
+        }
+    });
+});
 function handleDelete(e, stop, link) {
     if (stop) {
         e.preventDefault();

@@ -12,6 +12,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 </head>
 <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white dark-sidebar-color logo-dark">
     <div class="page-wrapper">
@@ -88,7 +89,9 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
+    
+    <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+
     @Scripts.Render("~/scripts/popper")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/scripts/sweet-alert")

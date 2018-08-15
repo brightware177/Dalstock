@@ -1,0 +1,39 @@
+﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.BobbinDetailViewModel
+<div class="card-body card-topline-aqua">
+
+    @using (Html.BeginForm("Create", "BobbinDebit", FormMethod.Post, new { id = "form-createBobbinDebit" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="page-title sbold">
+            Meting toevoegen
+        </div>
+        <hr />
+        <div class="row">
+            <div class="form-group col-3">
+                <label>Beginindex</label>
+                @Html.EditorFor(model => model.BobbinDebit.StartIndex, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BobbinDebit.StartIndex, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-3">
+                <label>Eindindex</label>
+                @Html.EditorFor(model => model.BobbinDebit.EndIndex, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BobbinDebit.EndIndex, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-6">
+                <label>Deelnetwerk</label>
+                @Html.DropDownListFor(m => m.BobbinDebit.WorkplaceId,
+                                                                                        new SelectList(Model.Workplaces, "Id", "WorkplaceId"), "Selecteer een werf", new { @class = "chosen-select", @id = "workplaceDropdown" })
+                @Html.ValidationMessageFor(model => model.BobbinDebit.WorkplaceId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-4" hidden>
+                @Html.EditorFor(model => model.BobbinDebit.BobbinId, new { htmlAttributes = new { @class = "form-control", @Value = @Html.DisplayFor(model => model.Bobbin.Id, new { htmlAttributes = new { @class = "form-control" } }) } })
+                @Html.ValidationMessageFor(model => model.BobbinDebit.BobbinId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-outline btn-info m-b-10">
+            <i class="fa fa-plus"></i> Voeg toe
+        </button>
+    }
+</div>
+

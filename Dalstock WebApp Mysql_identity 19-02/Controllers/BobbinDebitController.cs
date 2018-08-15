@@ -36,7 +36,16 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
         {
             return View();
         }
-        
+
+        // GET: BobbinDebit/Create
+        [HttpGet]
+        public ActionResult Create(int bobbinId)
+        {
+            BobbinDetailViewModel bdvmm = new BobbinDetailViewModel();
+            bdvmm.Workplaces = workplaceManager.GetWorkplaces().ToList();
+            bdvmm.Bobbin = itemManager.GetBobbin(bobbinId);
+            return PartialView("~/Views/Bobbin/_AddBobbinDebit.cshtml", bdvmm);
+        }
 
         // POST: BobbinDebit/Create
         [HttpPost]
@@ -55,11 +64,14 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
 
                 bdvmm.BobbinDebit.AmountUsed = amountUsed;
                 itemManager.AddBobbinDebit(bdvmm.BobbinDebit);
-                return RedirectToAction("Details","Bobbin", new { id = bdvmm.BobbinDebit.BobbinId });
+                return Json("True");
             }
-            bdvmm.Workplaces = workplaceManager.GetWorkplaces().ToList();
-            bdvmm.Bobbin = itemManager.GetBobbin(bdvmm.BobbinDebit.BobbinId);
-            return View("../Bobbin/Details", bdvmm);
+            else
+            {
+                bdvmm.Workplaces = workplaceManager.GetWorkplaces().ToList();
+                bdvmm.Bobbin = itemManager.GetBobbin(bdvmm.BobbinDebit.BobbinId);
+                return PartialView("~/Views/Bobbin/_AddBobbinDebit.cshtml", bdvmm);
+            }
         }
 
         // GET: BobbinDebit/Edit/5

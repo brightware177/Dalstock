@@ -58,47 +58,42 @@
                     <table class="table table-bordered table-hover order-column" style="width: 100%" id="example4">
                         <thead>
                             <tr>
-                                <th> Materiaalnummer </th>
-                                <th> Beschrijving </th>
-                                <th> Aantal </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.Id) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.ItemId) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.Amount) </th>
                                 <th> Acties </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr class="gradeX">
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ItemId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Description)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Amount)
-                                    </td>
-                                    <td class="valigntop">
-                                        <div class="btn-group">
-                                            <button class="btn btn-xs deepPink-bgcolor dropdown-toggle no-margin" type="button" data-toggle="dropdown" aria-expanded="false">
-                                                Acties
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu pull-left" role="menu">
-                                                <li>
-                                                    @Html.ActionLink("Detail", "Details", new { id = item.Id })
-                                                </li>
-                                                <li>
-                                                    @Html.ActionLink("Aanpassen", "Edit", new { id = item.Id })
-                                                </li>
-                                                <li>
-                                                    @Html.ActionLink("Verwijder", "Delete", new { id = item.Id }, new { @class = "DeleteButton" })
+                            <tr class="gradeX">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    <a class="hyperlink-in-table" href="@Url.Action("Details", new { id = item.Id })">
+                                        <span class="sbold">@Html.DisplayFor(modelItem => item.ItemId)</span>
+                                        <br>
+                                        <span class="span-table-gray">
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </span>
+                                    </a>
+                                </td>
 
-                                                </li>
-                                                <li class="divider"> </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                <td class="valigntop center align-middle">
+                                    <a class="btn btn-xs btn-primary no-margin" href="@Url.Action("Edit", new { id = item.Id })">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-xs deepPink-bgcolor no-margin DeleteButton" href="@Url.Action("Delete", new { id = item.Id })">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                                
+                            </tr>
                             }
                         </tbody>
                     </table>
