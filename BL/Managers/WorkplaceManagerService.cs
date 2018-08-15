@@ -18,5 +18,6 @@ namespace BL.Managers
         Workplace ChangeWorkplace(Workplace model);
         void RemoveWorkplace(Workplace workplace);
         IEnumerable<Infrastructure> GetInfrastructures();
+        void AddStaff(Staff staff);
     }
 }

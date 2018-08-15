@@ -81,8 +81,9 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
 
         public ActionResult Delete(int id)
         {
-            var workplaceId = itemManager.GetDebit(id).Workplace.Id;
-            itemManager.RemoveDebit(id);
+            Debit debitToDelete = itemManager.GetDebit(id);
+            var workplaceId = debitToDelete.WorkplaceId;
+            itemManager.RemoveDebit(debitToDelete);
             return RedirectToAction("Details", "Workplace", new { id = workplaceId });
         }
     }

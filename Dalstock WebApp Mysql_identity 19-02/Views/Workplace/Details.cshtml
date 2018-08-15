@@ -52,12 +52,13 @@
                         </div>
                         <br />
                         <hr />
-                        <div class="page-title sbold" style="font-size:20px;">Materiaalverbruik
+                        <div class="page-title sbold" style="font-size:20px;">
+                            Materiaalverbruik
                             <button class="btn btn-outline btn-info pull-right" onclick="location.href='@Url.Action("IndexWithWorkplaceId","Debit",  new { id = Model.WorkplaceId })'">
                                 <i class="fa fa-edit"></i> Nieuw verbruik
                             </button>
                         </div>
-                        
+
                         <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
                             <thead>
                                 <tr>
@@ -97,7 +98,7 @@
                                         }
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Date)
-                                        </td>                                        
+                                        </td>
                                         <td class="center">
                                             <a href="@Url.Action("Delete", "Debit", new { id = item.DebitId })" class="text-inverse DeleteButton" title="Verwijderen" data-toggle="tooltip"><i class="fa fa-trash"></i></a>
                                         </td>
@@ -108,27 +109,30 @@
                         </table>
                         <br />
                         <hr />
-                        @if(Model.BobbinDebits != null || Model.BobbinDebits.Count > 0) { 
-                        <div class="page-title sbold" style="font-size:20px;">
-                            Bobijnverbruik
-                            
-                        </div>
+                        @if (Model.BobbinDebits != null || Model.BobbinDebits.Count > 0)
+                        {
+                            <div class="page-title sbold" style="font-size:20px;">
+                                Bobijnverbruik
 
-                        <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
-                            <thead>
-                                <tr>
-                                    <th> Bobijnnummer </th>
-                                    <th> Materiaalnaam </th>
-                                    <th> Afhaaldatum </th>
-                                    <th> Afhaalplaats </th>
-                                    <th> Acties </th>
+                            </div>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.BobbinDebits.GroupBy(x=>x.BobbinId).Select(x=>x.FirstOrDefault()))
-                                {
-                                    <tr class="gradeX">
+                            <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
+                                <thead>
+                                    <tr>
+                                        <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().BobbinDebitId) </th>
+                                        <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().Bobbin.CableType.Description) </th>
+                                        <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().StartIndex) </th>
+                                        <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().EndIndex) </th>
+                                        <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().AmountUsed) </th>
+
+                                        <th> Verwijderen </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.BobbinDebits)
+                                    {
+                                    <tr class="gradeX">                                                
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Bobbin.BobbinId)
                                         </td>
@@ -136,19 +140,22 @@
                                             @Html.DisplayFor(modelItem => item.Bobbin.CableType.Description)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Bobbin.FetchDate)
+                                            @Html.DisplayFor(modelItem => item.StartIndex)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Bobbin.FetchLocation)
+                                            @Html.DisplayFor(modelItem => item.EndIndex)
                                         </td>
-                                        <td class="center">
-                                            <a href="@Url.Action("Details", "Bobbin", new { id = item.Bobbin.Id })" title="Details" data-toggle="tooltip"><i class="fa fa-check"></i> </a>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AmountUsed)
+                                        </td>
+                                        <td class="center" width="50px">
+                                            <a href="@Url.Action("DeleteBobbinDebit", "Bobbin", new { id = item.BobbinDebitId })" class="text-inverse DeleteButton" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
-                                }
+                                    }
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
                         }
                     </div>
 
@@ -198,7 +205,7 @@
                     text: "Indien u dit verbruik verwijderd, kan u deze niet meer recupereren!",
                     type: "warning",
                     showCancelButton: true,
-                    cancelButtonText : "Annuleer",
+                    cancelButtonText: "Annuleer",
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder!",
                     closeOnConfirm: false

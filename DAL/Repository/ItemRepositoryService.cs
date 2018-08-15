@@ -27,5 +27,6 @@ namespace DAL.Repository
         void DeleteBobbin(int id);
         Debit ReadDebit(int id);
         void DeleteDebit(int id);
+        void DeleteItem(int id);
     }
 }

@@ -100,17 +100,18 @@
                         @if (!Model.Bobbin.IsReturned)
                         {
                             <div class="page-title sbold">
-                                Meting toevoegen
+                                Bobijnverbruik
+
                             </div>
                             <hr />
                             <button type="button" class="btn btn-outline btn-info" data-toggle="modal" data-target="#myModal">
-                                <i class="fa fa-plus"></i> Voeg toe
+                                <i class="fa fa-plus"></i> Nieuwe meting
                             </button>
                             <div>
                                 <div class="modal fade modal-wide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content" id="createBobbinDebit">
-                                                @Html.Partial("~/Views/Bobbin/_AddBobbinDebit.cshtml",Model)
+                                            @Html.Partial("~/Views/Bobbin/_AddBobbinDebit.cshtml", Model)
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +120,7 @@
                         else
                         {
                             <div class="page-title sbold">
-                                Metingen
+                                Bobijnverbruik
                             </div>
                             <hr />
                         }
@@ -128,11 +129,11 @@
                         <table class="table table-bordered table-hover order-column" style="width: 100%" id="exampleBobbinDebit">
                             <thead>
                                 <tr>
-                                    <th> Id </th>
+                                    <th> Deelnetwerk </th>
                                     <th> Beginindex </th>
                                     <th> Eindindex </th>
                                     <th> Verbruikte kabel (m) </th>
-                                    <th> Deelnetwerk </th>
+
                                     @if (!Model.Bobbin.IsReturned)
                                     {
                                         <th> Verwijderen </th>
@@ -143,22 +144,9 @@
                                 @foreach (var item in Model.Bobbin.BobbinDebits)
                                 {
                                     <tr class="gradeX">
-                                        <td hidden>
-                                            @Html.DisplayFor(modelItem => item.BobbinDebitId)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.StartIndex)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.EndIndex)
-                                        </td>
-
-                                        <td width="150px">
-                                            @Html.DisplayFor(modelItem => item.AmountUsed)
-                                        </td>
 
                                         <td>
-                                            <a class="hyperlink-in-table" href="@Url.Action("Details", new { id = item.Workplace.Id })">
+                                            <a class="hyperlink-in-table" href="@Url.Action("Details","Workplace", new { id = item.Workplace.Id })">
                                                 <span class="sbold">@Html.DisplayFor(modelItem => item.Workplace.WorkplaceId)</span>
                                                 <br>
                                                 <span class="span-table-gray">
@@ -167,13 +155,24 @@
                                                 </span>
                                             </a>
                                         </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.StartIndex)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EndIndex)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AmountUsed)
+                                        </td>
+
+
                                         @if (!item.Bobbin.IsReturned)
                                         {
                                             <td class="center" width="50px"><a href="@Url.Action("DeleteBobbinDebit", "Bobbin", new { id = item.BobbinDebitId })" class="text-inverse DeleteButton" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a></td>
                                         }
                                     </tr>
                                 }
-
                             </tbody>
                         </table>
 

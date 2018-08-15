@@ -16,6 +16,12 @@ namespace BL.Managers
             repo = uow;
         }
 
+        public void AddStaff(Staff staff)
+        {
+            repo.Workplaces.CreateStaff(staff);
+            repo.SaveChanges();
+        }
+
         public Workplace AddWorkplace(Workplace workplace)
         {
             var newWorkplace = repo.Workplaces.CreateWorkplace(workplace);

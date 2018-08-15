@@ -27,7 +27,8 @@ namespace BL
         Bobbin RemoveBobbinDebit(int id);
         void RemoveBobbin(int id);
         Debit GetDebit(int id);
-        void RemoveDebit(int id);
+        void RemoveDebit(Debit debit);
+        void RemoveItem(int id);
         //Staff GetStaffWithApplicationUserId(string id);
     }
 }

@@ -67,33 +67,31 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr class="gradeX">
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Id)
-                                </td>
-                                <td>
-                                    <a class="hyperlink-in-table" href="@Url.Action("Details", new { id = item.Id })">
+                                <tr class="gradeX">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
                                         <span class="sbold">@Html.DisplayFor(modelItem => item.ItemId)</span>
                                         <br>
                                         <span class="span-table-gray">
                                             @Html.DisplayFor(modelItem => item.Description)
                                         </span>
-                                    </a>
-                                </td>
+                                    </td>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Amount)
-                                </td>
-                                <td class="valigntop center align-middle">
-                                    <a class="btn btn-xs btn-primary no-margin" href="@Url.Action("Edit", new { id = item.Id })">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a class="btn btn-xs deepPink-bgcolor no-margin DeleteButton" href="@Url.Action("Delete", new { id = item.Id })">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
-                                
-                            </tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </td>
+                                    <td class="valigntop center align-middle">
+                                        <a class="btn btn-xs btn-primary no-margin" href="@Url.Action("Edit", new { id = item.Id })">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-xs deepPink-bgcolor no-margin DeleteButton" href="@Url.Action("Delete", new { id = item.Id })">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
                             }
                         </tbody>
                     </table>
@@ -131,7 +129,7 @@
                     text: "Indien u dit materiaal verwijderd, kan u deze niet meer recupereren!",
                     type: "warning",
                     showCancelButton: true,
-                    cancelButtonText : "Annuleer",
+                    cancelButtonText: "Annuleer",
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder!",
                     closeOnConfirm: false

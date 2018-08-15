@@ -14,6 +14,7 @@ namespace DAL.Repository
         Workplace ReadWorkplace(int id);
         Workplace CreateWorkplace(Workplace workplace);
         Staff ReadStaff(string applicationUserId);
+        void CreateStaff(Staff staff);
         IEnumerable<City> ReadCities();
         Workplace UpdateWorkplace(Workplace model);
         void DeleteWorkplace(Workplace workplace);

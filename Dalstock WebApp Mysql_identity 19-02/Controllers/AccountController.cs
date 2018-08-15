@@ -12,6 +12,10 @@ using Dalstock_WebApp_Mysql_identity_19_02.Models;
 using DAL;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Domain;
+using System.Collections.Generic;
+using BL;
+using BL.Managers;
+using DAL.UnitOfWork;
 
 namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
 {
@@ -20,9 +24,13 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ItemManagerService itemManager;
+        WorkplaceManagerService workplaceManager;
+        IUnitOfWork uow;
 
         public AccountController()
         {
+            
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -142,6 +150,9 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            var context = ApplicationDbContext.Create();
+            IEnumerable<IdentityRole> roles = context.Roles;
+            ViewBag.RoleList = new SelectList(roles, "Id", "Name");
             return View();
         }
 
@@ -155,8 +166,8 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                user.Database = "ID80395_dalcom";
-                user.DatabaseUsername = "ID80395_dalcom";
+                user.Database = model.Database;
+                user.DatabaseUsername = model.DatabaseUsername;
 
                 var context = ApplicationDbContext.Create();
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
@@ -165,10 +176,20 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var role = new IdentityRole();
-                    role.Name = "Admin";
-                    roleManager.Create(role);
-                    UserManager.AddToRole(user.Id,role.Name);
+                    UserManager.AddToRole(user.Id,model.Role);
+                    uow = new UnitOfWork(model.DatabaseUsername, model.Database);
+                    itemManager = new ItemManager(uow);
+                    workplaceManager = new WorkplaceManager(uow);
+
+                    Staff staff = new Staff()
+                    {
+                        ApplicationUserId = user.Id,
+                        Firstname = "Test",
+                        Lastname = "Test"
+                    };
+
+                    workplaceManager.AddStaff(staff);
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

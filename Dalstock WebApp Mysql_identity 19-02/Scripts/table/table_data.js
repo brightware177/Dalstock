@@ -63,11 +63,19 @@ $(document).ready(function() {
     $('#exampleBobbinDebit').DataTable({
         "scrollX": true,
         "dom": '<"top">rt<"bottom"p><"clear">',
-        "columnDefs": [
+        "bSortClasses": false,
+        "columnDefs": [            
             {
-                "targets": [0],
-                "visible": false,
-                "searchable": false
+                "width": "10%",
+                "targets": 1
+            },
+            {
+                "width": "10%",
+                "targets": 2
+            },
+            {
+                "width": "10%",
+                "targets": 3
             }
         ]
     });

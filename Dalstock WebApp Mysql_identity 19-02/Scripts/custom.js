@@ -37,13 +37,12 @@ $("#myModal").on("submit", "#form-createBobbinDebit", function (e) {
         url: form.attr("action"),
         method: form.attr("method"),  // post
         data: form.serialize(),
-        success: function (partialResult) {
-            
-            $("#createBobbinDebit").html(partialResult);
-            $('.chosen-select').chosen({ width: "100%" });
+        success: function (partialResult) {     
             if (partialResult === "True") {
                 location.reload();
             }
+            $("#createBobbinDebit").html(partialResult);
+            $('.chosen-select').chosen({ width: "100%" });            
         }
     });
 });

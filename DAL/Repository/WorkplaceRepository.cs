@@ -65,5 +65,10 @@ namespace DAL.Repository
         {
             return ctx.Infrastructures;
         }
+
+        public void CreateStaff(Staff staff)
+        {
+            ctx.Staff.Add(staff);
+        }
     }
 }

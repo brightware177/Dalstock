@@ -122,9 +122,18 @@ namespace BL
             return bobbin;
         }
 
-        public void RemoveDebit(int id)
+        public void RemoveDebit(Debit debit)
         {
-            repo.Items.DeleteDebit(id);
+            var item = repo.Items.ReadItem(debit.ItemId);
+            item.Amount += debit.Amount;
+            repo.Items.UpdateItem(item);
+            repo.Items.DeleteDebit(debit.DebitId);
+            repo.SaveChanges();
+        }
+
+        public void RemoveItem(int id)
+        {
+            repo.Items.DeleteItem(id);
         }
     }
 }

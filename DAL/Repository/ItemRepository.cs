@@ -79,6 +79,15 @@ namespace DAL.Repository
             ctx.SaveChanges();
         }
 
+        public void DeleteItem(int id)
+        {
+            Item item = ctx.Items.Find(id);
+
+            ctx.Items.Attach(item);
+            ctx.Items.Remove(item);
+            ctx.SaveChanges();
+        }
+
         public Bobbin ReadBobbin(int id)
         {
             return ctx.Bobbins.Include("BobbinDebits").Include("CableType").Single(x=>x.Id == id);

@@ -65,9 +65,9 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
                 return View(model);
             }
         }
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
-            var item = itemManager.GetItem(id);
+            itemManager.RemoveItem(id);
             return RedirectToAction("Index");
         }
     }

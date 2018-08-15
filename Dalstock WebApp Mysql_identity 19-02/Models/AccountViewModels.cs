@@ -79,6 +79,15 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        public string Database { get; set; }
+
+        [Required]
+        public string DatabaseUsername { get; set; }
+
+        [Required]
+        public string Role { get; set; }
     }
 
     public class ResetPasswordViewModel
