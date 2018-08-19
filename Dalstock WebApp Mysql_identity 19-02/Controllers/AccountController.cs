@@ -170,13 +170,16 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
                 user.DatabaseUsername = model.DatabaseUsername;
 
                 var context = ApplicationDbContext.Create();
+                IEnumerable<IdentityRole> roles = context.Roles;
+                ViewBag.RoleList = new SelectList(roles, "Id", "Name");
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    UserManager.AddToRole(user.Id,model.Role);
+                    var role = roleManager.FindById(model.Role);
+                    UserManager.AddToRole(user.Id, role.Name);
                     uow = new UnitOfWork(model.DatabaseUsername, model.Database);
                     itemManager = new ItemManager(uow);
                     workplaceManager = new WorkplaceManager(uow);

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Domain.Bobbin>
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Dalstock</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+    <link href="@Href("~/Content/plugins/material/material.min.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    @Styles.Render("~/bundles/datatable")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/scripts/popper")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/scripts/sweet-alert")
+    @Scripts.Render("~/bundles/slimscroll")
+    @Scripts.Render("~/bundles/appLayout")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/scripts/datatable")
+</head>
+
+<div class="card-body">
+
+    <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
+        <thead>
+            <tr>
+
+                <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinId) </th>
+                <th> @Html.DisplayNameFor(modelItem => modelItem.FetchDate) </th>
+                <th> @Html.DisplayNameFor(modelItem => modelItem.FetchLocation) </th>
+                <th> @Html.DisplayNameFor(modelItem => modelItem.IsReturned) </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="gradeX">
+                    <td>
+                        <a class="hyperlink-in-table" href="@Url.Action("Details", new { id = item.Id })">
+                            <span class="sbold">@Html.DisplayFor(modelItem => item.BobbinId)</span>
+                            <br>
+                            <span class="span-table-gray">
+                                @Html.DisplayFor(modelItem => item.CableType.Description)
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FetchDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FetchLocation)
+                    </td>
+                    @if (item.IsReturned)
+                    {
+                        <td>
+                            <span><i class="fa fa-check-circle check-icon"></i> Geretourneerd</span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <span><i class="fa fa-exclamation-circle warning-icon"></i> Niet geretourneerd</span>
+                        </td>
+                    }
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
