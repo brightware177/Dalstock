@@ -9647,3 +9647,14 @@ table tbody tr {
     font-size: 18px;
     color: orange
 }
+.buttonAsLink {
+    background: none !important;
+    color: inherit;
+    border: none;
+    padding: 0 !important;
+    font: inherit;
+    /*border is optional*/
+    cursor: pointer;
+    text-align: center;
+    color: #555;
+}

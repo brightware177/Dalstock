@@ -22,35 +22,25 @@
                                 </button>
                             </div>
                         </div>
-                        @Html.ActionLink("Convert View To PDF", "PrintViewToPdf", "Bobbin")
                         <div class="col-md-6 col-sm-6 col-6">
                             <div class="btn-group pull-right">
                                 <button class="btn btn-danger btn-circle dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-print"></i>Print
+                                    <i class="fa fa-upload"></i>Export
                                     <i class="fa fa-angle-down"></i>
                                 </button>
-                                <ul class="dropdown-menu pull-right">
-                                    <li>
-                                        <a href="javascript:;">
-                                            <i class="fa fa-print"></i> Print
-                                        </a>
+                                <ul class="dropdown-menu">
+                                    <li class="pdf-container">
                                     </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <i class="fa fa-file-pdf-o"></i> PDF
-                                        </a>
+                                    <li class="excel-container">
                                     </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <i class="fa fa-file-excel-o"></i> Export to Excel
-                                        </a>
+                                    <li class="print-container">
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
-                    <table class="table table-bordered table-hover order-column" style="width: 100%" id="example4">
+                    <table class="table table-bordered table-hover order-column example4" style="width: 100%">
                         <thead>
                             <tr>
 
@@ -67,7 +57,7 @@
                             {
                                 <tr class="gradeX">
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.BobbinId)
+                                        @Html.DisplayFor(modelItem => item.Id)
                                     </td>
                                     <td>
                                         <a class="hyperlink-in-table" href="@Url.Action("Details", new { id = item.Id })">
@@ -122,6 +112,7 @@
 }
 @section Scripts {
     @Scripts.Render("~/scripts/datatable")
+
 
     <script>
         $(document).ready(function () {      

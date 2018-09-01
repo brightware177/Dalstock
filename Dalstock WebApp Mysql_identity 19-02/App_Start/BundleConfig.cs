@@ -74,7 +74,14 @@ namespace Dalstock_WebApp_Mysql_identity_19_02
             bundles.Add(new ScriptBundle("~/scripts/datatable").Include(
                      "~/Content/plugins/datatables/jquery.dataTables.min.js",
                      "~/Content/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.js",
-                     "~/Scripts/table/table_data.js"
+                     "~/Content/plugins/datatables/dataTables.buttons.min.js",
+                     "~/Content/plugins/datatables/jszip.min.js",
+                     "~/Content/plugins/datatables/pdfmake.min.js",
+                     "~/Content/plugins/datatables/vfs_fonts.js",
+                     "~/Content/plugins/datatables/buttons.html5.min.js",
+                     "~/Scripts/table/table_data.js",
+                     "~/Content/plugins/datatables/dataTables.responsive.min.js",
+                     "~/Content/plugins/datatables/buttons.print.min.js"
                      ));
             bundles.Add(new StyleBundle("~/bundles/datatable").Include(
                       "~/Content/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.css"));

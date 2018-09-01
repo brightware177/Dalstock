@@ -46,9 +46,9 @@ $(document).ready(function() {
     // Automatically add a first row of data
     $('#addRow').click();
     
-    $('#example4').DataTable( {
+    var table = $('.example4').DataTable( {
         "scrollX": true,
-        "dom": '<"top"f>rt<"bottom"lp><"clear">',
+        "dom": 'B<"top"f>rt<"bottom"lp><"clear">',
         language: {
             search: "Zoeken"
         },
@@ -58,8 +58,51 @@ $(document).ready(function() {
                 "visible": false,
                 "searchable": false
             }
-            ]
-    } );
+        ],
+        responsive: true,
+        buttons: [
+           {
+                text: '<i class="fa fa-print"></i><span>Print</span>',
+                extend: 'print',
+                exportOptions: {
+                    columns: [1, 2, 3, 4]
+                },
+                className: 'buttonAsLink  assets-export-btn export-csv ttip printbtn',
+            }, {
+                text: '<i class="fa fa-file-excel-o"></i><span>Excel</span>',
+                extend: 'excelHtml5',
+                className: 'buttonAsLink assets-export-btn export-xls ttip excelbtn',
+                title: "Lijst bobijnen - " + (new Date).getDay() + "/" + (new Date).getMonth() + "/" + (new Date).getFullYear(),
+                exportOptions: {
+                    columns: [1, 2, 3, 4]
+                },
+                extension: '.xls'
+
+            }, {
+                text: '<i class="fa fa-file-pdf-o"></i><span>Pdf</span>',
+                extend: 'pdf',
+                exportOptions: {
+                    columns: [1, 2, 3, 4]
+                },
+                className: 'buttonAsLink assets-export-btn export-pdf ttip pdfbtn',
+                extension: '.pdfHtml5',
+                title: "Lijst bobijnen - " + (new Date).getDay() + "/" + (new Date).getMonth() + "/" + (new Date).getFullYear(),
+                customize: function (doc) {
+                    doc.styles.title = {
+                        color: 'black',
+                        fontSize: '14',
+                        alignment: 'center'
+                    }
+                }  
+            },
+
+        ]
+    });
+    
+    $('.pdfbtn').appendTo('.pdf-container');
+    $('.printbtn').appendTo('.print-container');
+    $('.excelbtn').appendTo('.excel-container');
+
     $('#exampleBobbinDebit').DataTable({
         "scrollX": true,
         "dom": '<"top">rt<"bottom"p><"clear">',
@@ -77,6 +120,12 @@ $(document).ready(function() {
                 "width": "10%",
                 "targets": 3
             }
+        ]
+    });
+    $('#example4').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
     $('#saveStage').DataTable( {
