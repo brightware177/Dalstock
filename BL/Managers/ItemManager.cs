@@ -92,6 +92,16 @@ namespace BL
             return repo.Items.ReadDebit(id);
         }
 
+        public IEnumerable<Debit> GetDebits()
+        {
+            return repo.Items.ReadDebits();
+        }
+
+        public IEnumerable<Deposit> GetDeposits()
+        {
+            return repo.Items.ReadDeposits();
+        }
+
         public Item GetItem(int id)
         {
             return repo.Items.ReadItem(id);
@@ -102,9 +112,14 @@ namespace BL
             return repo.Items.ReadItem(id);
         }
 
-        public IEnumerable<Item> GetItems()
+        public IEnumerable<Item> GetItems(string selector = null)
         {
-            return repo.Items.ReadItems();
+            return repo.Items.ReadItems(selector);
+        }
+
+        public Bobbin GetLatestBobbin()
+        {
+            return repo.Items.ReadLatestBobbin();
         }
 
         public void RemoveBobbin(int id)

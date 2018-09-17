@@ -9,12 +9,12 @@ namespace BL
 {
     public interface ItemManagerService
     {
-        IEnumerable<Item> GetItems();
+        IEnumerable<Item> GetItems(string selector = null);
         Item GetItem(string id);
         Item GetItem(int id);
         Item AddItem(Item item);
         Item ChangeItem(Item item);
-        
+
         IEnumerable<Debit> BulkAddDebitItems(List<Debit> debitList);
         void AddItemAndWorkplace(Item item, Workplace workplace);
         IEnumerable<Deposit> BulkAddDepositItems(List<Deposit> depositList);
@@ -27,8 +27,11 @@ namespace BL
         Bobbin RemoveBobbinDebit(int id);
         void RemoveBobbin(int id);
         Debit GetDebit(int id);
+        IEnumerable<Debit> GetDebits();
         void RemoveDebit(Debit debit);
+        IEnumerable<Deposit> GetDeposits();
         void RemoveItem(int id);
+        Bobbin GetLatestBobbin();
         //Staff GetStaffWithApplicationUserId(string id);
     }
 }

@@ -9,7 +9,7 @@ namespace DAL.Repository
 {
     public interface ItemRepositoryService
     {
-        IEnumerable<Item> ReadItems();
+        IEnumerable<Item> ReadItems(string selector);
         Item ReadItem(string id);
         Item ReadItem(int id);
         Item CreateItem(Item item);
@@ -28,5 +28,8 @@ namespace DAL.Repository
         Debit ReadDebit(int id);
         void DeleteDebit(int id);
         void DeleteItem(int id);
+        IEnumerable<Debit> ReadDebits();
+        IEnumerable<Deposit> ReadDeposits();
+        Bobbin ReadLatestBobbin();
     }
 }

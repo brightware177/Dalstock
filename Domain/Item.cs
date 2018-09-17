@@ -16,10 +16,13 @@ namespace Domain
         [Required]
         [Index(IsUnique = true)]
         [StringLength(45)]
+        [Display(Name = "Materiaalnummer")]
         public string ItemId { get; set; }
         [Required]
+        [Display(Name = "Beschrijving")]
         public string Description { get; set; }
         [Required]
+        [Display(Name = "Aantal")]
         public int Amount { get; set; }
         public string Image { get; set; }
     }

@@ -1,5 +1,7 @@
 ﻿@model Domain.Workplace
-
+@{
+    ViewBag.Title = "Werfdetail";
+}
 <div class="page-content" style="min-height:90.5vh">
     <div class="page-bar" style="margin:auto">
         <div class="page-title-breadcrumb">
@@ -20,12 +22,13 @@
                     <div class="form-horizontal">
                         <div class="page-title sbold">
                             Werfdetails
-                            <button class="btn btn-outline btn-info pull-right" onclick="location.href='@Url.Action("Edit",  new { id = Model.Id })'">
-                                <i class="fa fa-edit"></i> Bewerken
+                            <button style="margin-right:5px;" class="btn btn-outline btn-info pull-right" onclick="location.href='@Url.Action("PrintViewToPdf", new { id = Model.Id })'">
+                                <i class="fa fa-file-pdf-o"></i> PDF
                             </button>
                             <button style="margin-right:5px;" class="btn btn-outline btn-light pull-right" onclick="location.href='@Url.Action("Index", new { id = Model.Id })'">
                                 <i class="fa fa-check"></i> Terug naar lijst
                             </button>
+
                         </div>
                         <hr />
                         <div class="row">
@@ -51,66 +54,70 @@
                             </div>
                         </div>
                         <br />
-                        <hr />
-                        <div class="page-title sbold" style="font-size:20px;">
-                            Materiaalverbruik
-                            <button class="btn btn-outline btn-info pull-right" onclick="location.href='@Url.Action("IndexWithWorkplaceId","Debit",  new { id = Model.WorkplaceId })'">
-                                <i class="fa fa-edit"></i> Nieuw verbruik
-                            </button>
-                        </div>
-
-                        <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
-                            <thead>
-                                <tr>
-                                    <th> Materiaalnummer </th>
-                                    <th> Materiaalnaam </th>
-                                    <th> Verbruikt aantal </th>
-                                    <th> Status </th>
-                                    <th> Verbruikdatum </th>
-                                    <th> Acties </th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Debits)
-                                {
-                                    <tr class="gradeX">
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Item.ItemId)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Item.Description)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Amount)
-                                        </td>
-                                        @if (item.DebitState == Domain.DebitState.Approved)
-                                        {
-                                            <td class="center">
-                                                <span class="label label-sm label-success" style="font-size:14px;">Goedgekeurd</span>
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td class="center">
-                                                <span class="label label-sm label-danger" style="font-size:14px;">In afwachting</span>
-                                            </td>
-                                        }
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Date)
-                                        </td>
-                                        <td class="center">
-                                            <a href="@Url.Action("Delete", "Debit", new { id = item.DebitId })" class="text-inverse DeleteButton" title="Verwijderen" data-toggle="tooltip"><i class="fa fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-                                }
-
-                            </tbody>
-                        </table>
-                        <br />
-                        <hr />
-                        @if (Model.BobbinDebits != null || Model.BobbinDebits.Count > 0)
+                        @if (Model.Debits.Count() > 0)
                         {
+                            <hr />
+                            <div class="page-title sbold" style="font-size:20px;">
+                                Materiaalverbruik
+                                <button class="btn btn-outline btn-info pull-right" onclick="location.href='@Url.Action("IndexWithWorkplaceId", "Debit", new { id = Model.WorkplaceId })'">
+                                    <i class="fa fa-edit"></i> Nieuw verbruik
+                                </button>
+                            </div>
+
+                            <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
+                                <thead>
+                                    <tr>
+                                        <th> Materiaalnummer </th>
+                                        <th> Materiaalnaam </th>
+                                        <th> Verbruikt aantal </th>
+                                        <th> Status </th>
+                                        <th> Verbruikdatum </th>
+                                        <th> Verwijderen </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Debits)
+                                    {
+                                        <tr class="gradeX">
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Item.ItemId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Item.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Amount)
+                                            </td>
+                                            @if (item.DebitState == Domain.DebitState.Approved)
+                                            {
+                                                <td><span><i class="fa fa-check-circle check-icon"></i> Goedgekeurd</span></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="center">
+                                                    <span class="label label-sm label-danger" style="font-size:14px;">In afwachting</span>
+                                                </td>
+                                            }
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Date)
+                                            </td>
+                                            <td class="center">
+                                                <a class="btn btn-xs deepPink-bgcolor no-margin DeleteButton" href="@Url.Action("Delete", "Debit", new { id = item.DebitId })">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                            <br />
+                        }
+
+                        @if (Model.BobbinDebits.Count > 0)
+                        {
+                            <hr />
                             <div class="page-title sbold" style="font-size:20px;">
                                 Bobijnverbruik
 
@@ -132,26 +139,30 @@
                                 <tbody>
                                     @foreach (var item in Model.BobbinDebits)
                                     {
-                                    <tr class="gradeX">                                                
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Bobbin.BobbinId)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Bobbin.CableType.Description)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.StartIndex)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.EndIndex)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.AmountUsed)
-                                        </td>
-                                        <td class="center" width="50px">
-                                            <a href="@Url.Action("DeleteBobbinDebit", "Bobbin", new { id = item.BobbinDebitId })" class="text-inverse DeleteButton" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a>
-                                        </td>
-                                    </tr>
+                                        <tr class="gradeX">
+                                            <td>
+                                                <a class="hyperlink-in-table" href="@Url.Action("Details","Bobbin", new { id = item.Bobbin.Id })">
+                                                    <span class="sbold">@Html.DisplayFor(modelItem => item.Bobbin.BobbinId)</span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Bobbin.CableType.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.StartIndex)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EndIndex)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AmountUsed)
+                                            </td>
+                                            <td class="center" width="50px">
+                                                <a class="btn btn-xs deepPink-bgcolor no-margin DeleteButton" href="@Url.Action("DeleteBobbinDebit", "Bobbin", new { id = item.BobbinDebitId })">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
                                     }
 
                                 </tbody>

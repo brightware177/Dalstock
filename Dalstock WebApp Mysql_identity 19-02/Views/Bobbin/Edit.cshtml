@@ -1,5 +1,7 @@
 ﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.BobbinViewModel
-
+@{
+    ViewBag.Title = "Aanpassen";
+}
 <div class="page-content" style="min-height:90.5vh">
     <div class="page-bar" style="margin:auto">
         <div class="page-title-breadcrumb">
@@ -32,7 +34,7 @@
                                 <div class="form-group col-4">
                                     <label>Kabeltype</label>
                                     @Html.DropDownListFor(m => m.Bobbin.CableTypeId,
-                            new SelectList(Model.CableTypes, "CableTypeId", "Description", ""), "Selecteer een kabeltype", new { @class = "chosen-select", @id = "cableTypeDropdown" })
+                                 new SelectList(Model.CableTypes, "CableTypeId", "Description", ""), "Selecteer een kabeltype", new { @class = "chosen-select", @id = "cableTypeDropdown" })
                                     @Html.ValidationMessageFor(model => model.Bobbin.CableTypeId, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="form-group col-4">

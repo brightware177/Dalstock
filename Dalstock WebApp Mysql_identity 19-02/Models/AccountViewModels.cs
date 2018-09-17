@@ -55,10 +55,10 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Wachtwoord")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Herinner mij?")]
         public bool RememberMe { get; set; }
     }
 

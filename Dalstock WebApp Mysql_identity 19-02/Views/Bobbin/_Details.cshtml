@@ -1,0 +1,158 @@
+﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.BobbinDetailViewModel
+    <!DOCTYPE html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - Dalstock</title>
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+        <link href="@Href("~/Content/plugins/material/material.min.css")" rel="stylesheet" type="text/css" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        @Styles.Render("~/bundles/datatable")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/scripts/popper")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/scripts/sweet-alert")
+        @Scripts.Render("~/bundles/slimscroll")
+        @Scripts.Render("~/bundles/appLayout")
+        @Scripts.Render("~/bundles/custom")
+        @Scripts.Render("~/scripts/datatable")
+    </head>
+
+    <body style="background-color:white">
+        <h3 class="card-title sbold">
+            Bobijn : @Html.DisplayFor(model => model.Bobbin.BobbinId) - @Html.DisplayFor(model => model.Bobbin.CableType.Description)
+        </h3>
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="form-group col-5">
+                    <table style="width:100%;line-height:40px; font-size:15px; font-weight:500;">
+                        <tr>
+                            <td width="50%" style="font-weight:800;">@Html.DisplayNameFor(model => model.Bobbin.BobbinId): </td>
+                            <td width="50%" style="font-size:15px; font-weight:bold;">@Html.DisplayFor(model => model.Bobbin.BobbinId, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                        <tr>
+                            <td width="50%">@Html.DisplayNameFor(model => model.Bobbin.FetchDate): </td>
+                            <td width="50%">@Html.DisplayFor(model => model.Bobbin.FetchDate, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                        <tr>
+                            <td width="50%">@Html.DisplayNameFor(model => model.Bobbin.FetchLocation): </td>
+                            <td width="50%">@Html.DisplayFor(model => model.Bobbin.FetchLocation, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                        <tr>
+                            <td width="50%">@Html.DisplayNameFor(model => model.Bobbin.CableLength): </td>
+                            <td width="50%">@Html.DisplayFor(model => model.Bobbin.CableLength, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                        <tr>
+                            <td width="50%">@Html.DisplayNameFor(model => model.Bobbin.AmountRemains): </td>
+                            <td width="50%">@Html.DisplayFor(model => model.Bobbin.AmountRemains, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="form-group col-7">
+                    <table style="width:100%;line-height:40px; font-size:15px; font-weight:500;">
+                        <tr>
+                            <td width="30%" style="font-weight:800;">@Html.DisplayNameFor(model => model.Bobbin.CableType.Description): </td>
+                            <td width="70%" style="font-size:15px; font-weight:bold;">@Html.DisplayFor(model => model.Bobbin.CableType.Description, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                        @if (Model.Bobbin.IsReturned)
+                    {
+                        <tr>
+                            <td width="30%">@Html.DisplayNameFor(model => model.Bobbin.IsReturned): </td>
+                            <td width="70%"><span><i class="fa fa-check-circle check-icon"></i> Geretourneerd</span></td>
+                        </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td width="30%">@Html.DisplayNameFor(model => model.Bobbin.IsReturned): </td>
+                        <td width="70%"><span><i class="fa fa-exclamation-circle warning-icon"></i> Niet geretourneerd</span></td>
+                    </tr>
+            }
+                        @if (Model.Bobbin.ReturnDate != null)
+                    {
+                        <tr>
+                            <td width="30%">@Html.DisplayNameFor(model => model.Bobbin.ReturnDate): </td>
+                            <td width="70%">@Html.DisplayFor(model => model.Bobbin.ReturnDate, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                }
+
+                    </table>
+                </div>
+            </div>
+            <br />
+            @if (!Model.Bobbin.IsReturned)
+        {
+            <h3 class="card-title sbold">
+                Bobijnverbruik
+            </h3>
+            <hr />
+            <div>
+                <div class="modal fade modal-wide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" id="createBobbinDebit">
+                            @Html.Partial("~/Views/Bobbin/_AddBobbinDebit.cshtml", Model)
+                        </div>
+                    </div>
+                </div>
+            </div>
+    }
+    else
+    {
+        <div class="page-title sbold">
+            Bobijnverbruik
+        </div>
+        <hr />
+}
+
+
+            <table class="table table-bordered table-hover order-column" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th> Deelnetwerk </th>
+                        <th> Beginindex </th>
+                        <th> Eindindex </th>
+                        <th> Verbruikte kabel (m) </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Bobbin.BobbinDebits)
+                {
+                    <tr class="gradeX">
+
+                        <td>
+                            <a class="hyperlink-in-table" href="@Url.Action("Details","Workplace", new { id = item.Workplace.Id })">
+                                <span class="sbold">@Html.DisplayFor(modelItem => item.Workplace.WorkplaceId)</span>
+                                <br>
+                                <span class="span-table-gray">
+                                    @Html.DisplayFor(modelItem => item.Workplace.Address),
+                                    @Html.DisplayFor(modelItem => item.Workplace.City.Zipcode) @Html.DisplayFor(modelItem => item.Workplace.City.Name)
+                                </span>
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartIndex)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndIndex)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AmountUsed)
+                        </td>
+                    </tr>
+            }
+                </tbody>
+            </table>
+
+
+
+        </div>
+    </body>
+
+
+

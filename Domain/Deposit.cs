@@ -16,6 +16,8 @@ namespace Domain
         [ForeignKey("Item")]
         public int ItemId { get; set; }
         public int Amount { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
         [ForeignKey("Deposited_By_Staff")]
         public int Deposited_By { get; set; }

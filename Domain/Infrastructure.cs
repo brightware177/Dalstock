@@ -13,6 +13,7 @@ namespace Domain
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int InfrastructureId { get; set; }
+        [Display(Name = "Infra-gebied")]
         public String Description { get; set; }
     }
 }

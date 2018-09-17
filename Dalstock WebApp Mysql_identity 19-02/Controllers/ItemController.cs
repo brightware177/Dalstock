@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
 {
+    [Authorize]
     public class ItemController : Controller
     {
         ItemManagerService itemManager;

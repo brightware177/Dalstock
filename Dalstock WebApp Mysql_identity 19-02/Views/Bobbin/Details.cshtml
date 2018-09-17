@@ -1,5 +1,7 @@
 ﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.BobbinDetailViewModel
-
+@{
+    ViewBag.Title = "Bobijndetail";
+}
 <div class="page-content" style="min-height:90.5vh">
     <div class="page-bar" style="margin:auto">
         <div class="page-title-breadcrumb">
@@ -24,7 +26,9 @@
                             {
                                 <span class="label label-sm label-success m-l-20" style="font-size:14px;">Afgehandeld</span>
                             }
-                            <button class="btn btn-white pull-right" onclick="window.history.go(-1); return false;">Terugkeren</button>
+                            <button style="margin-right:5px;" class="btn btn-outline btn-default pull-right" onclick="location.href='@Url.Action("PrintViewToPdf", "Bobbin", new { id = Model.Bobbin.Id })'">
+                                <i class="fa fa-file-pdf-o"></i> PDF
+                            </button>
                             @if (Model.Bobbin.IsReturned)
                             {
                                 <button style="margin-right:5px;" class="btn btn-outline btn-danger pull-right" onclick="location.href='@Url.Action("ContinueEditBobbin", "Bobbin", new { id = Model.Bobbin.Id })'">

@@ -1,0 +1,151 @@
+﻿@model Domain.Workplace
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Dalstock</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+    <link href="@Href("~/Content/plugins/material/material.min.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    @Styles.Render("~/bundles/datatable")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/scripts/popper")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/scripts/sweet-alert")
+    @Scripts.Render("~/bundles/slimscroll")
+    @Scripts.Render("~/bundles/appLayout")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/scripts/datatable")
+</head>
+
+<body style="background-color:white">
+
+    <div class="card-body">
+
+
+        <div class="form-horizontal">
+            <h3 class="card-title sbold">
+                Werfdetails : @Html.DisplayFor(model => model.WorkplaceId)
+            </h3>
+            <hr class="card-topline-aqua" />
+            <div class="row">
+                <div class="form-group col-12">
+                    <table style="width:100%;line-height:40px; font-size:15px; font-weight:500;">
+                        <tr>
+                            <td width="20%" style="font-weight:800;">@Html.DisplayNameFor(model => model.WorkplaceId): </td>
+                            <td width="80%" style="font-size:15px; font-weight:bold;">@Html.DisplayFor(model => model.WorkplaceId, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                        <tr>
+                            <td width="20%">@Html.DisplayNameFor(model => model.Address): </td>
+                            <td width="80%">@Html.DisplayFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                        <tr>
+                            <td width="20%">@Html.DisplayNameFor(model => model.City.Name): </td>
+                            <td width="80%">@Html.DisplayFor(model => model.City.Name, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                        <tr>
+                            <td width="20%">@Html.DisplayNameFor(model => model.Infrastructure.Description): </td>
+                            <td width="80%">@Html.DisplayFor(model => model.Infrastructure.Description, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br />
+            <h3 class="card-title sbold">
+                Materiaalverbruik
+            </h3>
+            <hr />
+            <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
+                <thead>
+                    <tr>
+                        <th> Materiaalnummer </th>
+                        <th> Materiaalnaam </th>
+                        <th> Verbruikt aantal </th>
+                        <th> Status </th>
+                        <th> Verbruikdatum </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Debits)
+                    {
+                        <tr class="gradeX">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Item.ItemId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            @if (item.DebitState == Domain.DebitState.Approved)
+                            {
+                                <td><span><i class="fa fa-check-circle check-icon"></i> Goedgekeurd</span></td>
+                            }
+                            else
+                            {
+                                <td class="center">
+                                    <span class="label label-sm label-danger" style="font-size:14px;">In afwachting</span>
+                                </td>
+                            }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            <br />
+            @if (Model.BobbinDebits != null || Model.BobbinDebits.Count > 0)
+            {
+                <h3 class="card-title sbold">
+                    Bobijnverbruik
+                </h3>
+                <hr />
+                <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
+                    <thead>
+                        <tr>
+                            <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().BobbinDebitId) </th>
+                            <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().Bobbin.CableType.Description) </th>
+                            <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().StartIndex) </th>
+                            <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().EndIndex) </th>
+                            <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().AmountUsed) </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.BobbinDebits)
+                        {
+                            <tr class="gradeX">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Bobbin.BobbinId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Bobbin.CableType.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartIndex)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndIndex)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AmountUsed)
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            }
+        </div>
+
+    </div>
+</body>
+
+
+
+

@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Domain.Workplace>
-
+@{
+    ViewBag.Title = "Werven";
+}
 
 <div class="page-content" style="min-height:90.5vh">
     <div class="page-bar" style="margin:auto">
@@ -29,37 +31,15 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-6 col-6">
-                            <div class="btn-group pull-right">
-                                <button class="btn btn-danger btn-circle dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-print"></i>Print
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu pull-right">
-                                    <li>
-                                        <a href="javascript:;">
-                                            <i class="fa fa-print"></i> Print
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <i class="fa fa-file-pdf-o"></i> Save as PDF
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <i class="fa fa-file-excel-o"></i> Export to Excel
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+
                     </div>
-                    <table class="table table-bordered table-hover order-column" style="width: 100%" id="example4">
+                    <table class="table table-bordered table-hover order-column" style="width: 100%" id="workplaceDatatable">
                         <thead>
                             <tr>
                                 <th> @Html.DisplayNameFor(modelItem => modelItem.Id) </th>
                                 <th> @Html.DisplayNameFor(modelItem => modelItem.WorkplaceId) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.WorkplaceId) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.Address) </th>
                                 <th> @Html.DisplayNameFor(modelItem => modelItem.Infrastructure.Description) </th>
                                 <th> Acties </th>
                             </tr>
@@ -82,6 +62,12 @@
                                         </a>
                                     </td>
                                     <td class="span-table-gray">
+                                        @Html.DisplayFor(modelItem => item.WorkplaceId)
+                                    </td>
+                                    <td class="span-table-gray">
+                                        @Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.City.Zipcode) @Html.DisplayFor(modelItem => item.City.Name)
+                                    </td>
+                                    <td class="span-table-gray">
                                         @Html.DisplayFor(modelItem => item.Infrastructure.Description)
                                     </td>
                                     <td class="valigntop center align-middle">
@@ -96,7 +82,7 @@
                             }
                         </tbody>
                     </table>
-                    
+
                 </div>
             </div>
         </div>

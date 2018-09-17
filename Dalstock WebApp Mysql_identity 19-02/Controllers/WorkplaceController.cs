@@ -3,6 +3,7 @@ using DAL.UnitOfWork;
 using Dalstock_WebApp_Mysql_identity_19_02.Helpers;
 using Dalstock_WebApp_Mysql_identity_19_02.Models;
 using Domain;
+using Rotativa.MVC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
 {
+    [Authorize]
     public class WorkplaceController : Controller
     {
         WorkplaceManagerService workplaceManager;
@@ -127,6 +129,12 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
         {
             var workplace = workplaceManager.GetWorkplace(id);
             return View(workplace);
+        }
+        public ActionResult PrintViewToPdf(int id)
+        {
+            var workplace = workplaceManager.GetWorkplace(id);
+            string filename = "Werf " + workplace.WorkplaceId + ".pdf";
+            return new PartialViewAsPdf("_Details", workplace) { FileName = filename };
         }
     }
 }

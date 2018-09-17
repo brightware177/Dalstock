@@ -1,0 +1,273 @@
+﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.ItemHistoryViewModel
+@{
+    ViewBag.Title = "Geschiedenis";
+}
+<div class="page-content" style="min-height:90.5vh">
+    <div class="page-bar" style="margin:auto">
+        <div class="page-title-breadcrumb">
+            <div class="pull-left">
+                <div class="page-title sbold">Geschiedenis materiaal</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row page-content-custom">
+        <div class="col-md-12">
+            <div class="card card-topline-aqua">
+
+                <div class="card-body">
+                    <div class="row p-b-20 margin-top-20">
+                        <div class="col-md-2 col-sm-2 col-2">
+                            <div class="btn-group">
+                                <button class="btn btn-danger btn-circle dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-upload"></i>Export
+                                    <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li class="pdf-container">
+                                    </li>
+                                    <li class="excel-container">
+                                    </li>
+                                    <li class="print-container">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-4">
+                            @Html.DropDownListFor(m => m.SelectedItem,
+new SelectList(Model.Workplaces, "WorkplaceId", "WorkplaceId"), "Filter op werf", new { @class = "chosen-select", @id = "workplaceDropdown" })
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered table-hover order-column" style="width: 100%" id="historyDatatable">
+                        <thead>
+                            <tr>
+
+                                <th> Materiaalnr </th>
+                                <th> Materiaalnr </th>
+                                <th> Aantal </th>
+                                <th> Datum </th>
+                                <th> Netwerknummer </th>
+                                <th> Acties </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Debits)
+                            {
+                                <tr class="gradeX">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Item.Id)
+                                    </td>
+                                    <td>
+                                        <span class="sbold">@Html.DisplayFor(modelItem => item.Item.ItemId)</span>
+                                        <br>
+                                        <span class="span-table-gray">
+                                            @Html.DisplayFor(modelItem => item.Item.Description)
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                    @if (item.Workplace != null)
+                                    {
+                                        <td>
+                                            <a class="hyperlink-in-table" href="@Url.Action("Details","Workplace", new { id = item.Workplace.Id })">
+                                                <span class="sbold">@Html.DisplayFor(modelItem => item.Workplace.WorkplaceId)</span>
+                                                <br>
+                                                <span class="span-table-gray">
+                                                    @Html.DisplayFor(modelItem => item.Workplace.Address)
+                                                </span>
+                                            </a>
+                                        </td>
+                                    }
+
+                                    <td class="valigntop center align-middle">
+                                        <a class="btn btn-xs btn-primary no-margin" href="@Url.Action("Edit","Debit", new { id = item.DebitId })">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-xs deepPink-bgcolor no-margin DeleteButton" href="@Url.Action("Delete","Debit", new { id = item.DebitId })">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                            @foreach (var item in Model.Deposits)
+                            {
+                                <tr class="gradeX">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Item.Id)
+                                    </td>
+                                    <td>
+                                        <span class="sbold">@Html.DisplayFor(modelItem => item.Item.ItemId)</span>
+                                        <br>
+                                        <span class="span-table-gray">
+                                            @Html.DisplayFor(modelItem => item.Item.Description)
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                    <td>
+                                        Niet van toepassing
+                                    </td>
+                                    <td class="valigntop center align-middle">
+                                        <a class="btn btn-xs btn-primary no-margin" href="@Url.Action("Edit","Debit", new { id = item.DepositId })">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-xs deepPink-bgcolor no-margin DeleteButton" href="@Url.Action("Delete","Debit", new { id = item.DepositId })">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/bundles/datatable")
+    @Styles.Render("~/bundles/chosen")
+    @Styles.Render("~/bundles/select2")
+    @Styles.Render("~/bundles/sweet-alert")
+}
+@section Scripts {
+    @Scripts.Render("~/scripts/datatable")
+    @Scripts.Render("~/scripts/chosen")
+    @Scripts.Render("~/scripts/select2")
+
+
+    <script>
+        var ID;
+        $(document).ready(function () {
+            $('.DeleteButton').on('click', function (e, data) {
+                var link = $(this).attr('href');
+                if (!data) {
+                    handleDelete(e, 1, link);
+                } else {
+                    window.location = $(this).attr('href');
+                }
+            });
+            $('.chosen-select').chosen({ width: "100%" });
+            var tableH = $('#historyDatatable').DataTable({
+                "scrollX": true,
+                "dom": 'B<"top"f>rt<"bottom"lp><"clear">',
+                language: {
+                    search: "Zoeken"
+                },
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
+                responsive: true,
+                buttons: [
+                    {
+                        text: '<i class="fa fa-print"></i><span>Print</span>',
+                        extend: 'print',
+                        title: function () {
+                            return "Lijst geschiedenis - " + (new Date).toLocaleDateString()
+                        },
+                        exportOptions: {
+                            columns: [1, 2, 3, 4]
+                        },
+                        className: 'buttonAsLink  assets-export-btn export-csv ttip printbtn',
+                    }, {
+                        text: '<i class="fa fa-file-excel-o"></i><span>Excel</span>',
+                        extend: 'excelHtml5',
+                        className: 'buttonAsLink assets-export-btn export-xls ttip excelbtn',
+                        title: "Lijst geschiedenis - " + (new Date).toLocaleDateString(),
+                        exportOptions: {
+                            columns: [1, 2, 3, 4]
+                        },
+                        extension: '.xls'
+
+                    }, {
+                        text: '<i class="fa fa-file-pdf-o"></i><span>Pdf</span>',
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: [1, 2, 3, 4]
+                        },
+                        className: 'buttonAsLink assets-export-btn export-pdf ttip pdfbtn',
+                        extension: '.pdfHtml5',
+                        title: function () {
+                            return "Lijst geschiedenis - " + (new Date).toLocaleDateString();
+                        },
+                        messageTop: function () {
+                            var workplaces = @Html.Raw(Json.Encode(Model.Workplaces.Select(x => x.WorkplaceId)));
+                            if (jQuery.inArray(ID, workplaces) >= 0) {
+                                var address = @Html.Raw(Json.Encode(Model.Workplaces.Select(x => x.WorkplaceId + "\n" + x.Address + "\n" + x.City.structure)));
+                                return "Werf: " + address[jQuery.inArray(ID, workplaces)];
+                            }
+                        },
+                        customize: function (doc) {
+                            doc.styles.tableHeader.alignment = 'left';
+                            doc.styles.title = {
+                                color: 'black',
+                                fontSize: '14',
+                                alignment: 'center'
+                            }
+                        }
+                    }
+                ]
+            });
+            $('.pdfbtn').appendTo('.pdf-container');
+            $('.printbtn').appendTo('.print-container');
+            $('.excelbtn').appendTo('.excel-container');
+            $("#workplaceDropdown").val($("#workplaceDropdown option:first").val());
+            $('#workplaceDropdown').trigger("chosen:updated");
+            $("#workplaceDropdown").change(function (event) {
+                                    ID = $(this).val();
+                                    tableH.search(ID).draw();
+                                });
+        });
+        function handleDelete(e, stop, link) {
+                                    if (stop) {
+                                        e.preventDefault();
+                                        swal({
+                                            title: "Bent u zeker?",
+                    text: "Indien u deze bobijn verwijderd, kan u deze niet meer recupereren!",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "Annuleer",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Ja, verwijder!",
+                    closeOnConfirm: false
+                                        }, function (isConfirm) {
+                                            if (isConfirm) {
+                        $.ajax({
+                                                    url: link,
+                            type: "Delete",
+                            dataType: "html",
+                            success: function (data) {
+                                                        swal({ title: "Verwijderd!", text: "De bobijn is succesvol verwijderd.", type: "success" },
+                                    function () {
+                                                            window.location.reload(true);
+                                                        });
+                                                    },
+                            error: function (xhr, status, error) {
+                                                        swal({ title: "Fout!", text: "Sorry, kon bobijn niet verwijderen.\nExtra informatie: " + error, type: "error" },
+                                    function () {
+
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                };
+    </script>
+}
+
+

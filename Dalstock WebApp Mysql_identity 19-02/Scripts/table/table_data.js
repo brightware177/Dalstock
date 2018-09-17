@@ -46,7 +46,7 @@ $(document).ready(function() {
     // Automatically add a first row of data
     $('#addRow').click();
     
-    var table = $('.example4').DataTable( {
+    var table = $('#bobbinDatatable').DataTable( {
         "scrollX": true,
         "dom": 'B<"top"f>rt<"bottom"lp><"clear">',
         language: {
@@ -64,6 +64,7 @@ $(document).ready(function() {
            {
                 text: '<i class="fa fa-print"></i><span>Print</span>',
                 extend: 'print',
+                title: "Lijst werven - " + (new Date).toLocaleDateString(),
                 exportOptions: {
                     columns: [1, 2, 3, 4]
                 },
@@ -72,7 +73,7 @@ $(document).ready(function() {
                 text: '<i class="fa fa-file-excel-o"></i><span>Excel</span>',
                 extend: 'excelHtml5',
                 className: 'buttonAsLink assets-export-btn export-xls ttip excelbtn',
-                title: "Lijst bobijnen - " + (new Date).getDay() + "/" + (new Date).getMonth() + "/" + (new Date).getFullYear(),
+                title: "Lijst bobijnen - " + (new Date).toLocaleDateString(),
                 exportOptions: {
                     columns: [1, 2, 3, 4]
                 },
@@ -86,7 +87,7 @@ $(document).ready(function() {
                 },
                 className: 'buttonAsLink assets-export-btn export-pdf ttip pdfbtn',
                 extension: '.pdfHtml5',
-                title: "Lijst bobijnen - " + (new Date).getDay() + "/" + (new Date).getMonth() + "/" + (new Date).getFullYear(),
+                title: "Lijst bobijnen - " + (new Date).toLocaleDateString(),
                 customize: function (doc) {
                     doc.styles.title = {
                         color: 'black',
@@ -98,7 +99,88 @@ $(document).ready(function() {
 
         ]
     });
-    
+    var table = $('#workplaceDatatable').DataTable({
+        "scrollX": true,
+        "dom": '<"top"f>rt<"bottom"lp><"clear">',
+        language: {
+            search: "Zoeken"
+        },
+        "columnDefs": [
+            {
+                "targets": [0],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [2],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [3],
+                "visible": false,
+                "searchable": false
+            }
+        ],
+        responsive: true
+    });
+    var table = $('#itemDatatable').DataTable({
+        "scrollX": true,
+        "dom": 'B<"top"f>rt<"bottom"lp><"clear">',
+        language: {
+            search: "Zoeken"
+        },
+        "columnDefs": [
+            {
+                "targets": [0],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [2],
+                "visible": false
+            },
+            {
+                "targets": [3],
+                "visible": false
+            }
+        ],
+        buttons: [
+            {
+                text: '<i class="fa fa-print"></i><span>Print</span>',
+                extend: 'print',
+                title: "Stocktelling - " + (new Date).toLocaleDateString(),
+                exportOptions: {
+                    columns: [2, 3,4]
+                },
+                className: 'buttonAsLink  assets-export-btn export-csv ttip printbtn',
+            }, {
+                text: '<i class="fa fa-file-excel-o"></i><span>Excel</span>',
+                extend: 'excelHtml5',
+                className: 'buttonAsLink assets-export-btn export-xls ttip excelbtn',
+                title: "Stocktelling - " + (new Date).toLocaleDateString(),
+                exportOptions: {
+                    columns: [2,3,4]
+                },
+                extension: '.xls'
+
+            }, {
+                text: '<i class="fa fa-file-pdf-o"></i><span>Pdf</span>',
+                extend: 'pdf',
+                exportOptions: {
+                    columns: [2, 3,4]
+                },
+                className: 'buttonAsLink assets-export-btn export-pdf ttip pdfbtn',
+                extension: '.pdfHtml5',
+                title: "Stocktelling - " + (new Date).toLocaleDateString(),
+                customize: function (doc) {
+                    doc.content[1].table.widths = ["*", "*", "*"];
+                    doc.styles.tableHeader.alignment = 'left';
+                }
+            }
+        ],
+        responsive: true
+    });
     $('.pdfbtn').appendTo('.pdf-container');
     $('.printbtn').appendTo('.print-container');
     $('.excelbtn').appendTo('.excel-container');

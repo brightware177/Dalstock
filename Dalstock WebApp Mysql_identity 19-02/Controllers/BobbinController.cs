@@ -126,9 +126,13 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             itemManager.ChangeBobbin(bobbin);
             return RedirectToAction("Details", new { id = id });
         }
-        public ActionResult PrintViewToPdf()
+        public ActionResult PrintViewToPdf(int id)
         {
-            return new PartialViewAsPdf("_Index", itemManager.GetBobbins()) { FileName = "TestViewAsPdf.pdf" };
+            BobbinDetailViewModel bdvm = new BobbinDetailViewModel();
+            bdvm.Bobbin = itemManager.GetBobbin(id);
+            bdvm.Workplaces = workplaceManager.GetWorkplaces().ToList();
+            string filename = bdvm.Bobbin.BobbinId + " - bobijn.pdf";
+            return new PartialViewAsPdf("_Details", bdvm) { FileName = filename };
         }
         [HttpPost]
         [ValidateInput(false)]

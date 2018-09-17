@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Domain.Item>
-
+@{
+    ViewBag.Title = "Materialen";
+}
 
 <div class="page-content" style="min-height:90.5vh">
     <div class="page-bar" style="margin:auto">
@@ -32,34 +34,27 @@
                         <div class="col-md-6 col-sm-6 col-6">
                             <div class="btn-group pull-right">
                                 <button class="btn btn-danger btn-circle dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-print"></i>Print
+                                    <i class="fa fa-upload"></i>Export
                                     <i class="fa fa-angle-down"></i>
                                 </button>
-                                <ul class="dropdown-menu pull-right">
-                                    <li>
-                                        <a href="javascript:;">
-                                            <i class="fa fa-print"></i> Print
-                                        </a>
+                                <ul class="dropdown-menu">
+                                    <li class="pdf-container">
                                     </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <i class="fa fa-file-pdf-o"></i> PDF
-                                        </a>
+                                    <li class="excel-container">
                                     </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <i class="fa fa-file-excel-o"></i> Export to Excel
-                                        </a>
+                                    <li class="print-container">
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <table class="table table-bordered table-hover order-column" style="width: 100%" id="example4">
+                    <table class="table table-bordered table-hover order-column" style="width: 100%" id="itemDatatable">
                         <thead>
                             <tr>
                                 <th> @Html.DisplayNameFor(modelItem => modelItem.Id) </th>
                                 <th> @Html.DisplayNameFor(modelItem => modelItem.ItemId) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.ItemId) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.Description) </th>
                                 <th> @Html.DisplayNameFor(modelItem => modelItem.Amount) </th>
                                 <th> Acties </th>
                             </tr>
@@ -78,7 +73,12 @@
                                             @Html.DisplayFor(modelItem => item.Description)
                                         </span>
                                     </td>
-
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ItemId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Amount)
                                     </td>

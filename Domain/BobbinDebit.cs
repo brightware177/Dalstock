@@ -12,12 +12,16 @@ namespace Domain
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Bobijnnummer")]
         public int BobbinDebitId { get; set; }
         [Required]
+        [Display(Name = "Beginindex")]
         public int StartIndex { get; set; }
         [Required]
+        [Display(Name = "Eindindex")]
         public int EndIndex { get; set; }
         [Required]
+        [Display(Name = "Verbruikte kabel (m)")]
         public int AmountUsed { get; set; }
         [ForeignKey("Workplace")]
         public int WorkplaceId { get; set; }

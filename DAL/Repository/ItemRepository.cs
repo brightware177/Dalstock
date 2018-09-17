@@ -113,6 +113,16 @@ namespace DAL.Repository
             return ctx.Debits.Find(id);
         }
 
+        public IEnumerable<Debit> ReadDebits()
+        {
+            return ctx.Debits;
+        }
+
+        public IEnumerable<Deposit> ReadDeposits()
+        {
+            return ctx.Deposits;
+        }
+
         public Item ReadItem(int id)
         {
             return ctx.Items.Single(x => x.Id == id);
@@ -123,9 +133,16 @@ namespace DAL.Repository
             return ctx.Items.Single(x => x.ItemId.Equals(id));
         }
 
-        public IEnumerable<Item> ReadItems()
+        public IEnumerable<Item> ReadItems(string selector)
         {
+            if (selector != null)
+                return ctx.Items.Where(x => 20 > x.Amount);
             return ctx.Items;
+        }
+
+        public Bobbin ReadLatestBobbin()
+        {
+            return ctx.Bobbins.Last();
         }
 
         public void UpdateBobbin(Bobbin bobbin)

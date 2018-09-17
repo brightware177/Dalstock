@@ -9658,3 +9658,15 @@ table tbody tr {
     text-align: center;
     color: #555;
 }
+#parent {
+    display: table;
+    width: 100%;
+}
+
+#loginForm {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+

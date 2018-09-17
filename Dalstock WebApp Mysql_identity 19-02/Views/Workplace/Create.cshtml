@@ -1,10 +1,12 @@
 ﻿@model Domain.Workplace
-
+@{
+    ViewBag.Title = "Nieuwe werf";
+}
 <div class="page-content" style="min-height:90.5vh">
     <div class="page-bar" style="margin:auto">
         <div class="page-title-breadcrumb">
             <div class="pull-left">
-                
+
             </div>
             <ol class="breadcrumb page-breadcrumb pull-right">
                 <li>
@@ -53,7 +55,7 @@
                                 </div>
                             </div>
                             <br />
-                            
+
                             <div class="form-group row">
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="submit" value="Opslaan" class="btn btn-info" />
@@ -80,10 +82,10 @@
     @Scripts.Render("~/scripts/stepsValidate")
     @Scripts.Render("~/scripts/chosen")
     @Scripts.Render("~/scripts/select2")
-<script>
-    $(document).ready(function () {
-        $('.chosen-select').chosen({ width: "100%" });
-     
-    });
+    <script>
+        $(document).ready(function () {
+            $('.chosen-select').chosen({ width: "100%" });
+
+        });
     </script>
 }

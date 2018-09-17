@@ -54,4 +54,19 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Models
         public BobbinDebit BobbinDebit { get; set; }
         public Bobbin Bobbin { get; set; }
     }
+    public class ItemHistoryViewModel
+    {
+        public List<Debit> Debits { get; set; }
+        public List<Deposit> Deposits { get; set; }
+        public Workplace SelectedItem;
+        public List<Workplace> Workplaces { get; set; }
+    }
+    public class DashboardViewModel
+    {
+        public Bobbin LatestBobbin { get; set; }
+        public Workplace LatestWorkplace { get; set; }
+        public int TotalAmountStock { get; set; }
+        public decimal CablePerc { get; set; }
+        public List<Item> InsufficientItems { get; set; }
+    }
 }
