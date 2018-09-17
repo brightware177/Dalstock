@@ -65,17 +65,17 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
         public ActionResult Index()
         {
             DashboardViewModel dvm = new DashboardViewModel();
-            var bobbins = itemManager.GetBobbins().Last();
+            var latestBobbin = itemManager.GetBobbins().Last();
             var items = itemManager.GetItems("Insufficient");
-            var workplace = workplaceManager.GetWorkplaces().Last();
-            decimal length = bobbins.CableLength;
-            decimal rem = bobbins.AmountRemains;
+            var latestWorkplace = workplaceManager.GetWorkplaces().Last();
+            decimal length = latestBobbin.CableLength;
+            decimal rem = latestBobbin.AmountRemains;
             decimal perc = rem / length;
-            dvm.LatestBobbin = bobbins;
+            dvm.LatestBobbin = latestBobbin;
             dvm.TotalAmountStock = items.Sum(x => x.Amount);
-            dvm.LatestWorkplace = workplace;
+            dvm.LatestWorkplace = latestWorkplace;
             dvm.CablePerc = perc * 100;
-            dvm.InsufficientItems = itemManager.GetItems().ToList();
+            dvm.InsufficientItems = items.ToList();
             return View(dvm);
         }
         [Authorize(Roles = "Admin")]

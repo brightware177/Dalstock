@@ -12,135 +12,8 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <style>
-        /*!
-            // 3. Loader
-            // --------------------------------------------------*/
-        .loader {
-            top: 0;
-            left: 0;
-            position: fixed;
-            opacity: 0.8;
-            z-index: 10000000;
-            background: Black;
-            height: 100%;
-            width: 100%;
-            margin: auto;
-        }
-
-        .strip-holder {
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
-            left: 50%;
-            margin-left: -50px;
-            position: relative;
-        }
-
-        .strip-1,
-        .strip-2,
-        .strip-3 {
-            width: 20px;
-            height: 20px;
-            background: #0072bc;
-            position: relative;
-            -webkit-animation: stripMove 2s ease infinite alternate;
-            animation: stripMove 2s ease infinite alternate;
-            -moz-animation: stripMove 2s ease infinite alternate;
-        }
-
-        .strip-2 {
-            -webkit-animation-duration: 2.1s;
-            animation-duration: 2.1s;
-            background-color: #23a8ff;
-        }
-
-        .strip-3 {
-            -webkit-animation-duration: 2.2s;
-            animation-duration: 2.2s;
-            background-color: #89d1ff;
-        }
-
-        @@-webkit-keyframes stripMove {
-            0% {
-                transform: translate3d(0px, 0px, 0px);
-                -webkit-transform: translate3d(0px, 0px, 0px);
-                -moz-transform: translate3d(0px, 0px, 0px);
-            }
-
-            50% {
-                transform: translate3d(0px, 0px, 0px);
-                -webkit-transform: translate3d(0px, 0px, 0px);
-                -moz-transform: translate3d(0px, 0px, 0px);
-                transform: scale(4, 1);
-                -webkit-transform: scale(4, 1);
-                -moz-transform: scale(4, 1);
-            }
-
-            100% {
-                transform: translate3d(-50px, 0px, 0px);
-                -webkit-transform: translate3d(-50px, 0px, 0px);
-                -moz-transform: translate3d(-50px, 0px, 0px);
-            }
-        }
-
-        @@-moz-keyframes stripMove {
-            0% {
-                transform: translate3d(-50px, 0px, 0px);
-                -webkit-transform: translate3d(-50px, 0px, 0px);
-                -moz-transform: translate3d(-50px, 0px, 0px);
-            }
-
-            50% {
-                transform: translate3d(0px, 0px, 0px);
-                -webkit-transform: translate3d(0px, 0px, 0px);
-                -moz-transform: translate3d(0px, 0px, 0px);
-                transform: scale(4, 1);
-                -webkit-transform: scale(4, 1);
-                -moz-transform: scale(4, 1);
-            }
-
-            100% {
-                transform: translate3d(50px, 0px, 0px);
-                -webkit-transform: translate3d(50px, 0px, 0px);
-                -moz-transform: translate3d(50px, 0px, 0px);
-            }
-        }
-
-        @@keyframes stripMove {
-            0% {
-                transform: translate3d(-50px, 0px, 0px);
-                -webkit-transform: translate3d(-50px, 0px, 0px);
-                -moz-transform: translate3d(-50px, 0px, 0px);
-            }
-
-            50% {
-                transform: translate3d(0px, 0px, 0px);
-                -webkit-transform: translate3d(0px, 0px, 0px);
-                -moz-transform: translate3d(0px, 0px, 0px);
-                transform: scale(4, 1);
-                -webkit-transform: scale(4, 1);
-                -moz-transform: scale(4, 1);
-            }
-
-            100% {
-                transform: translate3d(50px, 0px, 0px);
-                -webkit-transform: translate3d(50px, 0px, 0px);
-                -moz-transform: translate3d(50px, 0px, 0px);
-            }
-        }
-    </style>
-
 </head>
 <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white dark-sidebar-color logo-dark">
-    <div class="loader" id="AjaxLoader" style="display:none;">
-        <div class="strip-holder">
-            <div class="strip-1"></div>
-            <div class="strip-2"></div>
-            <div class="strip-3"></div>
-        </div>
-    </div>
     <div class="page-wrapper">
         @Html.Partial("_TopNavbarPartial")
         <!-- start page container -->
@@ -176,12 +49,27 @@
     @Scripts.Render("~/bundles/slimscroll")
     @Scripts.Render("~/bundles/appLayout")
     @Scripts.Render("~/bundles/custom")
-
+    @Scripts.Render("~/scripts/blockui")
     @RenderSection("scripts", required: false)
 </body>
 </html>
 <script>
-    $(document).ready(function () {
-        $('#AjaxLoader').show();
+    //submit search, display loading message
+    $('input[type = submit]').click(function () {
+        $.blockUI({
+            message: $('#domMessage')
         });
+    });
+    $('a').click(function () {
+        if ($(this).attr("href") != "#" && $(this).attr("href") != "javascript:;") {
+            $.blockUI({
+                message: $('#domMessage')
+            });
+        }
+        
+    });
+
 </script>
+<div id="domMessage" style="display:none; height:50px;" >
+    <h3 style="margin-top:5%" ><i class="fa fa-spinner fa-spin" style="font-size:24px"></i> Even geduld</h3>
+</div> 

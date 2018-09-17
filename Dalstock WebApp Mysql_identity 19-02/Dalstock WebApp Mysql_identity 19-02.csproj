@@ -251,6 +251,7 @@
     <Content Include="Content\img\dp.jpg" />
     <Content Include="Content\material_style.css" />
     <Content Include="Content\plugins.min.css" />
+    <Content Include="Content\plugins\blockUi\jquery.blockUI.js" />
     <Content Include="Content\plugins\bootstrap\css\bootstrap.css" />
     <Content Include="Content\plugins\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\plugins\bootstrap\js\bootstrap.js" />
@@ -427,6 +428,7 @@
     <Content Include="fonts\iconic\fonts\Material-Design-Iconic-Font.ttf" />
     <Content Include="fonts\iconic\fonts\Material-Design-Iconic-Font.woff" />
     <Content Include="fonts\iconic\fonts\Material-Design-Iconic-Font.woff2" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\chosen\chosen.jquery.js" />
