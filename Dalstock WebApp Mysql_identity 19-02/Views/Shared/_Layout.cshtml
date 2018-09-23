@@ -2,16 +2,16 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewBag.Title - Dalstock</title>
     @if (IsSectionDefined("Styles"))
     {@RenderSection("Styles", required: false)}
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
     <link href="@Href("~/Content/plugins/material/material.min.css")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Css/cssFiles")
     @Scripts.Render("~/bundles/modernizr")
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
 </head>
 <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white dark-sidebar-color logo-dark">
     <div class="page-wrapper">
@@ -45,7 +45,7 @@
     <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
     @Scripts.Render("~/scripts/popper")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/scripts/sweet-alert")
+    @Scripts.Render("~/scripts/sweet-alert/alert")
     @Scripts.Render("~/bundles/slimscroll")
     @Scripts.Render("~/bundles/appLayout")
     @Scripts.Render("~/bundles/custom")

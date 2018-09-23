@@ -3,9 +3,6 @@ using BL.Managers;
 using DAL.UnitOfWork;
 using Dalstock_WebApp_Mysql_identity_19_02.Models;
 using Domain;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using iTextSharp.tool.xml;
 using Rotativa.MVC;
 using System;
 using System.Collections.Generic;
@@ -134,20 +131,6 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             string filename = bdvm.Bobbin.BobbinId + " - bobijn.pdf";
             return new PartialViewAsPdf("_Details", bdvm) { FileName = filename };
         }
-        [HttpPost]
-        [ValidateInput(false)]
-        public FileResult Export(string GridHtml)
-        {
-            using (MemoryStream stream = new System.IO.MemoryStream())
-            {
-                StringReader sr = new StringReader(GridHtml);
-                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
-                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-                pdfDoc.Open();
-                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
-                pdfDoc.Close();
-                return File(stream.ToArray(), "application/pdf", "Grid.pdf");
-            }
-        }
+        
     }
 }

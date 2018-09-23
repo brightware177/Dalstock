@@ -61,16 +61,30 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
                 _userManager = value;
             }
         }
-        
+
         public ActionResult Index()
         {
             DashboardViewModel dvm = new DashboardViewModel();
-            var latestBobbin = itemManager.GetBobbins().Last();
-            var items = itemManager.GetItems("Insufficient");
-            var latestWorkplace = workplaceManager.GetWorkplaces().Last();
-            decimal length = latestBobbin.CableLength;
-            decimal rem = latestBobbin.AmountRemains;
-            decimal perc = rem / length;
+            Bobbin latestBobbin = new Bobbin();
+            IEnumerable<Item> items;
+            Workplace latestWorkplace = new Workplace();
+
+            latestBobbin = itemManager.GetBobbins().LastOrDefault();
+            latestWorkplace = workplaceManager.GetWorkplaces().LastOrDefault();
+
+            items = itemManager.GetItems().ToList();
+            decimal length = 0;
+            decimal rem = 0;
+            if (latestBobbin != null)
+            {
+                length = latestBobbin.CableLength;
+                rem = latestBobbin.AmountRemains;
+            }
+            
+            decimal perc;
+            if (length != 0)
+                perc = rem / length;
+            else perc = 0;
             dvm.LatestBobbin = latestBobbin;
             dvm.TotalAmountStock = items.Sum(x => x.Amount);
             dvm.LatestWorkplace = latestWorkplace;

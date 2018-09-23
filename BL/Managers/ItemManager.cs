@@ -79,7 +79,9 @@ namespace BL
 
         public IEnumerable<Bobbin> GetBobbins()
         {
-            return repo.Items.ReadBobbins();
+            if (repo.Items.ReadBobbins() != null)
+                return repo.Items.ReadBobbins();
+            return null;
         }
 
         public IEnumerable<CableType> GetCableTypes()

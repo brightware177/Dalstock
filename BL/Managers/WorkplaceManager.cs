@@ -61,7 +61,9 @@ namespace BL.Managers
 
         public IEnumerable<Workplace> GetWorkplaces()
         {
-            return repo.Workplaces.ReadWorkplaces();
+            if (repo.Workplaces.ReadWorkplaces() != null)
+                return repo.Workplaces.ReadWorkplaces();
+            return null;
         }
 
         public void RemoveWorkplace(Workplace workplace)

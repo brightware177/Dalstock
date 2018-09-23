@@ -23,7 +23,7 @@ namespace Dalstock_WebApp_Mysql_identity_19_02
                       "~/Content/plugins/bootstrap/js/bootstrap.min.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/Css/cssFiles").Include(
                 "~/Content/plugins/simple-line-icons/simple-line-icons.min.css",
                 "~/Content/plugins/font-awesome/css/font-awesome.min.css",
                       "~/Content/plugins/bootstrap/css/bootstrap.min.css",
@@ -56,14 +56,14 @@ namespace Dalstock_WebApp_Mysql_identity_19_02
             bundles.Add(new StyleBundle("~/bundles/chosen").Include(
                      "~/Content/plugins/chosen/bootstrap-chosen.css"
                      ));
-            bundles.Add(new ScriptBundle("~/scripts/chosen").Include(
+            bundles.Add(new ScriptBundle("~/scripts/chosen/dropdown").Include(
                       "~/Scripts/chosen/chosen.jquery.js"));
 
             //select2
             bundles.Add(new StyleBundle("~/bundles/select2").Include(
                      "~/Content/plugins/select2/select2.min.css"
                      ));
-            bundles.Add(new ScriptBundle("~/scripts/select2").Include(
+            bundles.Add(new ScriptBundle("~/scripts/select2/sel").Include(
                       "~/Scripts/select2/select2.full.min.js"));
 
             //Slimscroll
@@ -94,7 +94,7 @@ namespace Dalstock_WebApp_Mysql_identity_19_02
             bundles.Add(new StyleBundle("~/bundles/sweet-alert").Include(
                       "~/Content/plugins/sweet-alert/sweetalert.min.css"));
             
-            bundles.Add(new ScriptBundle("~/scripts/sweet-alert").Include(
+            bundles.Add(new ScriptBundle("~/scripts/sweet-alert/alert").Include(
                      "~/Content/plugins/sweet-alert/sweetalert.min.js",
                      "~/Scripts/sweet-alert/sweet-alert-data.js"
                      ));

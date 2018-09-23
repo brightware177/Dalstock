@@ -21,43 +21,86 @@
     <div class="state-overview">
         <div class="row">
             <div class="col-xl-3 col-md-6 col-12">
-                <a style="color:white" href="@Url.Action("Details", "Bobbin", new { id = Model.LatestBobbin.Id })">
-                    <div class="info-box bg-b-orange">
-                        <span class="info-box-icon push-bottom"><i class="material-icons">shopping_cart</i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Laatste bobijn</span>
-                            <span class="info-box-number">nr: @Model.LatestBobbin.BobbinId</span>
-                            <div class="progress">
-                                <div class="progress-bar" style="width: @Model.CablePerc%"></div>
+                @if (Model.LatestBobbin != null)
+                {
+                    <a style="color:white" href="@Url.Action("Details", "Bobbin", new { id = Model.LatestBobbin.Id })">
+                        <div class="info-box bg-b-orange">
+                            <span class="info-box-icon push-bottom"><i class="material-icons">shopping_cart</i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Laatste bobijn</span>
+                                <span class="info-box-number">nr: @Model.LatestBobbin.BobbinId</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: @Model.CablePerc%"></div>
+                                </div>
+                                <span class="progress-description">
+                                    Nog @Model.LatestBobbin.AmountRemains m resterend
+                                </span>
                             </div>
-                            <span class="progress-description">
-                                Nog @Model.LatestBobbin.AmountRemains m resterend
-                            </span>
+                            <!-- /.info-box-content -->
                         </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                </a>
+                    </a>
+                }
+                else
+                {
+                        <div class="info-box bg-b-orange">
+                            <span class="info-box-icon push-bottom"><i class="material-icons">shopping_cart</i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Laatste bobijn</span>
+                                <span class="info-box-number">Geen bobijnen</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width:100%"></div>
+                                </div>
+                                <span class="progress-description">
+                                    /
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                }
+                
                 <!-- /.info-box -->
             </div>
             <!-- /.col -->
             <div class="col-xl-3 col-md-6 col-12">
-                <a style="color:white" href="@Url.Action("Details", "Workplace", new { id = Model.LatestWorkplace.Id })">
-                    <div class="info-box bg-b-purple">
-                        <span class="info-box-icon push-bottom"><i class="material-icons">group</i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Laatste werf</span>
-                            <span class="info-box-number">@Model.LatestWorkplace.WorkplaceId</span>
-                            <div class="progress">
-                                <div class="progress-bar" style="width: 100%"></div>
+                @if (Model.LatestWorkplace != null)
+                {
+                    <a style="color:white" href="@Url.Action("Details", "Workplace", new { id = Model.LatestWorkplace.Id })">
+                        <div class="info-box bg-b-purple">
+                            <span class="info-box-icon push-bottom"><i class="material-icons">group</i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Laatste werf</span>
+                                <span class="info-box-number">@Model.LatestWorkplace.WorkplaceId</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 100%"></div>
+                                </div>
+                                <span class="progress-description">
+                                    @Model.LatestWorkplace.Address, @Model.LatestWorkplace.City.Name
+                                </span>
                             </div>
-                            <span class="progress-description">
-                                @Model.LatestWorkplace.Address, @Model.LatestWorkplace.City.Name
-                            </span>
+                            <!-- /.info-box-content -->
                         </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </a>
+                        <!-- /.info-box -->
+                    </a>
+                }
+                else
+                {
+                        <div class="info-box bg-b-purple">
+                            <span class="info-box-icon push-bottom"><i class="material-icons">group</i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Laatste werf</span>
+                                <span class="info-box-number">Geen werven</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 100%"></div>
+                                </div>
+                                <span class="progress-description">
+                                    /
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                }
+
             </div>
             <!-- /.col -->
             <div class="col-xl-3 col-md-6 col-12">
@@ -70,7 +113,7 @@
                             <div class="progress-bar" style="width: 100%"></div>
                         </div>
                         <span class="progress-description">
-                            45% meer dan vorige maand
+                            /
                         </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -88,7 +131,7 @@
                             <div class="progress-bar" style="width: 100%"></div>
                         </div>
                         <span class="progress-description">
-                            45% meer dan vorige maand
+                            /
                         </span>
                     </div>
                     <!-- /.info-box-content -->

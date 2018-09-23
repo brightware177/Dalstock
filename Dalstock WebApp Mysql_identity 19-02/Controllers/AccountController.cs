@@ -19,7 +19,7 @@ using DAL.UnitOfWork;
 
 namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
 {
-    [Authorize]
+    
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
