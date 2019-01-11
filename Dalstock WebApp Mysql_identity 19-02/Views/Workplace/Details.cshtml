@@ -22,7 +22,7 @@
                     <div class="form-horizontal">
                         <div class="page-title sbold">
                             Werfdetails
-                            <button style="margin-right:5px;" class="btn btn-outline btn-info pull-right" onclick="location.href='@Url.Action("PrintViewToPdf", new { id = Model.Id })'">
+                            <button style="margin-right:5px;" class="btn btn-outline btn-info pull-right pdfdownload" onclick="location.href='@Url.Action("PrintViewToPdf", new { id = Model.Id })'">
                                 <i class="fa fa-file-pdf-o"></i> PDF
                             </button>
                             <button style="margin-right:5px;" class="btn btn-outline btn-light pull-right" onclick="location.href='@Url.Action("Index", new { id = Model.Id })'">

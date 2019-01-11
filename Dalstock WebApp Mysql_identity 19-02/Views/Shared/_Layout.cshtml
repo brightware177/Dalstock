@@ -68,7 +68,12 @@
         }
         
     });
-
+    $('.pdfdownload').click(function () {
+            $.blockUI({
+                message: $('#domMessage'),
+                timeout: 4000,
+            });
+    });
 </script>
 <div id="domMessage" style="display:none; height:50px;" >
     <h3 style="margin-top:5%" ><i class="fa fa-spinner fa-spin" style="font-size:24px"></i> Even geduld</h3>

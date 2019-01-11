@@ -346,7 +346,6 @@
     <Content Include="fonts\iconic\fonts\Material-Design-Iconic-Font.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\animations.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -436,6 +435,7 @@
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\dalstock - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\dalstock - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\chosen\chosen.jquery.js" />
@@ -524,6 +524,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Rotativa\" />
     <Folder Include="Views\BobbinDebit\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>

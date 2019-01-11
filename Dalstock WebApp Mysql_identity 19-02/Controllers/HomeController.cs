@@ -72,7 +72,7 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             latestBobbin = itemManager.GetBobbins().LastOrDefault();
             latestWorkplace = workplaceManager.GetWorkplaces().LastOrDefault();
 
-            items = itemManager.GetItems().ToList();
+            items = itemManager.GetItems("Insufficient");
             decimal length = 0;
             decimal rem = 0;
             if (latestBobbin != null)
@@ -90,6 +90,7 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             dvm.LatestWorkplace = latestWorkplace;
             dvm.CablePerc = perc * 100;
             dvm.InsufficientItems = items.ToList();
+            dvm.TotalAmountWorkplaces = workplaceManager.GetWorkplaces().Count();
             return View(dvm);
         }
         [Authorize(Roles = "Admin")]

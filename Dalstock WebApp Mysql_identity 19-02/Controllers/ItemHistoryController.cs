@@ -20,7 +20,8 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
         public ItemHistoryController()
         {
             var database = System.Web.HttpContext.Current.User.Identity.GetDatabase();
-            uow = new UnitOfWork(database, database);
+            var databaseUsername = System.Web.HttpContext.Current.User.Identity.GetDatabaseUsername();
+            uow = new UnitOfWork(databaseUsername, database);
             workplaceManager = new WorkplaceManager(uow);
             itemManager = new ItemManager(uow);
         }

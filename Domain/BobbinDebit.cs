@@ -23,6 +23,10 @@ namespace Domain
         [Required]
         [Display(Name = "Verbruikte kabel (m)")]
         public int AmountUsed { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Verbruikdatum")]
+        public DateTime Date { get; set; }
         [ForeignKey("Workplace")]
         public int WorkplaceId { get; set; }
         [ForeignKey("Bobbin")]

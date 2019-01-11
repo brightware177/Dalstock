@@ -43,7 +43,11 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
         public ActionResult Create(int bobbinId)
         {
             BobbinDetailViewModel bdvmm = new BobbinDetailViewModel();
-            bdvmm.Workplaces = workplaceManager.GetWorkplaces().ToList();
+            bdvmm.WorkplacesList = new List<SelectListItem>();
+            foreach (var workplace in workplaceManager.GetWorkplaces())
+            {
+                bdvmm.WorkplacesList.Add(new SelectListItem() { Text = workplace.WorkplaceId + " - " + workplace.Address + ", " + workplace.City.Name, Value = workplace.Id.ToString() });
+            }
             bdvmm.Bobbin = itemManager.GetBobbin(bobbinId);
             return PartialView("~/Views/Bobbin/_AddBobbinDebit.cshtml", bdvmm);
         }
@@ -64,12 +68,17 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
                     amountUsed = endIndex - startIndex;
 
                 bdvmm.BobbinDebit.AmountUsed = amountUsed;
+                bdvmm.BobbinDebit.Date = DateTime.Now;
                 itemManager.AddBobbinDebit(bdvmm.BobbinDebit);
                 return Json("True");
             }
             else
             {
-                bdvmm.Workplaces = workplaceManager.GetWorkplaces().ToList();
+                bdvmm.WorkplacesList = new List<SelectListItem>();
+                foreach (var workplace in workplaceManager.GetWorkplaces())
+                {
+                    bdvmm.WorkplacesList.Add(new SelectListItem() { Text = workplace.WorkplaceId + " - " + workplace.Address + ", " + workplace.City.Name, Value = workplace.Id.ToString() });
+                }
                 bdvmm.Bobbin = itemManager.GetBobbin(bdvmm.BobbinDebit.BobbinId);
                 return PartialView("~/Views/Bobbin/_AddBobbinDebit.cshtml", bdvmm);
             }

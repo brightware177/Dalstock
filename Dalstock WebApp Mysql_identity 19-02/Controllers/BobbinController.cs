@@ -41,7 +41,11 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
         {
             BobbinDetailViewModel bdvm = new BobbinDetailViewModel();
             bdvm.Bobbin = itemManager.GetBobbin(id);
-            bdvm.Workplaces = workplaceManager.GetWorkplaces().ToList();
+            bdvm.WorkplacesList = new List<SelectListItem>();
+            foreach (var workplace in workplaceManager.GetWorkplaces().ToList())
+            {
+                bdvm.WorkplacesList.Add(new SelectListItem() { Text = workplace.WorkplaceId + " - " + workplace.Address + ", " + workplace.City.Name, Value = workplace.Id.ToString() });
+            }
             return View(bdvm);
         }
 
@@ -127,7 +131,11 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
         {
             BobbinDetailViewModel bdvm = new BobbinDetailViewModel();
             bdvm.Bobbin = itemManager.GetBobbin(id);
-            bdvm.Workplaces = workplaceManager.GetWorkplaces().ToList();
+            bdvm.WorkplacesList = new List<SelectListItem>();
+            foreach (var workplace in workplaceManager.GetWorkplaces().ToList())
+            {
+                bdvm.WorkplacesList.Add(new SelectListItem() { Text = workplace.WorkplaceId + " - " + workplace.Address + ", " + workplace.City.Name, Value = workplace.Id.ToString() });
+            }
             string filename = bdvm.Bobbin.BobbinId + " - bobijn.pdf";
             return new PartialViewAsPdf("_Details", bdvm) { FileName = filename };
         }

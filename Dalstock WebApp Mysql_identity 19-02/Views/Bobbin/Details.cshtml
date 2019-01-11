@@ -26,7 +26,7 @@
                             {
                                 <span class="label label-sm label-success m-l-20" style="font-size:14px;">Afgehandeld</span>
                             }
-                            <button style="margin-right:5px;" class="btn btn-outline btn-default pull-right" onclick="location.href='@Url.Action("PrintViewToPdf", "Bobbin", new { id = Model.Bobbin.Id })'">
+                            <button style="margin-right:5px;" class="btn btn-outline btn-default pull-right pdfdownload" onclick="location.href='@Url.Action("PrintViewToPdf", "Bobbin", new { id = Model.Bobbin.Id })'">
                                 <i class="fa fa-file-pdf-o"></i> PDF
                             </button>
                             @if (Model.Bobbin.IsReturned)

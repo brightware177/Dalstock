@@ -51,7 +51,7 @@ namespace Domain
         public virtual ICollection<BobbinDebit> BobbinDebits { get; set; }
 
         [Required]
-        [Display(Name = "Afhaalplaats")]
+        [Display(Name = "Infragebied")]
         public string FetchLocation { get; set; }
     }
 }
