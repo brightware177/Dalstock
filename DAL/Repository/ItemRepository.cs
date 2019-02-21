@@ -100,7 +100,17 @@ namespace DAL.Repository
 
         public IEnumerable<Bobbin> ReadBobbins()
         {
-            return ctx.Bobbins.Include("CableType");
+            return ctx.Bobbins.Include("CableType").Include("Infrastructure");
+        }
+
+        public IEnumerable<Bobbin> ReadBobbinsPerInfra(int id)
+        {
+            return ctx.Bobbins.Include(y=>y.Infrastructure).Include("CableType").Where(x => x.InfrastructureId == id);
+        }
+
+        public IEnumerable<Bobbin> ReadBobbinsReturned(bool isReturned)
+        {
+            return ctx.Bobbins.Include(y => y.Infrastructure).Include("CableType").Where(x => x.IsReturned == isReturned);
         }
 
         public IEnumerable<CableType> ReadCableTypes()

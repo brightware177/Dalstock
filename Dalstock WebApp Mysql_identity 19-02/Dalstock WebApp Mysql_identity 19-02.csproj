@@ -243,6 +243,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\formlayout.css" />
     <Content Include="Content\img\a logo van a-sign.png" />
+    <Content Include="Content\img\dalcom-logo.png" />
     <Content Include="Content\img\werf.jpg" />
     <Content Include="Content\img\Donald-Trump.jpg" />
     <Content Include="Content\img\dp.jpg" />

@@ -46,6 +46,7 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Models
     public class BobbinViewModel
     {
         public List<CableType> CableTypes { get; set; }
+        public List<Infrastructure> Infrastructures { get; set; }
         public Bobbin Bobbin { get; set; }
     }
     public class BobbinDetailViewModel

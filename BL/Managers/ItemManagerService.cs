@@ -32,6 +32,8 @@ namespace BL
         IEnumerable<Deposit> GetDeposits();
         void RemoveItem(int id);
         Bobbin GetLatestBobbin();
+        IEnumerable<Bobbin> GetBobbinsPerInfra(int id);
+        IEnumerable<Bobbin> GetBobbinsReturned(bool isReturned);
         //Staff GetStaffWithApplicationUserId(string id);
     }
 }

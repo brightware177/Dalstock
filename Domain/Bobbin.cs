@@ -48,10 +48,15 @@ namespace Domain
         public int CableTypeId { get; set; }
 
         public virtual CableType CableType { get; set; }
+        public virtual Infrastructure Infrastructure { get; set; }
         public virtual ICollection<BobbinDebit> BobbinDebits { get; set; }
 
         [Required]
-        [Display(Name = "Infragebied")]
+        [Display(Name = "Afhaallocatie")]
         public string FetchLocation { get; set; }
+
+        [ForeignKey("Infrastructure")]
+        [Display(Name = "Infragebied")]
+        public int InfrastructureId { get; set; }
     }
 }

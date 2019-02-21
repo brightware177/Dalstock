@@ -107,12 +107,16 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             var list4 = ctx.Debits.Include("Workplace").Include("Item").Include("Debited_By_Staff").Where(a => a.DebitState == Domain.DebitState.Approved).ToList();
             return View();
         }
-
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public ActionResult GetSidePartialView()
+        {
+            var infrastructures = workplaceManager.GetInfrastructures();
+            return PartialView("_SidebarPartial",infrastructures);
         }
     }
 }

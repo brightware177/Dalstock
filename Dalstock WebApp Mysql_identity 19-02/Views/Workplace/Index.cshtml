@@ -24,16 +24,21 @@
 
                 <div class="card-body ">
                     <div class="row p-b-20 margin-top-20">
-                        <div class="col-md-6 col-sm-6 col-6">
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                             <div class="btn-group">
                                 <button id="addRow1" class="btn btn-info btn-circle" onclick="location.href='@Url.Action("Create")'">
                                     <i class="fa fa-plus-circle"></i> Nieuwe werf
                                 </button>
                             </div>
                         </div>
-
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                            <div id="infra"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                            <div id="city"></div>
+                        </div>
                     </div>
-                    <table class="table table-bordered table-hover order-column" style="width: 100%" id="workplaceDatatable">
+                    <table class="table table-bordered table-hover order-column" style="width: 100%" id="example">
                         <thead>
                             <tr>
                                 <th> @Html.DisplayNameFor(modelItem => modelItem.Id) </th>
@@ -93,14 +98,19 @@
 
     @Styles.Render("~/bundles/datatable")
     @Styles.Render("~/bundles/sweet-alert")
+    @Styles.Render("~/bundles/chosen")
+    @Styles.Render("~/bundles/select2")
 }
 @section Scripts {
     @Scripts.Render("~/scripts/datatable")
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js" type="text/javascript"></script>
+    @Scripts.Render("~/scripts/chosen/dropdown")
+    @Scripts.Render("~/scripts/select2/sel")
 
     <script>
         $(document).ready(function () {
+
             $('.DeleteButton').on('click', function (e, data) {
                 var link = $(this).attr('href');
                 if (!data) {
@@ -109,6 +119,72 @@
                     window.location = $(this).attr('href');
                 }
             });
+            $('#example').DataTable({
+                "scrollX": true,
+                "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                language: {
+                    search: "Zoeken"
+                },
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [2],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [3],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
+                responsive: true,
+                initComplete: function () {
+                    this.api().columns([4]).every(function () {
+                        var column = this;
+                        var select = $('<select id="infraChosen" class="chosen-select form-control border-test"><option value=""></option></select>')
+                            .appendTo($('#infra').empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                    this.api().columns([3]).every(function () {
+                        var column = this;
+                        var select = $('<select id="cityChosen" class="chosen-select form-control border-test"><option value=""></option></select>')
+                            .appendTo($('#city').empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                }
+            });
+            $('#infraChosen').chosen({ placeholder_text_single: "Filter op infragebied", width: "100%" });
+            $('#cityChosen').chosen({ placeholder_text_single: "Filter op stad", width: "100%" });
         });
+
     </script>
 }

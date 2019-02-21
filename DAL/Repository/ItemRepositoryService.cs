@@ -17,6 +17,7 @@ namespace DAL.Repository
         IEnumerable<Debit> BulkAddDebitItems(List<Debit> debitList);
         IEnumerable<Deposit> BulkAddDepositItems(List<Deposit> depositList);
         IEnumerable<Bobbin> ReadBobbins();
+        IEnumerable<Bobbin> ReadBobbinsPerInfra(int id);
         void CreateBobbin(Bobbin bobbin);
         IEnumerable<CableType> ReadCableTypes();
         void CreateBobbinDebit(BobbinDebit bobbinDebit);
@@ -31,5 +32,6 @@ namespace DAL.Repository
         IEnumerable<Debit> ReadDebits();
         IEnumerable<Deposit> ReadDeposits();
         Bobbin ReadLatestBobbin();
+        IEnumerable<Bobbin> ReadBobbinsReturned(bool isReturned);
     }
 }

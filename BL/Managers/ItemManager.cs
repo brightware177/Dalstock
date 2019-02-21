@@ -84,6 +84,16 @@ namespace BL
             return null;
         }
 
+        public IEnumerable<Bobbin> GetBobbinsPerInfra(int id)
+        {
+            return repo.Items.ReadBobbinsPerInfra(id);
+        }
+
+        public IEnumerable<Bobbin> GetBobbinsReturned(bool isReturned)
+        {
+            return repo.Items.ReadBobbinsReturned(isReturned);
+        }
+
         public IEnumerable<CableType> GetCableTypes()
         {
             return repo.Items.ReadCableTypes();
