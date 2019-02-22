@@ -28,7 +28,6 @@ namespace Domain
         public bool IsReturned { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Afhaaldatum")]
         public DateTime FetchDate { get; set; }
@@ -37,7 +36,6 @@ namespace Domain
         [Display(Name = "Resterende kabel")]
         public int AmountRemains { get; set; }
 
-        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Retourdatum")]
         public DateTime? ReturnDate { get; set; }
@@ -51,7 +49,6 @@ namespace Domain
         public virtual Infrastructure Infrastructure { get; set; }
         public virtual ICollection<BobbinDebit> BobbinDebits { get; set; }
 
-        [Required]
         [Display(Name = "Afhaallocatie")]
         public string FetchLocation { get; set; }
 

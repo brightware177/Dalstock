@@ -46,7 +46,7 @@ $(document).ready(function() {
     // Automatically add a first row of data
     $('#addRow').click();
     
-    var table = $('#bobbinDatatable').DataTable( {
+    var table = $('#bobbinDatatable').DataTable({
         "scrollX": true,
         "dom": 'B<"top"f>rt<"bottom"lp><"clear">',
         language: {
@@ -60,8 +60,46 @@ $(document).ready(function() {
             }
         ],
         responsive: true,
+        initComplete: function () {
+            this.api().columns([4]).every(function () {
+                var column = this;
+                var select = $('<select id="infraChosen" class="chosen-select form-control border-test"><option value=""></option></select>')
+                    .appendTo($('#infra').empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+            this.api().columns([3]).every(function () {
+                var column = this;
+                var select = $('<select id="cityChosen" class="chosen-select form-control border-test"><option value=""></option></select>')
+                    .appendTo($('#city').empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+        },
         buttons: [
-           {
+            {
                 text: '<i class="fa fa-print"></i><span>Print</span>',
                 extend: 'print',
                 title: "Lijst werven - " + (new Date).toLocaleDateString(),
@@ -94,7 +132,7 @@ $(document).ready(function() {
                         fontSize: '14',
                         alignment: 'center'
                     }
-                }  
+                }
             },
 
         ]

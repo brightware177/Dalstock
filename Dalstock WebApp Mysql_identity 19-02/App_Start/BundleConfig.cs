@@ -54,7 +54,7 @@ namespace Dalstock_WebApp_Mysql_identity_19_02
                      ));
             //chosen
             bundles.Add(new StyleBundle("~/bundles/chosen").Include(
-                     "~/Content/plugins/chosen/bootstrap-chosen.css"
+                     "~/Content/plugins/chosen/bootstrap-chosen.css", new CssRewriteUrlTransform()
                      ));
             bundles.Add(new ScriptBundle("~/scripts/chosen/dropdown").Include(
                       "~/Scripts/chosen/chosen.jquery.js"));

@@ -38,7 +38,7 @@
                                     @Html.ValidationMessageFor(model => model.Bobbin.CableTypeId, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="form-group col-4">
-                                    <label>Infragebied</label>
+                                    <label>Afhaallocatie</label>
                                     @Html.EditorFor(model => model.Bobbin.FetchLocation, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Bobbin.FetchLocation, "", new { @class = "text-danger" })
                                 </div>
@@ -46,14 +46,20 @@
                             <div class="row">
                                 <div class="form-group col-6">
                                     <label>Afhaaldatum</label>
-                                    @Html.EditorFor(model => model.Bobbin.FetchDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.Bobbin.FetchDate, new { htmlAttributes = new { @class = "form-control date" } })
                                     @Html.ValidationMessageFor(model => model.Bobbin.FetchDate, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Infragebied</label>
+                                    @Html.DropDownListFor(m => m.Bobbin.InfrastructureId,
+                                 new SelectList(Model.Infrastructures, "InfrastructureId", "Description", ""), "Selecteer een infragebied", new { @class = "chosen-select" })
+                                    @Html.ValidationMessageFor(model => model.Bobbin.InfrastructureId, "", new { @class = "text-danger" })
                                 </div>
                                 @if (Model.Bobbin.IsReturned)
                                 {
                                     <div class="form-group col-6">
                                         <label>Retourdatum</label>
-                                        @Html.EditorFor(model => model.Bobbin.ReturnDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => model.Bobbin.ReturnDate, new { htmlAttributes = new { @class = "form-control date" } })
                                         @Html.ValidationMessageFor(model => model.Bobbin.ReturnDate, "", new { @class = "text-danger" })
                                     </div>
                                 }
@@ -69,7 +75,7 @@
                                 {
                                     <div class="form-group col-6">
                                         <label>Retourdatum</label>
-                                        @Html.EditorFor(model => model.Bobbin.ReturnDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                        @Html.EditorFor(model => model.Bobbin.ReturnDate, new { htmlAttributes = new { @class = "form-control date", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(model => model.Bobbin.ReturnDate, "", new { @class = "text-danger" })
                                     </div>
                                 }
@@ -121,12 +127,15 @@
 
     @Scripts.Render("~/scripts/chosen/dropdown")
     @Scripts.Render("~/scripts/select2/sel")
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
 
     <script type="text/javascript">
 
         $(document).ready(function () {
             $('.chosen-select').chosen({ width: "100%" });
-
+            $('.date').datepicker({ dateFormat: 'dd-mm-yy' });
         });
     </script>
 }

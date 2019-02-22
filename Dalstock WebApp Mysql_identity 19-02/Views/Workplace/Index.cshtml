@@ -23,7 +23,7 @@
             <div class="card card-topline-aqua">
 
                 <div class="card-body ">
-                    <div class="row p-b-20 margin-top-20">
+                    <div class="row margin-top-20 m-0">
                         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                             <div class="btn-group">
                                 <button id="addRow1" class="btn btn-info btn-circle" onclick="location.href='@Url.Action("Create")'">
@@ -120,6 +120,7 @@
                 }
             });
             $('#example').DataTable({
+                "bStateSave": true,
                 "scrollX": true,
                 "dom": '<"top"f>rt<"bottom"lp><"clear">',
                 language: {
@@ -139,51 +140,66 @@
                     {
                         "targets": [3],
                         "visible": false,
-                        "searchable": false
+                        "searchable": true
                     }
                 ],
                 responsive: true,
                 initComplete: function () {
-                    this.api().columns([4]).every(function () {
+                    this.api().columns([4, 3]).every(function () {
                         var column = this;
-                        var select = $('<select id="infraChosen" class="chosen-select form-control border-test"><option value=""></option></select>')
-                            .appendTo($('#infra').empty())
-                            .on('change', function () {
-                                var val = $.fn.dataTable.util.escapeRegex(
-                                    $(this).val()
-                                );
+                        if (column[0] == 4) {
+                            var select = $('<select id="infraChosen" class="chosen-select form-control border-test"><option value=""></option></select>')
+                                .appendTo($('#infra').empty())
+                                .on('change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                    );
 
-                                column
-                                    .search(val ? '^' + val + '$' : '', true, false)
-                                    .draw();
+                                    column
+                                        .search(val ? '^' + val + '$' : '', true, false)
+                                        .draw();
+                                });
+
+                            column.data().unique().sort().each(function (d, j) {
+                                var val = $.fn.dataTable.util.escapeRegex(d);
+                                if (column.search() === "^" + val + "$") {
+                                    select.append(
+                                        '<option value="' + d + '" selected="selected">' + d + "</option>"
+                                    );
+                                } else {
+                                    select.append('<option value="' + d + '">' + d + "</option>");
+                                }
                             });
+                        }
+                        if (column[0] == 3) {
+                            var select = $('<select id="cityChosen" class="chosen-select form-control border-test"><option value=""></option></select>')
+                                .appendTo($('#city').empty())
+                                .on('change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                    );
 
-                        column.data().unique().sort().each(function (d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>')
-                        });
-                    });
-                    this.api().columns([3]).every(function () {
-                        var column = this;
-                        var select = $('<select id="cityChosen" class="chosen-select form-control border-test"><option value=""></option></select>')
-                            .appendTo($('#city').empty())
-                            .on('change', function () {
-                                var val = $.fn.dataTable.util.escapeRegex(
-                                    $(this).val()
-                                );
+                                    column
+                                        .search(val ? '^' + val + '$' : '', true, false)
+                                        .draw();
+                                });
 
-                                column
-                                    .search(val ? '^' + val + '$' : '', true, false)
-                                    .draw();
+                                column.data().unique().sort().each(function (d, j){
+                                var val = $.fn.dataTable.util.escapeRegex(d);
+                                if (column.search() === "^" + val + "$") {
+                                    select.append(
+                                        '<option value="' + d + '" selected="selected">' + d + "</option>"
+                                    );
+                                } else {
+                                    select.append('<option value="' + d + '">' + d + "</option>");
+                                }
                             });
-
-                        column.data().unique().sort().each(function (d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>')
-                        });
+                        }
                     });
                 }
             });
-            $('#infraChosen').chosen({ placeholder_text_single: "Filter op infragebied", width: "100%" });
-            $('#cityChosen').chosen({ placeholder_text_single: "Filter op stad", width: "100%" });
+            $('#infraChosen').chosen({ placeholder_text_single: "Filter op infragebied", width: "100%", allow_single_deselect: true });
+            $('#cityChosen').chosen({ placeholder_text_single: "Filter op stad", width: "100%", allow_single_deselect: true });
         });
 
     </script>

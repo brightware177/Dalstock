@@ -61,11 +61,11 @@
                                     </tr>
                                     <tr>
                                         <td width="50%">@Html.DisplayNameFor(model => model.Bobbin.CableLength): </td>
-                                        <td width="50%">@Html.DisplayFor(model => model.Bobbin.CableLength, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                        <td width="50%">@Html.DisplayFor(model => model.Bobbin.CableLength, new { htmlAttributes = new { @class = "form-control" } })m</td>
                                     </tr>
                                     <tr>
                                         <td width="50%">@Html.DisplayNameFor(model => model.Bobbin.AmountRemains): </td>
-                                        <td width="50%">@Html.DisplayFor(model => model.Bobbin.AmountRemains, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                        <td width="50%">@Html.DisplayFor(model => model.Bobbin.AmountRemains, new { htmlAttributes = new { @class = "form-control" } })m</td>
                                     </tr>
                                 </table>
                             </div>
@@ -74,6 +74,10 @@
                                     <tr>
                                         <td width="30%" style="font-weight:800;">@Html.DisplayNameFor(model => model.Bobbin.CableType.Description): </td>
                                         <td width="70%" style="font-size:15px; font-weight:bold;">@Html.DisplayFor(model => model.Bobbin.CableType.Description, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">@Html.DisplayNameFor(model => model.Bobbin.Infrastructure.Description): </td>
+                                        <td width="70%">@Html.DisplayFor(model => model.Bobbin.Infrastructure.Description, new { htmlAttributes = new { @class = "form-control" } })</td>
                                     </tr>
                                     @if (Model.Bobbin.IsReturned)
                                     {
@@ -167,7 +171,7 @@
                                         </td>
 
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.AmountUsed)
+                                            @Html.DisplayFor(modelItem => item.AmountUsed)m
                                         </td>
 
 

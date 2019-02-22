@@ -47,7 +47,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="@Url.Action("Create", "Workplace")" class="nav-link ">
-                                    <span class="title">Nieuw</span>
+                                    <span class="title">Nieuwe werf</span>
                                 </a>
                             </li>
                         </ul>
@@ -90,40 +90,10 @@
                             <span class="arrow"></span>
 
                         </a>
-                        <ul class="sub-menu">
+                        <ul class="sub-menu">                            
                             <li class="nav-item">
-                                <a href="javascript:;" class="nav-link nav-toggle">
-                                    <i class="fa fa-university"></i> Infragebied
-                                    <span class="arrow"></span>
-                                </a>
-                                <ul class="sub-menu" style="display: none;">
-                                    <li class="nav-item">
-                                        <ul class="sub-menu">
-                                            <li class="nav-item">
-                                                <a href="javascript:;" class="nav-link">
-                                                    <i class="fa fa-calculator"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    @foreach (var item in Model)
-                                    {
-                                        <li class="nav-item">
-                                            <a href="@Url.Action("PerInfra", "Bobbin",new { id = item.InfrastructureId })" class="nav-link">
-                                                <i class="fa fa-briefcase"></i>@item.Description
-                                            </a>
-                                        </li>
-                                    }
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="@Url.Action("isReturned", "Bobbin",new { isReturned = false })" class="nav-link ">
-                                    <span class="title">Open bobijnen</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="@Url.Action("isReturned", "Bobbin",new { isReturned = true })" class="nav-link ">
-                                    <span class="title">Geretourneerde bobijnen</span>
+                                <a href="@Url.Action("Index", "Bobbin")" class="nav-link ">
+                                    <span class="title">Mijn bobijnen</span>
                                 </a>
                             </li>
                             <li class="nav-item">

@@ -35,16 +35,6 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             var bobbins = itemManager.GetBobbins();
             return View(bobbins);
         }
-        public ActionResult isReturned(bool isReturned)
-        {
-            var bobbins = itemManager.GetBobbinsReturned(isReturned);
-            return View("Index",bobbins);
-        }
-        public ActionResult PerInfra(int id)
-        {
-            var bobbins = itemManager.GetBobbinsPerInfra(id).ToList();
-            return View("Index",bobbins);
-        }
 
         // GET: Bobbin/Details/5
         public ActionResult Details(int id)
@@ -76,7 +66,7 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             {
                 bvm.Bobbin.AmountRemains = bvm.Bobbin.CableLength;
                 itemManager.AddBobbin(bvm.Bobbin);
-                return RedirectToAction("isReturned", false);
+                return RedirectToAction("Index", false);
             }
             bvm.CableTypes = itemManager.GetCableTypes().ToList();
             bvm.Infrastructures = workplaceManager.GetInfrastructures().ToList();
@@ -89,6 +79,7 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             var bobbin = itemManager.GetBobbin(id);
             BobbinViewModel bvm = new BobbinViewModel();
             bvm.CableTypes = itemManager.GetCableTypes().ToList();
+            bvm.Infrastructures = workplaceManager.GetInfrastructures().ToList();
             bvm.Bobbin = bobbin;
             return View(bvm);
         }
@@ -103,6 +94,7 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
                 return RedirectToAction("Index");
             }
             bvm.CableTypes = itemManager.GetCableTypes().ToList();
+            bvm.Infrastructures = workplaceManager.GetInfrastructures().ToList();
             return View(bvm);
         }
 
