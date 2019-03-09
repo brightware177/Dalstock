@@ -54,6 +54,7 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Models
         public BobbinDebit BobbinDebit { get; set; }
         public Bobbin Bobbin { get; set; }
         public List<SelectListItem> WorkplacesList { get; set; }
+        public EmailViewModel EmailViewModel { get; set; }
     }
     public class ItemHistoryViewModel
     {
@@ -70,5 +71,16 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Models
         public decimal CablePerc { get; set; }
         public List<Item> InsufficientItems { get; set; }
         public int TotalAmountWorkplaces { get; set; }
+    }
+    public class WorkplaceDetailViewModel
+    {
+        public EmailViewModel EmailViewModel { get; set; }
+        public Workplace Workplace { get; set; }
+        public bool PrintItems { get; set; }
+    }
+    public class ItemsImportViewModel
+    {
+        public List<Deposit> ImportedItems { get; set; }
+        public List<Deposit> FailedItems { get; set; }
     }
 }

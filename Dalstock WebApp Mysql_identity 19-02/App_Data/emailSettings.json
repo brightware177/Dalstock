@@ -1,0 +1,15 @@
+[{
+    "Subject": "Bobijndetails {0}",
+    "CC": "ahmet.yildirim@dalcom.be",
+    "ToMails": "",
+    "Message": "Beste,\n\nIn bijlage vindt u de bobijndetails van de bobijn met nummer:{0}\n\nMet vriendelijke groeten,\nDalcom",
+    "Company": "Dalcom"
+},
+{
+    "Subject": "Bobijndetails",
+    "CC": "bilalyildirim177@gmail.com",
+    "ToMails": "info@brightware.be",
+    "Message": "Beste,\n\nIn bijlage vindt u de bobijndetails van bobijn met nummer:.\n\nMet vriendelijke groeten,\nDalcom",
+    "Company": "Brightware"
+}
+]

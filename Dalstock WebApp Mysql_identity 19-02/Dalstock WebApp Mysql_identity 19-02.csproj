@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper, Version=12.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.12.1.2\lib\net45\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -87,6 +90,9 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -218,6 +224,7 @@
     <Compile Include="Controllers\BobbinDebitController.cs" />
     <Compile Include="Controllers\DebitController.cs" />
     <Compile Include="Controllers\DepositController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ItemHistoryController.cs" />
@@ -229,6 +236,7 @@
     </Compile>
     <Compile Include="Helpers\HelperClass.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\EmailViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -242,7 +250,7 @@
     <Content Include="Content\css\util.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\formlayout.css" />
-    <Content Include="Content\img\a logo van a-sign.png" />
+    <Content Include="Content\img\0_4Gzjgh9Y7Gu8KEtZ.gif" />
     <Content Include="Content\img\chosen-sprite%402x.png" />
     <Content Include="Content\img\chosen-sprite.png" />
     <Content Include="Content\img\dalcom-logo.png" />
@@ -287,6 +295,8 @@
     <Content Include="Content\plugins\datatables\plugins\bootstrap\dataTables.bootstrap4.min.css" />
     <Content Include="Content\plugins\datatables\plugins\bootstrap\dataTables.bootstrap4.min.js" />
     <Content Include="Content\plugins\datatables\vfs_fonts.js" />
+    <Content Include="Content\plugins\dropzone\dropzone.css" />
+    <Content Include="Content\plugins\dropzone\dropzone.js" />
     <Content Include="Content\plugins\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\plugins\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\plugins\jquery-slimscroll\jquery.slimscroll.js" />
@@ -495,6 +505,7 @@
     <Content Include="Content\css\fonts\Simple-Line-Icons.ttf" />
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="Content\plugins\jquery.ui\package.json" />
+    <Content Include="App_Data\emailSettings.json" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\dalstock - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\dalstock - Web Deploy.pubxml" />
@@ -588,12 +599,16 @@
     <Content Include="Views\ItemHistory\Index.cshtml" />
     <Content Include="Views\Reports\_Layout.cshtml" />
     <Content Include="Views\Reports\_ViewStart.cshtml" />
+    <Content Include="Views\Bobbin\_SendBobbinDetailMail.cshtml" />
+    <Content Include="Views\Messages\_EmailSent.cshtml" />
+    <Content Include="Views\Deposit\SmartDeposit.cshtml" />
+    <Content Include="Views\Deposit\_EditSmartDeposits.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Rotativa\" />
     <Folder Include="Views\BobbinDebit\" />
     <Folder Include="Views\Default\" />
+    <Folder Include="Views\Email\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

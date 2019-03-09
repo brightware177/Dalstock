@@ -23,7 +23,7 @@ namespace DAL.Repository
 
         public IEnumerable<Workplace> ReadWorkplaces()
         {
-            return ctx.Workplaces;
+            return ctx.Workplaces.Include("City");
         }
         public Workplace CreateWorkplace(Workplace workplace)
         {

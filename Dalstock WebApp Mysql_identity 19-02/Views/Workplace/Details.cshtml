@@ -1,4 +1,4 @@
-﻿@model Domain.Workplace
+﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.WorkplaceDetailViewModel
 @{
     ViewBag.Title = "Werfdetail";
 }
@@ -22,44 +22,55 @@
                     <div class="form-horizontal">
                         <div class="page-title sbold">
                             Werfdetails
-                            <button style="margin-right:5px;" class="btn btn-outline btn-info pull-right pdfdownload" onclick="location.href='@Url.Action("PrintViewToPdf", new { id = Model.Id })'">
+                            <button type="button" class="btn btn-outline btn-default pull-right" data-toggle="modal" data-target="#bobbinDetailMailModal">
+                                <i class="fa fa-send"></i> Verstuur mail
+                            </button>
+                            <button style="margin-right:5px;" class="btn btn-outline btn-info pull-right pdfdownload" onclick="location.href='@Url.Action("PrintViewToPdf", new { id = Model.Workplace.Id })'">
                                 <i class="fa fa-file-pdf-o"></i> PDF
                             </button>
-                            <button style="margin-right:5px;" class="btn btn-outline btn-light pull-right" onclick="location.href='@Url.Action("Index", new { id = Model.Id })'">
+                            <button style="margin-right:5px;" class="btn btn-outline btn-light pull-right" onclick="location.href='@Url.Action("Index", new { id = Model.Workplace.Id })'">
                                 <i class="fa fa-check"></i> Terug naar lijst
                             </button>
-
+                            <div>
+                                <div class="modal fade modal-wide" id="bobbinDetailMailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content" id="bobbinDetailSendMail">
+                                            @Html.Partial("~/Views/Bobbin/_SendBobbinDetailMail.cshtml", Model.EmailViewModel)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <hr />
                         <div class="row">
                             <div class="form-group col-12">
                                 <table style="width:100%;line-height:40px; font-size:15px; font-weight:500;">
                                     <tr>
-                                        <td width="20%" style="font-weight:800;">@Html.DisplayNameFor(model => model.WorkplaceId): </td>
-                                        <td width="80%" style="font-size:15px; font-weight:bold;">@Html.DisplayFor(model => model.WorkplaceId, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                        <td width="20%" style="font-weight:800;">@Html.DisplayNameFor(model => model.Workplace.WorkplaceId): </td>
+                                        <td width="80%" style="font-size:15px; font-weight:bold;">@Html.DisplayFor(model => model.Workplace.WorkplaceId, new { htmlAttributes = new { @class = "form-control" } })</td>
                                     </tr>
                                     <tr>
-                                        <td width="20%">@Html.DisplayNameFor(model => model.Address): </td>
-                                        <td width="80%">@Html.DisplayFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                        <td width="20%">@Html.DisplayNameFor(model => model.Workplace.Address): </td>
+                                        <td width="80%">@Html.DisplayFor(model => model.Workplace.Address, new { htmlAttributes = new { @class = "form-control" } })</td>
                                     </tr>
                                     <tr>
-                                        <td width="20%">@Html.DisplayNameFor(model => model.City.Name): </td>
-                                        <td width="80%">@Html.DisplayFor(model => model.City.Name, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                        <td width="20%">@Html.DisplayNameFor(model => model.Workplace.City.Name): </td>
+                                        <td width="80%">@Html.DisplayFor(model => model.Workplace.City.Name, new { htmlAttributes = new { @class = "form-control" } })</td>
                                     </tr>
                                     <tr>
-                                        <td width="20%">@Html.DisplayNameFor(model => model.Infrastructure.Description): </td>
-                                        <td width="80%">@Html.DisplayFor(model => model.Infrastructure.Description, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                        <td width="20%">@Html.DisplayNameFor(model => model.Workplace.Infrastructure.Description): </td>
+                                        <td width="80%">@Html.DisplayFor(model => model.Workplace.Infrastructure.Description, new { htmlAttributes = new { @class = "form-control" } })</td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <br />
-                        @if (Model.Debits.Count() > 0)
+                        @if (Model.Workplace.Debits.Count() > 0)
                         {
                             <hr />
                             <div class="page-title sbold" style="font-size:20px;">
                                 Materiaalverbruik
-                                <button class="btn btn-outline btn-info pull-right" onclick="location.href='@Url.Action("IndexWithWorkplaceId", "Debit", new { id = Model.WorkplaceId })'">
+                                <button class="btn btn-outline btn-info pull-right" onclick="location.href='@Url.Action("IndexWithWorkplaceId", "Debit", new { id = Model.Workplace.WorkplaceId })'">
                                     <i class="fa fa-edit"></i> Nieuw verbruik
                                 </button>
                             </div>
@@ -77,7 +88,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model.Debits)
+                                    @foreach (var item in Model.Workplace.Debits)
                                     {
                                         <tr class="gradeX">
                                             <td>
@@ -115,7 +126,7 @@
                             <br />
                         }
 
-                        @if (Model.BobbinDebits.Count > 0)
+                        @if (Model.Workplace.BobbinDebits.Count > 0)
                         {
                             <hr />
                             <div class="page-title sbold" style="font-size:20px;">
@@ -126,18 +137,18 @@
                             <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
                                 <thead>
                                     <tr>
-                                        <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().BobbinDebitId) </th>
-                                        <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().Bobbin.CableType.Description) </th>
-                                        <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().StartIndex) </th>
-                                        <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().EndIndex) </th>
-                                        <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinDebits.First().AmountUsed) </th>
+                                        <th> @Html.DisplayNameFor(modelItem => modelItem.Workplace.BobbinDebits.First().BobbinDebitId) </th>
+                                        <th> @Html.DisplayNameFor(modelItem => modelItem.Workplace.BobbinDebits.First().Bobbin.CableType.Description) </th>
+                                        <th> @Html.DisplayNameFor(modelItem => modelItem.Workplace.BobbinDebits.First().StartIndex) </th>
+                                        <th> @Html.DisplayNameFor(modelItem => modelItem.Workplace.BobbinDebits.First().EndIndex) </th>
+                                        <th> @Html.DisplayNameFor(modelItem => modelItem.Workplace.BobbinDebits.First().AmountUsed) </th>
 
                                         <th> Verwijderen </th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model.BobbinDebits)
+                                    @foreach (var item in Model.Workplace.BobbinDebits)
                                     {
                                         <tr class="gradeX">
                                             <td>

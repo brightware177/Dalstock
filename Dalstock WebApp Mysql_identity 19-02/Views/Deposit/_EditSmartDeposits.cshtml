@@ -1,0 +1,106 @@
+﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.ItemsImportViewModel
+@using (Html.BeginForm("AddImportedItems", "Deposit", FormMethod.Post))
+{
+    for (int i = 0; i < Model.FailedItems.Count(); ++i)
+    {
+        @Html.HiddenFor(m => m.FailedItems[i].ItemId)
+        @Html.HiddenFor(m => m.FailedItems[i].Item.Description)
+        @Html.HiddenFor(m => m.FailedItems[i].Amount)
+        @Html.HiddenFor(m => m.FailedItems[i].Deposited_By_Staff.Firstname)
+        @Html.HiddenFor(m => m.FailedItems[i].Date)
+    }
+    <div class="row">
+        <div class="col-6 sbold" style="font-size:20px; color: red">
+            Niet teruggevonden materialen
+        </div>
+        <div class="col-6">
+            <input type="submit" value="Voeg nieuwe materialen toe" class="btn btn-info pull-right" />
+        </div>
+    </div>
+
+}
+
+<table class="table table-bordered table-hover order-column margin-top-10" style="width: 100%" id="example">
+    <thead>
+        <tr>
+            <th> Nummer </th>
+            <th> Omschrijving </th>
+            <th> Aantal </th>
+            <th> Datum </th>
+            <th> Naam </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.FailedItems)
+        {
+            <tr class="gradeX">
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemId)
+                <td class="span-table-gray">
+                    @Html.DisplayFor(modelItem => item.Item.Description)
+                </td>
+                <td class="span-table-gray">
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td class="span-table-gray">
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td class="span-table-gray">
+                    @Html.DisplayFor(modelItem => item.Deposited_By_Staff.Firstname)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@using (Html.BeginForm("SaveImportedItems", "Deposit", FormMethod.Post))
+{
+    for (int i = 0; i < Model.ImportedItems.Count(); ++i)
+    {
+        @Html.HiddenFor(m => m.ImportedItems[i].ItemId)
+        @Html.HiddenFor(m => m.ImportedItems[i].Item.Description)
+        @Html.HiddenFor(m => m.ImportedItems[i].Item.Id)
+        @Html.HiddenFor(m => m.ImportedItems[i].Amount)
+        @Html.HiddenFor(m => m.ImportedItems[i].Deposited_By_Staff.Firstname)
+        @Html.HiddenFor(m => m.ImportedItems[i].Date)
+    }
+    <div class="row">
+        <div class="col-6 sbold" style="font-size:20px;">
+            Gevonden materialen
+        </div>
+        <div class="col-6">
+            <input type="submit" value="Opslaan" class="btn btn-info pull-right" />
+        </div>
+    </div>
+}
+<table class="table table-bordered table-hover order-column margin-top-10" style="width: 100%" id="example">
+    <thead>
+        <tr>
+            <th> Nummer </th>
+            <th> Omschrijving </th>
+            <th> Aantal </th>
+            <th> Datum </th>
+            <th> Naam </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ImportedItems)
+        {
+            <tr class="gradeX">
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemId)
+                <td class="span-table-gray">
+                    @Html.DisplayFor(modelItem => item.Item.Description)
+                </td>
+                <td class="span-table-gray">
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td class="span-table-gray">
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td class="span-table-gray">
+                    @Html.DisplayFor(modelItem => item.Deposited_By_Staff.Firstname)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

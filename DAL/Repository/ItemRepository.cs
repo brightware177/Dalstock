@@ -30,8 +30,11 @@ namespace DAL.Repository
         {
             foreach (var deposit in depositList)
             {
+                
+                Item d = ctx.Items.Find(deposit.Item.Id);
+                d.Amount += deposit.Amount;
+                deposit.Item = null;
                 ctx.Deposits.Add(deposit);
-                ctx.Items.Find(deposit.ItemId).Amount += deposit.Amount;
             }
             return depositList;
         }
@@ -140,7 +143,15 @@ namespace DAL.Repository
 
         public Item ReadItem(string id)
         {
-            return ctx.Items.Single(x => x.ItemId.Equals(id));
+            try
+            {
+                var item = ctx.Items.Single(x => x.ItemId.Equals(id));
+                return item;
+            }
+            catch (Exception)
+            {
+                throw new KeyNotFoundException();
+            }
         }
 
         public IEnumerable<Item> ReadItems(string selector)

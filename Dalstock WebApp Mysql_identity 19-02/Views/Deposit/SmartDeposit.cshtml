@@ -1,0 +1,98 @@
+﻿<div class="page-content" style="min-height:90.5vh">
+    <div class="page-bar col-10" style="margin:auto;">
+        <div class="page-title-breadcrumb">
+            <div class="pull-left">
+
+            </div>
+            <ol class="breadcrumb page-breadcrumb pull-right">
+                <li>
+                    <i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a class="parent-item" href="">Debit</a>&nbsp;<i class="fa fa-angle-right"></i>
+                </li>
+                <li class="active">Index</li>
+            </ol>
+        </div>
+    </div>
+    <!-- basic wizard -->
+
+    <div class="row animated bounceInDown page-content-custom" style="margin: auto;">
+        <div class="col-sm-12">
+            <div class="card-box">
+                <div class="card-head">
+                    <header>Upload hier uw bestand</header>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            @using (Html.BeginForm("EditSmartDeposits", "Deposit",
+                           FormMethod.Post,
+                           new
+                           {
+                               @class = "dropzone",
+                               id = "dropzone-form",
+                           }))
+                            {
+                                <div style="text-align: center" id="dropzone-text">
+                                    <div class="dropIcon" style="text-align: center">
+                                        <i style="font-size:100px;" class="material-icons">cloud_upload</i>
+                                    </div>
+                                    <h3>Sleep hier uw CSV bestand.</h3>
+                                </div>
+
+                                <div class="fallback">
+                                    <input name="file" type="file" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row margin-top-10">
+                        <div class="col-12" id="itemListPartialView"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+
+    @Styles.Render("~/bundles/dropzone")
+
+}
+@section Scripts {
+
+    @Scripts.Render("~/scripts/dropzone")
+
+    <script type="text/javascript">
+        Dropzone.options.dropzoneForm = {
+            paramName: "file",
+            maxFilesize: 20,
+            maxFiles: 1,
+            acceptedFiles: ".csv",
+            dictDefaultMessage: "Of klik hier om uw bestand up te loaden.",
+            dictMaxFilesExceeded: "Maximum aantal bestanden bereikt",
+            init: function () {
+                this.on("success", function (file, response) {
+                    $.ajax({
+                        url: "@Url.Action("SmartDepositsList", "Deposit")",
+                        data: response,
+                        type: "post",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "html",
+                        success: function (data) {
+                            $("#itemListPartialView").html(data); // HTML DOM replace
+                            $("#dropzone-text").hide();
+                        },
+                        error: function (request) {
+                            alert(request.responseText);
+                        }
+                    })
+                })
+
+            }
+        };
+    </script>
+
+}

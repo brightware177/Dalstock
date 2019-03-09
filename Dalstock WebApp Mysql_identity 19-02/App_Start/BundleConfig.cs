@@ -106,6 +106,13 @@ namespace Dalstock_WebApp_Mysql_identity_19_02
             bundles.Add(new ScriptBundle("~/scripts/blockui").Include(
                      "~/Content/plugins/blockUi/jquery.blockUI.js"
                      ));
+            //Dropzone
+            bundles.Add(new StyleBundle("~/bundles/dropzone").Include(
+                      "~/Content/plugins/dropzone/dropzone.css"));
+            //Dropzone
+            bundles.Add(new ScriptBundle("~/scripts/dropzone").Include(
+                      "~/Content/plugins/dropzone/dropzone.js"
+                      ));
         }
     }
 }

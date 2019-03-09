@@ -1,0 +1,56 @@
+﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.EmailViewModel
+
+<div class="card-body card-topline-aqua">
+    @{ 
+        string controller = "";
+        if (Model.View.Equals("Workplace"))
+        {
+            controller = "Workplace";
+        }
+        else
+        {
+            controller = "Bobbin";
+        }
+    }
+    @using (Html.BeginForm("SendEmail", controller, new { id = Model.id }, FormMethod.Post, new { id = "form-createBobbinMail" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="page-title sbold">Mail versturen</div>
+        <hr />
+        <div class="fixFS">
+            <div class="row">
+                <div class="form-group col-6">
+                    <label>Onderwerp</label>
+                    @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-6">
+                    <label>Cc</label>
+                    @Html.EditorFor(model => model.CC, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CC, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-12">
+                    <label>Geaddresseerden</label>
+                    @Html.EditorFor(model => model.ToMails, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ToMails, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-12">
+                    <label>Bericht</label>
+                    @Html.TextAreaFor(model => model.Message, new { @class = "form-control", @rows = 10 })
+                    @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <button id="sendButton" type="submit" class="btn btn-outline btn-info m-b-10">
+            <i class="fa fa-send"></i> Verzenden
+        </button>
+    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

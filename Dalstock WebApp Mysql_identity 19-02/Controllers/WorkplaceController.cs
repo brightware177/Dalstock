@@ -7,6 +7,7 @@ using Rotativa.MVC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -128,14 +129,34 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
         }
         public ActionResult Details(int id)
         {
-            var workplace = workplaceManager.GetWorkplace(id);
-            return View(workplace);
+            WorkplaceDetailViewModel wdvm = new WorkplaceDetailViewModel();
+            wdvm.Workplace = workplaceManager.GetWorkplace(id);
+            wdvm.EmailViewModel = HelperClass.ReadMailSettings(Server.MapPath("~/App_Data/emailSettings.json"), "Dalcom");
+            wdvm.EmailViewModel.Message = String.Format(wdvm.EmailViewModel.Message, wdvm.Workplace.WorkplaceId);
+            wdvm.EmailViewModel.Subject = String.Format(wdvm.EmailViewModel.Subject, wdvm.Workplace.WorkplaceId);
+            wdvm.EmailViewModel.id = id;
+            wdvm.EmailViewModel.View = "Workplace";
+            return View(wdvm);
         }
         public ActionResult PrintViewToPdf(int id)
         {
-            var workplace = workplaceManager.GetWorkplace(id);
-            string filename = "Werf " + workplace.WorkplaceId + ".pdf";
-            return new PartialViewAsPdf("_Details", workplace) { FileName = filename };
+            return new EmailController().GetPDF(id,"Workplace");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SendEmail(EmailViewModel emailViewModel, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var file = new EmailController().GetPDF(id, "Workplace");
+                var fileAsBytes = file.BuildPdf(this.ControllerContext);
+                await new EmailController().SendEmail(emailViewModel, id, fileAsBytes, file.FileName);
+                return PartialView("~/Views/Messages/_EmailSent.cshtml");
+            }
+            else
+            {
+                return PartialView("~/Views/Bobbin/_SendBobbinDetailMail.cshtml", emailViewModel);
+            }
         }
     }
 }

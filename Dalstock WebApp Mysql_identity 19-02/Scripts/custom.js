@@ -46,6 +46,20 @@ $("#myModal").on("submit", "#form-createBobbinDebit", function (e) {
         }
     });
 });
+$("#bobbinDetailMailModal").on("submit", "#form-createBobbinMail", function (e) {
+    e.preventDefault();  // prevent standard form submission
+
+    var form = $(this);
+    $("#sendButton").attr("disabled", true);
+    $.ajax({
+        url: form.attr("action"),
+        method: form.attr("method"),  // post
+        data: form.serialize(),
+        success: function (partialResult) {
+            $("#bobbinDetailSendMail").html(partialResult);
+        }
+    });
+});
 function handleDelete(e, stop, link) {
     if (stop) {
         e.preventDefault();

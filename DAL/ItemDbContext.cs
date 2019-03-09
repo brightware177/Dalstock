@@ -17,7 +17,7 @@ namespace DAL
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class ItemDbContext : DbContext
     {
-        public ItemDbContext() : base("server=mysql6002.site4now.net;port=3306;database=;uid=;password=")
+        public ItemDbContext() : base("server=mysql6001.site4now.net;port=3306;database=;uid=;password=")
         {
             Database.SetInitializer(new MysqlItemsInitializer());
         }

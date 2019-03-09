@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="row page-content-custom">
+    <div class="row animated fadeInUp page-content-custom">
         <div class="col-md-12">
             <div class="card card-topline-aqua">
 
@@ -42,10 +42,13 @@
                         </div>
                     </div>
                     <div class="row margin-top-10 m-0">
-                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 pull-right">
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                            <div id="cableType"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                             <div id="infra"></div>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 pull-right">
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                             <div id="retour"></div>
                         </div>
                     </div>
@@ -55,6 +58,7 @@
 
                                 <th> @Html.DisplayNameFor(modelItem => modelItem.Id) </th>
                                 <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinId) </th>
+                                <th> @Html.DisplayNameFor(modelItem => modelItem.CableTypeId) </th>
                                 <th> @Html.DisplayNameFor(modelItem => modelItem.FetchDate) </th>
                                 <th> @Html.DisplayNameFor(modelItem => modelItem.InfrastructureId) </th>
                                 <th> @Html.DisplayNameFor(modelItem => modelItem.IsReturned) </th>
@@ -65,49 +69,52 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr class="gradeX">
+                            <tr class="gradeX">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    <a class="hyperlink-in-table" href="@Url.Action("Details", new { id = item.Id })">
+                                        <span class="sbold">@Html.DisplayFor(modelItem => item.BobbinId)</span>
+                                        <br>
+                                        <span class="span-table-gray">
+                                            @Html.DisplayFor(modelItem => item.CableType.Description)
+                                        </span>
+                                    </a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CableType.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FetchDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Infrastructure.Description)
+                                </td>
+                                @if (item.IsReturned)
+                                {
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Id)
+                                        <span><i class="fa fa-check-circle check-icon"></i> Geretourneerd</span>
                                     </td>
+                                }
+                                else
+                                {
                                     <td>
-                                        <a class="hyperlink-in-table" href="@Url.Action("Details", new { id = item.Id })">
-                                            <span class="sbold">@Html.DisplayFor(modelItem => item.BobbinId)</span>
-                                            <br>
-                                            <span class="span-table-gray">
-                                                @Html.DisplayFor(modelItem => item.CableType.Description)
-                                            </span>
-                                        </a>
+                                        <span><i class="fa fa-exclamation-circle warning-icon"></i> Niet geretourneerd</span>
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FetchDate)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Infrastructure.Description)
-                                    </td>
-                                    @if (item.IsReturned)
-                                    {
-                                        <td>
-                                            <span><i class="fa fa-check-circle check-icon"></i> Geretourneerd</span>
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td>
-                                            <span><i class="fa fa-exclamation-circle warning-icon"></i> Niet geretourneerd</span>
-                                        </td>
-                                    }
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ReturnDate)
-                                    </td>
-                                    <td class="valigntop center align-middle">
-                                        <a class="btn btn-xs btn-primary no-margin" href="@Url.Action("Edit", new { id = item.Id })">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-xs deepPink-bgcolor no-margin DeleteButton" href="@Url.Action("Delete", new { id = item.Id })">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReturnDate)
+                                </td>
+                                <td class="valigntop center align-middle">
+                                    <a class="btn btn-xs btn-primary no-margin" href="@Url.Action("Edit", new { id = item.Id })">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-xs deepPink-bgcolor no-margin DeleteButton" href="@Url.Action("Delete", new { id = item.Id })">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -159,9 +166,34 @@
                 ],
                 responsive: true,
                 initComplete: function () {
-                    this.api().columns([3,4]).every(function () {
+                    this.api().columns([2, 4, 5]).every(function () {
                         var column = this;
-                        if (column[0] == 3) {
+                        if (column[0] == 2) {
+                            var select = $('<select id="cableTypeChosen" class="chosen-select form-control border-test"><option value=""></option></select>')
+                                .appendTo($('#cableType').empty())
+                                .on('change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                    );
+
+                                    column
+                                        .search(val ? '^' + val + '$' : '', true, false)
+                                        .draw();
+                                });
+
+                            column.data().unique().sort().each(function (d, j) {
+                                var val = $.fn.dataTable.util.escapeRegex(d);
+                                if (column.search() === "^" + val + "$") {
+                                    select.append(
+                                        '<option value="' + d + '" selected="selected">' + d + "</option>"
+                                    );
+                                } else {
+                                    select.append('<option value="' + d + '">' + d + "</option>");
+                                }
+                            });
+                        }
+                        var column = this;
+                        if (column[0] == 4) {
                             var select = $('<select id="infraChosen" class="chosen-select form-control border-test"><option value=""></option></select>')
                                 .appendTo($('#infra').empty())
                                 .on('change', function () {
@@ -185,7 +217,7 @@
                                 }
                             });
                         }
-                        if (column[0] == 4) {
+                        if (column[0] == 5) {
                             var select = $('<select id="retourChosen" class="chosen-select form-control border-test"><option value=""></option></select>')
                                 .appendTo($('#retour').empty())
                                 .on('change', function () {
@@ -218,7 +250,7 @@
                         extend: 'print',
                         title: "Lijst werven - " + (new Date).toLocaleDateString(),
                         exportOptions: {
-                            columns: [1, 2, 3, 4]
+                            columns: [1, 3, 4, 5]
                         },
                         className: 'buttonAsLink  assets-export-btn export-csv ttip printbtn',
                     }, {
@@ -227,7 +259,7 @@
                         className: 'buttonAsLink assets-export-btn export-xls ttip excelbtn',
                         title: "Lijst bobijnen - " + (new Date).toLocaleDateString(),
                         exportOptions: {
-                            columns: [1, 2, 3, 4]
+                            columns: [1, 3, 4, 5]
                         },
                         extension: '.xls'
 
@@ -235,7 +267,7 @@
                         text: '<i class="fa fa-file-pdf-o"></i><span>Pdf</span>',
                         extend: 'pdf',
                         exportOptions: {
-                            columns: [1, 2, 3, 4]
+                            columns: [1, 3, 4, 5]
                         },
                         className: 'buttonAsLink assets-export-btn export-pdf ttip pdfbtn',
                         extension: '.pdf',
@@ -256,7 +288,8 @@
             $('.excelbtn').appendTo('.excel-container');
             $('#infraChosen').chosen({ placeholder_text_single: "Filter op infragebied", width: "100%", allow_single_deselect: true  });
             $('#retourChosen').chosen({ placeholder_text_single: "Filter op retour", width: "100%", allow_single_deselect: true  });
-            });
+            $('#cableTypeChosen').chosen({ placeholder_text_single: "Filter op kabeltype", width: "100%", allow_single_deselect: true });
+        });
             function handleDelete(e, stop, link) {
                 if (stop) {
                     e.preventDefault();

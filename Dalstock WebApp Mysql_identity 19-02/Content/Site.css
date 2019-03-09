@@ -54,7 +54,17 @@
 .border-test {
     border: solid 1px #000
 }
-
+.fixFS {
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 0px;
+}
+tr {
+    page-break-inside: avoid;
+}
+thead, tfoot {
+    display: table-row-group
+}
 h1,
 h2,
 h3,
