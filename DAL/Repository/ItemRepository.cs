@@ -30,13 +30,19 @@ namespace DAL.Repository
         {
             foreach (var deposit in depositList)
             {
-                
-                Item d = ctx.Items.Find(deposit.Item.Id);
-                d.Amount += deposit.Amount;
                 deposit.Item = null;
                 ctx.Deposits.Add(deposit);
+                ctx.Items.Find(deposit.ItemId).Amount += deposit.Amount;
             }
             return depositList;
+        }
+
+        public void BulkAddItems(IEnumerable<Item> items)
+        {
+            foreach (var item in items)
+            {
+                ctx.Items.Add(item);
+            }
         }
 
         public void CreateBobbin(Bobbin bobbin)

@@ -34,6 +34,7 @@ namespace BL
         Bobbin GetLatestBobbin();
         IEnumerable<Bobbin> GetBobbinsPerInfra(int id);
         IEnumerable<Bobbin> GetBobbinsReturned(bool isReturned);
+        void BulkAddItems(IEnumerable<Item> items);
         //Staff GetStaffWithApplicationUserId(string id);
     }
 }

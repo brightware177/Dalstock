@@ -33,5 +33,6 @@ namespace DAL.Repository
         IEnumerable<Deposit> ReadDeposits();
         Bobbin ReadLatestBobbin();
         IEnumerable<Bobbin> ReadBobbinsReturned(bool isReturned);
+        void BulkAddItems(IEnumerable<Item> items);
     }
 }

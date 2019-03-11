@@ -61,6 +61,12 @@ namespace BL
             return list;
         }
 
+        public void BulkAddItems(IEnumerable<Item> items)
+        {
+            repo.Items.BulkAddItems(items);
+            repo.SaveChanges();
+        }
+
         public void ChangeBobbin(Bobbin bobbin)
         {
             repo.Items.UpdateBobbin(bobbin);

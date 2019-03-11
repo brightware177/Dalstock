@@ -72,9 +72,15 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             var FailedList = new List<Deposit>();
             using (var csv = new CsvReader(reader))
             {
+                var date = DateTime.Now;
                 for (var i = 0; i < 3; i++)
                 {
                     csv.Read();
+                    if (i==0)
+                    {
+                        csv.ReadHeader();
+                        date = csv.GetField<DateTime>(1);
+                    }
                 }
                 csv.ReadHeader();
                 csv.Read();
@@ -86,10 +92,10 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
                         var item = itemManager.GetItem(csv.GetField<string>("Artikel"));
                         var Deposit = new Deposit
                         {
-                            ItemId = csv.GetField<int>("Artikel"),
+                            ItemId = item.Id,
                             Item = item,
                             Amount = csv.GetField<int>("Aantal"),
-                            Date = new DateTime(2019,03,09),
+                            Date = date,
                             Deposited_By_Staff = workplaceManager.GetStaffWithApplicationUserId(userId)
                         };
                         DepositList.Add(Deposit);
@@ -101,10 +107,14 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
                             ItemId = csv.GetField<int>("Artikel"),
                             Item = new Item() { Description = csv.GetField<string>("Omschrijving artikel"), ItemId = csv.GetField<string>("Artikel"), Amount = csv.GetField<int>("Aantal") },
                             Amount = csv.GetField<int>("Aantal"),
-                            Date = new DateTime(2019, 03, 09),
+                            Date = date,
                             Deposited_By_Staff = workplaceManager.GetStaffWithApplicationUserId(userId)
                         };
                         FailedList.Add(Deposit);
+                    }
+                    catch (CsvHelper.MissingFieldException e)
+                    {
+
                     }
                 }
             }
@@ -115,14 +125,43 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
         [HttpPost]
         public PartialViewResult SmartDepositsList(ItemsImportViewModel import)
         {
-            import.ImportedItems = import.ImportedItems.OrderBy(x => x.ItemId).ToList();
+            try
+            {
+                import.ImportedItems = import.ImportedItems.OrderBy(x => x.ItemId).ToList();
+            }
+            catch (Exception)
+            {
+
+            }
+            
             return PartialView("~/Views/Deposit/_EditSmartDeposits.cshtml", import);
         }
         [HttpPost]
         public ActionResult SaveImportedItems(ItemsImportViewModel import)
         {
-            itemManager.BulkAddDepositItems(import.ImportedItems);
-            return RedirectToAction("Index");
+            try
+            {
+                itemManager.BulkAddDepositItems(import.ImportedItems);
+                return Json("Success");
+            }
+            catch (Exception)
+            {
+                return Json("Error!");
+            }
+            
         }
+        [HttpPost]
+        public ActionResult AddFailedItems(ItemsImportViewModel import)
+        {
+            try
+            {
+                itemManager.BulkAddItems(import.FailedItems.Select(x=>x.Item));
+                return Json("Success");
+            }
+            catch (Exception)
+            {
+                return Json("Error!");
+            }
+        }   
     }
 }
