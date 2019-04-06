@@ -1462,7 +1462,7 @@ th {
 }
 
 .table-bordered {
-  border: 1px solid #dddddd;
+  border:1px solid #dddddd;
 }
 
 .table-bordered > thead > tr > th,

@@ -143,6 +143,12 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
         {
             return new EmailController().GetPDF(id,"Bobbin");
         }
+        public ActionResult PrintBobbinsToPdf(string id)
+        {
+            var bobbins = itemManager.GetBobbinsReturned(false).ToList().Where(x => x.Infrastructure.Description.Equals(id));
+            string filename = "Haspels in bezit.pdf";
+            return new PartialViewAsPdf("_BobbinLocations", bobbins) { FileName = filename };
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SendEmail(EmailViewModel emailViewModel, int id)
@@ -159,6 +165,11 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             {
                 return PartialView("~/Views/Bobbin/_SendBobbinDetailMail.cshtml", emailViewModel);
             }
+        }
+        public ActionResult BobbinLocations()
+        {
+            var bobbins = itemManager.GetBobbinsReturned(false).ToList();
+            return View(bobbins);
         }
     }
 }

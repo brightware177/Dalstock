@@ -18,7 +18,14 @@ namespace DAL.Repository
         }
         public Workplace ReadWorkplace(string id)
         {
-            return ctx.Workplaces.Include("City").Single(x => x.WorkplaceId.Equals(id));
+            try
+            {
+                return ctx.Workplaces.Include("City").Single(x => x.WorkplaceId.Equals(id));
+            }
+            catch (Exception)
+            {
+                throw new KeyNotFoundException();
+            }
         }
 
         public IEnumerable<Workplace> ReadWorkplaces()

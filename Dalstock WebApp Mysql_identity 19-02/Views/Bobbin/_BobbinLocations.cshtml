@@ -1,0 +1,175 @@
+﻿@model IEnumerable<Domain.Bobbin>
+
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Dalstock</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+    <link href="@Href("~/Content/plugins/material/material.min.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/Css/cssfiles")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    @Styles.Render("~/bundles/datatable")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/scripts/popper")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/scripts/sweet-alert/alert")
+    @Scripts.Render("~/bundles/slimscroll")
+    @Scripts.Render("~/bundles/appLayout")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/scripts/datatable")
+    @Styles.Render("~/bundles/datatable")
+    @Styles.Render("~/bundles/sweet-alert")
+    @Styles.Render("~/bundles/chosen")
+    @Styles.Render("~/bundles/select2")
+    @Scripts.Render("~/scripts/datatable")
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js" type="text/javascript"></script>
+    <link href="https://cdn.datatables.net/rowgroup/1.1.0/css/rowGroup.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.datatables.net/rowgroup/1.1.0/js/dataTables.rowGroup.min.js"></script>
+    @Scripts.Render("~/scripts/chosen/dropdown")
+    @Scripts.Render("~/scripts/select2/sel")
+</head>
+<body style="background-color:white">
+    <h3 class="card-title sbold p-0 m-b-20">
+        Haspels in bezit : @DateTime.Now
+    </h3>
+    <table class="table table-bordered .print-friendly" style="width: 100%" id="bobbinDatatables">
+        <thead>
+            <tr>
+
+                <th> @Html.DisplayNameFor(modelItem => modelItem.Id) </th>
+                <th> @Html.DisplayNameFor(modelItem => modelItem.BobbinId) </th>
+                <th> Plaats </th>
+                <th> @Html.DisplayNameFor(modelItem => modelItem.FetchDate) </th>
+                <th> @Html.DisplayNameFor(modelItem => modelItem.InfrastructureId) </th>
+                <th> @Html.DisplayNameFor(modelItem => modelItem.CableType.Description) </th>
+                <th> @Html.DisplayNameFor(modelItem => modelItem.ReturnDate) </th>
+                <th> @Html.DisplayNameFor(modelItem => modelItem.AmountRemains) </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (item.BobbinDebits.Count > 0)
+                {
+                    <tr class="gradeX">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            <a class="hyperlink-in-table" href="@Url.Action("Details", new { id = item.Id })">
+                                <span class="sbold">@Html.DisplayFor(modelItem => item.BobbinId)</span>
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BobbinDebits.Last().Workplace.City.Name) - @Html.DisplayFor(modelItem => item.BobbinDebits.Last().Workplace.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FetchDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Infrastructure.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CableType.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReturnDate)
+                        </td>
+                        <td class="valigntop center align-middle">
+                            @Html.DisplayFor(modelItem => item.AmountRemains)m
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</body>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#bobbinDatatables').DataTable({
+                "dom": '<"top">rt<"bottom"p><"clear">',
+                "bSortClasses": false,
+                "columnDefs": [
+                    {
+                        "visible": false,
+                        "targets": 0
+                    },
+                    {
+                        "visible": false,
+                        "targets": 5
+                    },
+                    {
+                        "visible": false,
+                        "targets": 4
+                    }
+                ],
+                order: [[5, 'desc']],
+                paging: false,
+                "drawCallback": function (settings) {
+                    var api = this.api();
+
+                    // Zero-based index of the column containing names
+                    var col_name = 5;
+                    // If ordered by column containing names
+                    if (5 === col_name) {
+                        var rows = api.rows({ page: 'current' }).nodes();
+                        var group_last = null;
+                        var color;
+                        api.column(col_name, { page: 'current' }).data().each(function (name, index) {
+
+                            var group = name;
+                            var data = api.row(rows[index]).data();
+                            if (group_last !== group) {
+
+                                if (group == "OV 4G10") {
+                                    $(rows[index]).before(
+                                        '<tr class="group" style="background-color:' + "#04113a" + '!important "><td colspan="7">' + group + '</td></tr>'
+                                    );
+                                } else if (group == "MS 3X95") {
+                                    $(rows[index]).before(
+                                        '<tr class="group" style="background-color:' + "red" + '!important "><td colspan="7">' + group + '</td></tr>'
+                                    );
+                                } else if (group == "MS 3X150") {
+                                    $(rows[index]).before(
+                                        '<tr class="group" style="background-color:' + "darkgreen" + '!important "><td colspan="7">' + group + '</td></tr>'
+                                    );
+                                } else if (group == "LS 4G150") {
+                                    $(rows[index]).before(
+                                        '<tr class="group" style="background-color:' + "darkcyan" + '!important "><td colspan="7">' + group + '</td></tr>'
+                                    );
+                                } else if (group == "HDPE 50") {
+                                    $(rows[index]).before(
+                                        '<tr class="group" style="background-color:' + "orange" + '!important "><td colspan="7">' + group + '</td></tr>'
+                                    );
+                                } else if (group == "DB7") {
+                                    $(rows[index]).before(
+                                        '<tr class="group" style="background-color:' + "brown" + '!important "><td colspan="7">' + group + '</td></tr>'
+                                    );
+                                }
+                                else if ((group == "PRC 3X95") || (group == "PRC 3X150")) {
+                                    $(rows[index]).before(
+                                        '<tr class="group" style="background-color:' + "#1e49d8" + '!important "><td colspan="7">' + group + '</td></tr>'
+                                    );
+                                }
+                                else {
+                                    $(rows[index]).before(
+                                        '<tr class="group" style="background-color:' + "orange" + '!important "><td colspan="7">' + group + '</td></tr>'
+                                    );
+                                }
+                                group_last = group;
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
+    </script>
+
+

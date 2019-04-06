@@ -54,51 +54,55 @@
                 </div>
             </div>
             <br />
-            <h3 class="card-title sbold">
-                Materiaalverbruik
-            </h3>
-            <hr />
-            <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
-                <thead>
-                    <tr>
-                        <th> Materiaalnummer </th>
-                        <th> Materiaalnaam </th>
-                        <th> Verbruikt aantal </th>
-                        <th> Status </th>
-                        <th> Verbruikdatum </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Debits)
-                    {
-                        <tr class="gradeX">
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Item.ItemId)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Item.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Amount)
-                            </td>
-                            @if (item.DebitState == Domain.DebitState.Approved)
-                            {
-                                <td><span><i class="fa fa-check-circle check-icon"></i> Goedgekeurd</span></td>
-                            }
-                            else
-                            {
-                                <td class="center">
-                                    <span class="label label-sm label-danger" style="font-size:14px;">In afwachting</span>
-                                </td>
-                            }
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Date)
-                            </td>
+            @if ((bool)TempData["printItems"])
+            {
+                <h3 class="card-title sbold">
+                    Materiaalverbruik
+                </h3>
+                <hr />
+                <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
+                    <thead>
+                        <tr>
+                            <th> Materiaalnummer </th>
+                            <th> Materiaalnaam </th>
+                            <th> Verbruikt aantal </th>
+                            <th> Status </th>
+                            <th> Verbruikdatum </th>
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Debits)
+                        {
+                            <tr class="gradeX">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Item.ItemId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                @if (item.DebitState == Domain.DebitState.Approved)
+                                {
+                                    <td><span><i class="fa fa-check-circle check-icon"></i> Goedgekeurd</span></td>
+                                }
+                                else
+                                {
+                                    <td class="center">
+                                        <span class="label label-sm label-danger" style="font-size:14px;">In afwachting</span>
+                                    </td>
+                                }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                            </tr>
+                        }
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
+
             <br />
             @if (Model.BobbinDebits != null || Model.BobbinDebits.Count > 0)
             {

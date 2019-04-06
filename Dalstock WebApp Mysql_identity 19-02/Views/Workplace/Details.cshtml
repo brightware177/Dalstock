@@ -1,6 +1,7 @@
 ﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.WorkplaceDetailViewModel
 @{
     ViewBag.Title = "Werfdetail";
+    var printItems = false;
 }
 <div class="page-content" style="min-height:90.5vh">
     <div class="page-bar" style="margin:auto">
@@ -25,7 +26,7 @@
                             <button type="button" class="btn btn-outline btn-default pull-right" data-toggle="modal" data-target="#bobbinDetailMailModal">
                                 <i class="fa fa-send"></i> Verstuur mail
                             </button>
-                            <button style="margin-right:5px;" class="btn btn-outline btn-info pull-right pdfdownload" onclick="location.href='@Url.Action("PrintViewToPdf", new { id = Model.Workplace.Id })'">
+                            <button style="margin-right:5px;" class="btn btn-outline btn-info pull-right pdfdownload" onclick="location.href='@Url.Action("PrintViewToPdf", new { id = Model.Workplace.Id, printItems = printItems})'">
                                 <i class="fa fa-file-pdf-o"></i> PDF
                             </button>
                             <button style="margin-right:5px;" class="btn btn-outline btn-light pull-right" onclick="location.href='@Url.Action("Index", new { id = Model.Workplace.Id })'">
@@ -73,6 +74,7 @@
                                 <button class="btn btn-outline btn-info pull-right" onclick="location.href='@Url.Action("IndexWithWorkplaceId", "Debit", new { id = Model.Workplace.WorkplaceId })'">
                                     <i class="fa fa-edit"></i> Nieuw verbruik
                                 </button>
+                                @Html.CheckBoxFor(x => Model.PrintItems,new { id = "printItemsCb" })
                             </div>
 
                             <table class="table table-bordered table-hover order-column" style="width: 100%" id="">
@@ -217,7 +219,11 @@
                     window.location = $(this).attr('href');
                 }
             });
-
+            $('#printItemsCb').on('change', function (e, data) {
+                @printItems = this.checked;
+                alert(@printItems);
+            });
+            
         });
         function handleDelete(e, stop, link) {
             if (stop) {

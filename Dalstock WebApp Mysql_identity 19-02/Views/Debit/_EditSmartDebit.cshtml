@@ -1,7 +1,7 @@
-﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.ItemsImportViewModel
+﻿@model Dalstock_WebApp_Mysql_identity_19_02.Models.ItemsDebitImportViewModel
 @if (Model.FailedItems != null)
 {
-    using (Ajax.BeginForm("AddFailedItems", "Deposit", new AjaxOptions()
+    using (Ajax.BeginForm("AddFailedItems", "Debit", new AjaxOptions()
     {
         InsertionMode = InsertionMode.Replace,
         UpdateTargetId = "dane",
@@ -14,14 +14,11 @@
             @Html.HiddenFor(m => m.FailedItems[i].Item.ItemId)
             @Html.HiddenFor(m => m.FailedItems[i].Item.Description)
             @Html.HiddenFor(m => m.FailedItems[i].Item.Amount)
-            @Html.HiddenFor(m => m.FailedItems[i].Deposited_By_Staff.Firstname)
+            @Html.HiddenFor(m => m.FailedItems[i].Debited_By_Staff.Firstname)
         }
         <div class="row" id="successFailedRow">
             <div class="col-6 sbold" style="font-size:20px; color: red">
-                Niet teruggevonden materialen
-            </div>
-            <div class="col-6">
-                <input type="submit" value="Voeg nieuwe materialen toe" class="btn btn-info pull-right" />
+                Niet teruggevonden dossiers (voeg eerst deze werven toe)
             </div>
         </div>
 
@@ -30,7 +27,9 @@
     <table class="table table-bordered table-hover order-column margin-top-10" style="width: 100%" id="successFailedImportTable">
         <thead>
             <tr>
-                <th> Nummer </th>
+                <th> Dossiernummer </th>
+                <th> Locatie </th>
+                <th> Artikelnummer </th>
                 <th> Omschrijving </th>
                 <th> Aantal </th>
                 <th> Datum </th>
@@ -41,8 +40,15 @@
             @foreach (var item in Model.FailedItems)
             {
                 <tr class="gradeX">
-                    <td>
+                    <td class="span-table-gray">
+                        @Html.DisplayFor(modelItem => item.Workplace.WorkplaceId)
+                    </td>
+                    <td class="span-table-gray">
+                        @Html.DisplayFor(modelItem => item.Workplace.City.Name) - @Html.DisplayFor(modelItem => item.Workplace.Address)
+                    </td>
+                    <td class="span-table-gray">
                         @Html.DisplayFor(modelItem => item.Item.ItemId)
+                    </td>
                     <td class="span-table-gray">
                         @Html.DisplayFor(modelItem => item.Item.Description)
                     </td>
@@ -53,7 +59,7 @@
                         @Html.DisplayFor(modelItem => item.Date)
                     </td>
                     <td class="span-table-gray">
-                        @Html.DisplayFor(modelItem => item.Deposited_By_Staff.Firstname)
+                        @Html.DisplayFor(modelItem => item.Debited_By_Staff.Firstname)
                     </td>
                 </tr>
             }
@@ -63,7 +69,7 @@
 
 @if (Model.ImportedItems != null)
 {
-    using (Ajax.BeginForm("SaveImportedItems", "Deposit", new AjaxOptions()
+    using (Ajax.BeginForm("SaveImportedItems", "Debit", new AjaxOptions()
     {
         InsertionMode = InsertionMode.Replace,
         UpdateTargetId = "dane",
@@ -73,16 +79,17 @@
         @Html.AntiForgeryToken()
         for (int i = 0; i < Model.ImportedItems.Count(); ++i)
         {
+            @Html.HiddenFor(m => m.ImportedItems[i].WorkplaceId)
             @Html.HiddenFor(m => m.ImportedItems[i].ItemId)
-            @Html.HiddenFor(m => m.ImportedItems[i].Item.Description)
-            @Html.HiddenFor(m => m.ImportedItems[i].Item.ItemId)
             @Html.HiddenFor(m => m.ImportedItems[i].Amount)
-            @Html.HiddenFor(m => m.ImportedItems[i].Deposited_By_Staff.Firstname)
+            @Html.HiddenFor(m => m.ImportedItems[i].Debited_By_Staff_Id)
+            @Html.HiddenFor(m => m.ImportedItems[i].Approved_By_Staff_Id)
             @Html.HiddenFor(m => m.ImportedItems[i].Date)
+            @Html.HiddenFor(m => m.ImportedItems[i].DebitState)
         }
         <div class="row" id="successRow">
             <div class="col-6 sbold" style="font-size:20px;">
-                Gevonden materialen
+                Gevonden dossiers
             </div>
             <div class="col-6">
                 <input type="submit" value="Opslaan" class="btn btn-info pull-right" />
@@ -92,7 +99,9 @@
     <table class="table table-bordered table-hover order-column margin-top-10" style="width: 100%" id="successImportTable">
         <thead>
             <tr>
-                <th> Nummer </th>
+                <th> Dossiernummer </th>
+                <th> Locatie </th>
+                <th> Artikelnummer </th>
                 <th> Omschrijving </th>
                 <th> Aantal </th>
                 <th> Datum </th>
@@ -103,8 +112,15 @@
             @foreach (var item in Model.ImportedItems)
             {
                 <tr class="gradeX">
-                    <td>
+                    <td class="span-table-gray">
+                        @Html.DisplayFor(modelItem => item.Workplace.WorkplaceId)
+                    </td>
+                    <td class="span-table-gray">
+                        @Html.DisplayFor(modelItem => item.Workplace.City.Name) - @Html.DisplayFor(modelItem => item.Workplace.Address)
+                    </td>
+                    <td class="span-table-gray">
                         @Html.DisplayFor(modelItem => item.Item.ItemId)
+                    </td>
                     <td class="span-table-gray">
                         @Html.DisplayFor(modelItem => item.Item.Description)
                     </td>
@@ -115,7 +131,7 @@
                         @Html.DisplayFor(modelItem => item.Date)
                     </td>
                     <td class="span-table-gray">
-                        @Html.DisplayFor(modelItem => item.Deposited_By_Staff.Firstname)
+                        @Html.DisplayFor(modelItem => item.Debited_By_Staff.Firstname)
                     </td>
                 </tr>
             }

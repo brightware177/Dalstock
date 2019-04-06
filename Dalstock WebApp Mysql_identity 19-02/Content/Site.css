@@ -54,17 +54,26 @@
 .border-test {
     border: solid 1px #000
 }
+
+.dataTables_scroll {
+    display: block !important;
+    clear: both !important;
+    page-break-before: always !important;
+    page-break-after: always !important;
+    overflow: hidden;
+}
+table, tr {
+    page-break-inside: avoid !important;
+    page-break-before: always !important;
+    page-break-after: always !important;
+    overflow: hidden;
+}
 .fixFS {
     font-size: 14px;
     font-weight: normal;
     letter-spacing: 0px;
 }
-tr {
-    page-break-inside: avoid;
-}
-thead, tfoot {
-    display: table-row-group
-}
+
 h1,
 h2,
 h3,
@@ -9646,17 +9655,19 @@ span.notificationtime {
     }
 
 table tbody tr {
-    cursor:  default;
+    cursor: default;
 }
 
 .check-icon {
     font-size: 18px;
     color: green;
 }
+
 .warning-icon {
     font-size: 18px;
     color: orange
 }
+
 .buttonAsLink {
     background: none !important;
     color: inherit;
@@ -9668,6 +9679,7 @@ table tbody tr {
     text-align: center;
     color: #555;
 }
+
 #parent {
     display: table;
     width: 100%;
@@ -9679,4 +9691,8 @@ table tbody tr {
     vertical-align: middle;
 }
 
+.group td {
+    color: white !important;
+    font-weight: 700;
+}
 

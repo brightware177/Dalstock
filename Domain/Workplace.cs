@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -31,8 +32,9 @@ namespace Domain
         [ForeignKey("Infrastructure")]
         [Display(Name = "Infra-gebied")]
         public int InfrastructureId { get; set; }
-
+        [JsonIgnore]
         public virtual ICollection<Debit> Debits { get; set; }
+        [JsonIgnore]
         public virtual ICollection<BobbinDebit> BobbinDebits { get; set; }
         public virtual City City { get; set; }
         public virtual Infrastructure Infrastructure { get; set; }

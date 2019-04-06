@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,7 +17,10 @@ namespace Domain
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string ApplicationUserId { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Debit> Debited_debits { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Debit> Approved_debits { get; set; }
     }
 }

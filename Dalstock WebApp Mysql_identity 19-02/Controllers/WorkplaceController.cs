@@ -138,8 +138,9 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Controllers
             wdvm.EmailViewModel.View = "Workplace";
             return View(wdvm);
         }
-        public ActionResult PrintViewToPdf(int id)
+        public ActionResult PrintViewToPdf(int id, bool printItems)
         {
+            TempData["printItems"] = printItems;
             return new EmailController().GetPDF(id,"Workplace");
         }
         [HttpPost]

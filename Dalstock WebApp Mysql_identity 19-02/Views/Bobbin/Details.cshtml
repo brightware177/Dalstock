@@ -15,10 +15,7 @@
     <div class="row page-content-custom">
         <div class="col-md-12">
             <div class="card">
-
                 <div class="card-body card-topline-aqua">
-
-
                     <div class="form-horizontal">
                         <div class="page-title sbold">
                             Bobijndetail
@@ -150,6 +147,7 @@
                         <table class="table table-bordered table-hover order-column" style="width: 100%" id="exampleBobbinDebit">
                             <thead>
                                 <tr>
+                                    <th> ID </th>
                                     <th> Deelnetwerk </th>
                                     <th> Beginindex </th>
                                     <th> Eindindex </th>
@@ -164,35 +162,37 @@
                             <tbody>
                                 @foreach (var item in Model.Bobbin.BobbinDebits)
                                 {
-                                    <tr class="gradeX">
+                                <tr class="gradeX">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BobbinDebitId)
+                                    </td>
+                                    <td>
+                                        <a class="hyperlink-in-table" href="@Url.Action("Details","Workplace", new { id = item.Workplace.Id })">
+                                            <span class="sbold">@Html.DisplayFor(modelItem => item.Workplace.WorkplaceId)</span>
+                                            <br>
+                                            <span class="span-table-gray">
+                                                @Html.DisplayFor(modelItem => item.Workplace.Address),
+                                                @Html.DisplayFor(modelItem => item.Workplace.City.Zipcode) @Html.DisplayFor(modelItem => item.Workplace.City.Name)
+                                            </span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StartIndex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EndIndex)
+                                    </td>
 
-                                        <td>
-                                            <a class="hyperlink-in-table" href="@Url.Action("Details","Workplace", new { id = item.Workplace.Id })">
-                                                <span class="sbold">@Html.DisplayFor(modelItem => item.Workplace.WorkplaceId)</span>
-                                                <br>
-                                                <span class="span-table-gray">
-                                                    @Html.DisplayFor(modelItem => item.Workplace.Address),
-                                                    @Html.DisplayFor(modelItem => item.Workplace.City.Zipcode) @Html.DisplayFor(modelItem => item.Workplace.City.Name)
-                                                </span>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.StartIndex)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.EndIndex)
-                                        </td>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.AmountUsed)m
-                                        </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AmountUsed)m
+                                    </td>
 
 
-                                        @if (!item.Bobbin.IsReturned)
-                                        {
-                                            <td class="center" width="50px"><a href="@Url.Action("DeleteBobbinDebit", "Bobbin", new { id = item.BobbinDebitId })" class="text-inverse DeleteButton" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a></td>
-                                        }
-                                    </tr>
+                                    @if (!item.Bobbin.IsReturned)
+                                    {
+                                        <td class="center" width="50px"><a href="@Url.Action("DeleteBobbinDebit", "Bobbin", new { id = item.BobbinDebitId })" class="text-inverse DeleteButton" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a></td>
+                                    }
+                                </tr>
                                 }
                             </tbody>
                         </table>

@@ -107,9 +107,7 @@ table.dataTable.table-condensed .sorting:after, table.dataTable.table-condensed 
     top: 6px;
     right: 6px;
 }
-table.table-bordered.dataTable {
-    border-collapse: separate !important;
-}
+
 table.table-bordered.dataTable th, table.table-bordered.dataTable td {
     border-left-width: 0;
 }

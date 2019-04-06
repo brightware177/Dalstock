@@ -227,9 +227,13 @@ $(document).ready(function() {
         "scrollX": true,
         "dom": '<"top">rt<"bottom"p><"clear">',
         "bSortClasses": false,
-        "columnDefs": [            
+        "columnDefs": [      
             {
-                "width": "10%",
+                "visible": false,
+                "targets": 0
+            },
+            {
+                
                 "targets": 1
             },
             {
@@ -239,6 +243,10 @@ $(document).ready(function() {
             {
                 "width": "10%",
                 "targets": 3
+            },
+            {
+                "width": "10%",
+                "targets": 4
             }
         ]
     });

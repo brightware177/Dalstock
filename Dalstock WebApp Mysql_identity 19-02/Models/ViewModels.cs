@@ -83,4 +83,14 @@ namespace Dalstock_WebApp_Mysql_identity_19_02.Models
         public List<Deposit> ImportedItems { get; set; }
         public List<Deposit> FailedItems { get; set; }
     }
+    public class ItemsDebitImportViewModel
+    {
+        public List<Debit> ImportedItems { get; set; }
+        public List<Debit> FailedItems { get; set; }
+    }
+    public class NotReturnedBobbinsViewModel
+    {
+        public IEnumerable<Bobbin> bobbins { get; set; }
+        public IEnumerable<CableType> cableTypes { get; set; }
+    }
 }
