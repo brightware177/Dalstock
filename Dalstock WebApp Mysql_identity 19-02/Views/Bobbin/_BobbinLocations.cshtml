@@ -34,7 +34,7 @@
 </head>
 <body style="background-color:white">
     <h3 class="card-title sbold p-0 m-b-20">
-        Haspels in bezit : @DateTime.Now
+        Haspels in bezit @Model.First().Infrastructure.Description : @DateTime.Now
     </h3>
     <table class="table table-bordered .print-friendly" style="width: 100%" id="bobbinDatatables">
         <thead>
@@ -66,6 +66,36 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.BobbinDebits.Last().Workplace.City.Name) - @Html.DisplayFor(modelItem => item.BobbinDebits.Last().Workplace.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FetchDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Infrastructure.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CableType.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReturnDate)
+                        </td>
+                        <td class="valigntop center align-middle">
+                            @Html.DisplayFor(modelItem => item.AmountRemains)m
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="gradeX">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            <a class="hyperlink-in-table" href="@Url.Action("Details", new { id = item.Id })">
+                                <span class="sbold">@Html.DisplayFor(modelItem => item.BobbinId)</span>
+                            </a>
+                        </td>
+                        <td>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FetchDate)

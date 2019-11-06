@@ -254,6 +254,10 @@
     <Content Include="Content\img\chosen-sprite%402x.png" />
     <Content Include="Content\img\chosen-sprite.png" />
     <Content Include="Content\img\dalcom-logo.png" />
+    <Content Include="Content\img\mnf.png" />
+    <Content Include="Content\img\mnff.png" />
+    <Content Include="Content\img\mnftech.png" />
+    <Content Include="Content\img\slider1logo.png" />
     <Content Include="Content\img\werf.jpg" />
     <Content Include="Content\img\Donald-Trump.jpg" />
     <Content Include="Content\img\dp.jpg" />
@@ -418,6 +422,9 @@
     <Content Include="fonts\iconic\fonts\Material-Design-Iconic-Font.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
     <Content Include="Scripts\animations.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -511,6 +518,7 @@
     <None Include="Properties\PublishProfiles\dalstock - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <None Include="Properties\PublishProfiles\mnf.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\chosen\chosen.jquery.js" />
     <Content Include="Scripts\custom.js" />
@@ -611,7 +619,6 @@
     <Content Include="Views\Bobbin\_BobbinLocations.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Rotativa\" />
     <Folder Include="Views\BobbinDebit\" />
     <Folder Include="Views\Default\" />
     <Folder Include="Views\Email\" />

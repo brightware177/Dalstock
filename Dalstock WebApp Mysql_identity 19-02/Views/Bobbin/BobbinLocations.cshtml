@@ -74,6 +74,36 @@
                                         </td>
                                     </tr>
                                 }
+                                else
+                                {
+                                    <tr class="gradeX">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Id)
+                                        </td>
+                                        <td>
+                                            <a class="hyperlink-in-table" href="@Url.Action("Details", new { id = item.Id })">
+                                                <span class="sbold">@Html.DisplayFor(modelItem => item.BobbinId)</span>
+                                            </a>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FetchDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Infrastructure.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CableType.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ReturnDate)
+                                        </td>
+                                        <td class="valigntop center align-middle">
+                                            @Html.DisplayFor(modelItem => item.AmountRemains)m
+                                        </td>
+                                    </tr>
+                                }
                             }
                         </tbody>
                     </table>
